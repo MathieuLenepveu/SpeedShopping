@@ -8,6 +8,7 @@ var userSchema = mongoose.Schema({
     email: String,
     password:String,
     adress:String, 
+    userCommandes : { type: mongoose.Schema.Types.ObjectId, ref: 'articles' },
   });
   
 var userModel = mongoose.model('users', userSchema);
