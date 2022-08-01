@@ -8,7 +8,7 @@ var ArticlesSchema = mongoose.Schema({
  
 
 // commercants
-var CommercantsSchema = mongoose.Schema({
+var commercantsSchema = mongoose.Schema({
     name: String,
     firstName: String,
     email: String,

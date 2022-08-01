@@ -14,6 +14,8 @@ router.get('/mycommandes', async function(req, res, next) {
  
 
   var user = await userModel.findById(req.session.user._id)
+  var commandes = user.populate('articles')
+
   
   //console.log("On a bien le user suivant dans myLastTrips -->",user.historyTickets);
  // res.render('mycommandes, { title: '', mylastcommande });     
@@ -72,6 +74,7 @@ router.post('/sign-up', async function(req, res, next) {
       name: req.body.signUpName, 
       firstName: req.body.signUpFirstName, 
       password: req.body.signUpPassword, 
+      address: req.body.signUpAddress, 
       email: req.body.signUpEmail, 
     });
 
@@ -112,6 +115,7 @@ router.put('/sign-up', async function(req, res, next) {
         name: req.body.signUpName, 
         firstName: req.body.signUpFirstName, 
         password: req.body.signUpPassword, 
+        address: req.body.signUpAddress, 
         email: req.body.signUpEmail, 
       });
   
@@ -151,6 +155,7 @@ router.put('/sign-up', async function(req, res, next) {
       var newCommercant = new CommercantModel ({
         name: req.body.signUpName, 
         firstName: req.body.signUpFirstName, 
+        address: req.body.signUpAddress, 
         password: req.body.signUpPassword, 
         email: req.body.signUpEmail, 
       });
@@ -192,6 +197,7 @@ router.put('/sign-up', async function(req, res, next) {
           name: req.body.signUpName, 
           firstName: req.body.signUpFirstName, 
           password: req.body.signUpPassword, 
+          address: req.body.signUpAddress, 
           email: req.body.signUpEmail, 
           address: req.body.address, 
         });
@@ -218,7 +224,7 @@ router.get('/myarticles', async function(req, res, next) {
 
 
     res.render('page1', {});
-  }
+  
   
 });
 
@@ -235,7 +241,7 @@ router.post('/newarticle', async function(req, res, next) {
 
 router.get('/newarticle', async function(req, res, next) {
 
-  res.render('newarticle',{myarticle}});
+  res.render('newarticle',{myarticle});
   
 });
 
@@ -246,7 +252,7 @@ router.delete('/sign-up', async function(req, res, next) {
   
     
       
-    }  
+     
   });
 
   router.delete('commercants/sign-up', async function(req, res, next) {
@@ -255,7 +261,7 @@ router.delete('/sign-up', async function(req, res, next) {
   
     
       
-    }  
+     
   });
 
 

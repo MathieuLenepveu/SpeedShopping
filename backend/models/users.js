@@ -7,7 +7,7 @@ var userSchema = mongoose.Schema({
     firstName: String,
     email: String,
     password:String,
-    adress:String, 
+    address:String, 
     userCommandes : { type: mongoose.Schema.Types.ObjectId, ref: 'articles' },
   });
   
