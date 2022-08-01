@@ -18,7 +18,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier" : "com.lacapsule.speedshopping",
+      "config":{
+      
+          "googleMapsApiKey":"AIzaSyD5OG3mJyZ7ogU9wiuUmngHz2GOvBr9SqU"
+        
+      }
     },
     "android": {
       "adaptiveIcon": {
