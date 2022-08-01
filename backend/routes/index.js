@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose');
+
 
 var userModel = require('../models/users')
 var commercantModel = require('../models/commercants')
@@ -8,6 +10,7 @@ var commercantModel = require('../models/commercants')
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
+
 
 router.get('/mycommandes', async function(req, res, next) {
 
@@ -265,6 +268,30 @@ router.delete('/sign-up', async function(req, res, next) {
       
      
   });
+
+
+
+/* RAJOUTER LE TYPE D'ENSEIGNE DANS LA BDD (BOULNGE,POISSONERIE, ETC )*/
+router.post('/map', function(req, res, next) {
+  var commercantAfficher = [] ;
+  var user = UserModel.find({name: req.body.username}) ;
+
+  var commercant = commercantModel.find() ;
+  commercant = commercant.statut
+
+  for (let i = 0; i < besoinUser.length; i++) {
+    for (let j = 0; j < commercant.length; j++) {
+
+      if (besoinUser[i] == commercant[j]) {
+
+        commercantAfficher.push(commercant[j])
+        
+      }
+    }
+  }
+  
+  res.json( {adresse: user.adresse},commercantAfficher);
+});
 
 
 
