@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var userModel = require('../models/users')
-var commercantsModel = require('../models/commercants')
+var commercantModel = require('../models/commercants')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -18,7 +18,9 @@ router.get('/mycommandes', async function(req, res, next) {
 
   
   //console.log("On a bien le user suivant dans myLastTrips -->",user.historyTickets);
- // res.render('mycommandes, { title: '', mylastcommande });     
+ // res.render('mycommandes, { title: '', mylastcommande }); 
+ 
+ res.render('mycommandes', { title: 'Express', commandes:commandes });
   
 });
 

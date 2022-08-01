@@ -14,7 +14,7 @@ var commercantsSchema = mongoose.Schema({
     firstName: String,
     email: String,
     password:String,
-    adress:String, 
+    address:String, 
     articles: [ArticlesSchema],
   });
   
