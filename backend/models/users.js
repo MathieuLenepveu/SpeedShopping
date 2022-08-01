@@ -8,7 +8,7 @@ var userSchema = mongoose.Schema({
     email: String,
     password:String,
     address:String, 
-    userCommandes : { type: mongoose.Schema.Types.ObjectId, ref: 'articles' },
+    userCommandes : [{ type: mongoose.Schema.Types.ObjectId, ref: 'articles' }],
   });
   
 var userModel = mongoose.model('users', userSchema);
