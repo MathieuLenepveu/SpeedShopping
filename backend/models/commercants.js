@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 var ArticlesSchema = mongoose.Schema({
     article : String,
     price: Number,
+    quantite: Number, 
    });
  
 
