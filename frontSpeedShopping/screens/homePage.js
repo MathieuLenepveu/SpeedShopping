@@ -29,7 +29,7 @@ export default function homePage(props) {
        <Input
             containerStyle = {{marginBottom: 25, width: '70%'}}
             inputStyle={{marginLeft: 10}}
-            placeholder='A quelle distance?'
+            placeholder='Ton point de chute'
         />
         <Text>On y va comment?</Text>
         

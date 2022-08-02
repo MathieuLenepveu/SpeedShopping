@@ -18,7 +18,7 @@ import {store} from './reducers/redux' ;
 // pour itineraire https://www.npmjs.com/package/react-native-maps-directions
 
 
-export default function Map() {
+export default function Map(props) {
 
 
 
