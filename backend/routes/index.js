@@ -3,9 +3,53 @@ var router = express.Router();
 var mongoose = require('mongoose');
 
 
-var userModel = require('../models/users')
-var commercantModel = require('../models/commercants')
+var UserModel = require('../models/users')
+var CommercantModel = require('../models/commercants')
 
+	
+const users = [
+    {
+      admin: false,
+      firstName: "Alice",
+      name: "Smith",
+      email: "as@gmail.com",
+      password: "123",
+      phonenumber: 623455589,
+      address: {long: 2.34280, lat: 48.85756, city: "Paris", country: "FR" },
+      
+    },
+    {
+      
+      firstName: "Jonh",
+      name: "Doe",
+      email: "jg@gmail.com",
+      password: "123",
+      phonenumber: 623456789,
+    
+      address: {long: 4.84890, lat: 45.75466, city: "Lyon", country: "FR" }
+    },
+    {
+    
+      firstName: "Tony",
+      name: "Paul",
+      email: "tp@gmail.com",
+      password: "123",
+      
+      phonenumber: 623455009,
+     
+      address: {long: 4.84890, lat: 45.75466, city: "Lyon", country: "FR" },
+
+    },
+  ];
+
+  router.get("/", async function (req, res, next) {
+
+    for (let i = 0; i < users.length; i++) {
+      let newUser = new UserModel(users[i]);
+      let newUserSaved = await newUser.save();
+    }
+    res.render("index", { title: "Create DB" });
+  });
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -16,7 +60,7 @@ router.get('/mycommandes', async function(req, res, next) {
 
  
 
-  var user = await userModel.findById(req.session.user._id)
+  var user = await UserModel.findById(req.session.user._id)
   var commandes = user.populate('articles')
 
 
@@ -29,7 +73,7 @@ router.post('/sign-in', async function(req, res, next) {
 
    //console.log(' /sign-In : result from the front -->',req.body)
 
-  var user = await userModel.find({ email: req.body.signInEmail, password: req.body.signInPassword })
+  var user = await UserModel.find({ email: req.body.signInEmail, password: req.body.signInPassword })
   if(user.length > 0){
 
     //console.log(' /sign IN : We do have a user with this email')
@@ -56,7 +100,7 @@ router.post('/sign-up', async function(req, res, next) {
 
   // console.log(' /Sign-Up : result from the front -->',req.body)
 
-  var user = await userModel.find({ email: req.body.signUpEmail })
+  var user = await UserModel.find({ email: req.body.signUpEmail })
   
   if(user.length > 0){
 
@@ -72,7 +116,7 @@ router.post('/sign-up', async function(req, res, next) {
 
     //console.log(' /Sign-UP : We dont have a user with this email, so we need to save it')
 
-    var newUser = new userModel ({
+    var newUser = new UserModel ({
       name: req.body.signUpName, 
       firstName: req.body.signUpFirstName, 
       password: req.body.signUpPassword, 
@@ -97,7 +141,7 @@ router.put('/sign-up', async function(req, res, next) {
 
     // console.log(' /Sign-Up : result from the front -->',req.body)
   
-    var user = await userModel.find({ email: req.body.signUpEmail })
+    var user = await UserModel.find({ email: req.body.signUpEmail })
     
     if(user.length > 0){
   
@@ -113,7 +157,7 @@ router.put('/sign-up', async function(req, res, next) {
   
       //console.log(' /Sign-UP : We dont have a user with this email, so we need to save it')
   
-      var newUser = new userModel ({
+      var newUser = new UserModel ({
         name: req.body.signUpName, 
         firstName: req.body.signUpFirstName, 
         password: req.body.signUpPassword, 
@@ -138,7 +182,7 @@ router.put('/sign-up', async function(req, res, next) {
 
     // console.log(' /Sign-Up : result from the front -->',req.body)
   
-    var commercant = await commercantModel.find({ email: req.body.signUpEmail })
+    var commercant = await CommercantModel.find({ email: req.body.signUpEmail })
     
     if(commercant.length > 0){
   
@@ -154,7 +198,7 @@ router.put('/sign-up', async function(req, res, next) {
   
       //console.log(' /Sign-UP : We dont have a user with this email, so we need to save it')
   
-      var newCommercant = new commercantModel ({
+      var newCommercant = new CommercantModel ({
         name: req.body.signUpName, 
         firstName: req.body.signUpFirstName, 
         address: req.body.signUpAddress, 
@@ -179,7 +223,7 @@ router.put('/sign-up', async function(req, res, next) {
   
       // console.log(' /Sign-Up : result from the front -->',req.body)
     
-      var commercant = await commercantModel.find({ email: req.body.signUpEmail })
+      var commercant = await CommercantModel.find({ email: req.body.signUpEmail })
       
       if(commercant.length > 0){
     

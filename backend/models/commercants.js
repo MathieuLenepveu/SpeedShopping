@@ -18,6 +18,6 @@ var commercantsSchema = mongoose.Schema({
     articles: [ArticlesSchema],
   });
   
-var commercantModel = mongoose.model('commercants', commercantsSchema);
+var CommercantModel = mongoose.model('commercants', commercantsSchema);
 
-module.exports = commercantModel
+module.exports = CommercantModel
