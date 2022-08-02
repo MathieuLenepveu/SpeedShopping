@@ -124,8 +124,8 @@ const users = [
   router.get("/commercants", async function (req, res, next) {
 
     for (let i = 0; i < commercants.length; i++) {
-      let newCommercant = new UserModel(users[i]);
-      let newUserSaved = await newUser.save();
+      let newCommercant = new CommercantModel(commercants[i]);
+      let newCommercantSaved = await newCommercant.save();
     }
     res.render("index", { title: "Create DB" });
   });
