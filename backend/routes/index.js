@@ -220,12 +220,12 @@ router.put('/sign-up', async function(req, res, next) {
 router.get('/myarticles', async function(req, res, next) {
 
  
-var articles = 
+var articles = await commercantModel.findOne({ _id: req.commercant.id});
  
 
 
 
-    res.render('page1', {});
+    res.render('page1', {article:articles.article, price:articles.prices});
   
   
 });
@@ -239,7 +239,6 @@ commercant.Articles.push ({
   article : req.body.article,
   price: req.body.price,
   quantite: req.body.quantite, 
-
 
 })
 
