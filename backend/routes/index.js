@@ -8,7 +8,7 @@ var commercantModel = require('../models/commercants')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'SpeedShopping' });
+  res.render('index', { title: 'Express' });
 });
 
 
@@ -19,10 +19,7 @@ router.get('/mycommandes', async function(req, res, next) {
   var user = await userModel.findById(req.session.user._id)
   var commandes = user.populate('articles')
 
-  
-  //console.log("On a bien le user suivant dans myLastTrips -->",user.historyTickets);
- // res.render('mycommandes, { title: '', mylastcommande }); 
- 
+
  res.render('mycommandes', { title: 'Express', commandes:commandes });
   
 });
@@ -141,7 +138,7 @@ router.put('/sign-up', async function(req, res, next) {
 
     // console.log(' /Sign-Up : result from the front -->',req.body)
   
-    var commercant = await CommercantModel.find({ email: req.body.signUpEmail })
+    var commercant = await commercantModel.find({ email: req.body.signUpEmail })
     
     if(commercant.length > 0){
   
@@ -157,7 +154,7 @@ router.put('/sign-up', async function(req, res, next) {
   
       //console.log(' /Sign-UP : We dont have a user with this email, so we need to save it')
   
-      var newCommercant = new CommercantModel ({
+      var newCommercant = new commercantModel ({
         name: req.body.signUpName, 
         firstName: req.body.signUpFirstName, 
         address: req.body.signUpAddress, 
@@ -182,7 +179,7 @@ router.put('/sign-up', async function(req, res, next) {
   
       // console.log(' /Sign-Up : result from the front -->',req.body)
     
-      var commercant = await CommercantModel.find({ email: req.body.signUpEmail })
+      var commercant = await commercantModel.find({ email: req.body.signUpEmail })
       
       if(commercant.length > 0){
     
@@ -198,7 +195,7 @@ router.put('/sign-up', async function(req, res, next) {
     
         //console.log(' /Sign-UP : We dont have a user with this email, so we need to save it')
     
-        var newCommercant = new CommercantModel ({
+        var newCommercant = new commercantModel ({
           name: req.body.signUpName, 
           firstName: req.body.signUpFirstName, 
           password: req.body.signUpPassword, 
@@ -223,7 +220,7 @@ router.put('/sign-up', async function(req, res, next) {
 router.get('/myarticles', async function(req, res, next) {
 
  
-
+var articles = 
  
 
 
@@ -236,7 +233,15 @@ router.get('/myarticles', async function(req, res, next) {
 
 router.post('/newarticle', async function(req, res, next) {
 
+var commercant = await commercantModel.findOne({ _id: req.commercant.id});
 
+commercant.Articles.push ({
+  article : req.body.article,
+  price: req.body.price,
+  quantite: req.body.quantite, 
+
+
+})
 
 
   res.redirect('/myarticle')
