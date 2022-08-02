@@ -15,7 +15,7 @@ const users = [
       email: "as@gmail.com",
       password: "123",
       phonenumber: 623455589,
-      address: {long: 2.34280, lat: 48.85756, city: "Paris", country: "FR" },
+      address: "119 Avenue maréchal de Saxe",
       
     },
     {
@@ -26,7 +26,7 @@ const users = [
       password: "123",
       phonenumber: 623456789,
     
-      address: {long: 4.84890, lat: 45.75466, city: "Lyon", country: "FR" }
+      address: "119 Avenue maréchal de Saxe", 
     },
     {
     
@@ -37,10 +37,12 @@ const users = [
       
       phonenumber: 623455009,
      
-      address: {long: 4.84890, lat: 45.75466, city: "Lyon", country: "FR" },
+      address: "119 Avenue maréchal de Saxe",
 
     },
   ];
+
+  /* GET home page. Création de la base*/
 
   router.get("/", async function (req, res, next) {
 
@@ -50,10 +52,8 @@ const users = [
     }
     res.render("index", { title: "Create DB" });
   });
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+
+
 
 
 router.get('/mycommandes', async function(req, res, next) {
