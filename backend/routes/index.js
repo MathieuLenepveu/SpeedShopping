@@ -243,12 +243,13 @@ commercant.Articles.push ({
 })
 
 
-  res.redirect('/myarticle')
+  res.redirect('/myarticles')
   
 });
 
 
-router.get('/newarticle', async function(req, res, next) {
+router.delete('/article', async function(req, res, next) {
+  var commercant = await commercantModel.findOne({ _id: req.commercant.id});
 
   res.render('newarticle',{myarticle});
   
