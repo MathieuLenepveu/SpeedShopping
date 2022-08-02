@@ -9,13 +9,12 @@ var CommercantModel = require('../models/commercants')
 	
 const users = [
     {
-      admin: false,
       firstName: "Alice",
       name: "Smith",
       email: "as@gmail.com",
       password: "123",
-      phonenumber: 623455589,
       address: "119 Avenue maréchal de Saxe",
+      phonenumber: 623455589, 
       
     },
     {
@@ -24,9 +23,8 @@ const users = [
       name: "Doe",
       email: "jg@gmail.com",
       password: "123",
-      phonenumber: 623456789,
-    
       address: "119 Avenue maréchal de Saxe", 
+      phonenumber: 623456789,
     },
     {
     
@@ -34,10 +32,80 @@ const users = [
       name: "Paul",
       email: "tp@gmail.com",
       password: "123",
-      
-      phonenumber: 623455009,
-     
       address: "119 Avenue maréchal de Saxe",
+      phonenumber: 623455009,
+
+    },
+  ];
+
+  const commercants = [
+    {
+      firstName: "Alice",
+      name: "Smith",
+      email: "as@gmail.com",
+      enseignecommerciale: "ladygaga", 
+      password: "123",
+      phonenumber: 623455589,
+      address: "119 Avenue maréchal de Saxe",
+      articles: 
+      {
+        article: "sac",
+        price: 15,
+        quantite: 10, 
+      },
+      hours: 
+      {
+        Dayclosed: "Saturday",
+        HeuresOuverts: 8,
+        Heuresfermes: 18, 
+      }, 
+
+      
+    },
+    {
+      
+      firstName: "Jonh",
+      name: "Doe",
+      email: "jg@gmail.com",
+      enseignecommerciale: "ladygaga", 
+      password: "123",
+      phonenumber: 623456789,
+      address: "119 Avenue maréchal de Saxe", 
+      articles: 
+      {
+        article: "sac",
+        price: 15,
+        quantite: 10, 
+      },
+      hours: 
+      {
+        Dayclosed: "Saturday",
+        HeuresOuverts: 8,
+        Heuresfermes: 18, 
+      }
+    },
+    {
+    
+      firstName: "Tony",
+      name: "Paul",
+      email: "tp@gmail.com",
+      enseignecommerciale: "ladygaga", 
+      password: "123",
+      phonenumber: 623455009,
+      address: "119 Avenue maréchal de Saxe",
+      articles: 
+      {
+        article: "sac",
+        price: 15,
+        quantite: 10, 
+      }, 
+      hours: 
+      {
+        Dayclosed: "Saturday",
+        HeuresOuverts: 8,
+        Heuresfermes: 18, 
+      }, 
+
 
     },
   ];
@@ -52,6 +120,16 @@ const users = [
     }
     res.render("index", { title: "Create DB" });
   });
+
+  router.get("/commercants", async function (req, res, next) {
+
+    for (let i = 0; i < commercants.length; i++) {
+      let newCommercant = new UserModel(users[i]);
+      let newUserSaved = await newUser.save();
+    }
+    res.render("index", { title: "Create DB" });
+  });
+
 
 
 
