@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {View} from 'react-native';
 import {Button,Input } from 'react-native-elements';
@@ -178,6 +179,7 @@ export default function App() {
       <Stack.Screen name="Paiement" component={paiement} />
       <Stack.Screen name="MonProfil" component={monProfilUser} />
       <Stack.Screen name="MonStore" component={monProfilVendeur} />
+      
 
     </Stack.Navigator>
   </NavigationContainer>
@@ -194,3 +196,6 @@ export default function App() {
         
         
 */}
+
+
+
