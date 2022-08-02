@@ -1,3 +1,5 @@
+
+
 import React, {useState, useEffect} from 'react' ;
 import { View,Text} from 'react-native' ;
 import {Button,Overlay, Input,ListItem} from 'react-native-elements';
@@ -6,13 +8,11 @@ import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import * as Location from 'expo-location';
 import { FontAwesome } from '@expo/vector-icons'; 
 import  MapViewDirections from'react-native-maps-directions'
-import {store} from './reducers/redux' ;
+
 
 
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-// var socket = socketIOClient("http://172.20.10.2:3000");
 
 
 // pour itineraire https://www.npmjs.com/package/react-native-maps-directions
@@ -32,34 +32,40 @@ export default function Map() {
 
      
         const [isOpen, setIsOpen] = useState(false) ;
-        const [textDesc , setTextDesc] = useState('') ;
-        const [nomMagasin,setNomMagasin] = useState('');
+        const [magasin,setMagasin] = useState('');
+        const [itineraire , setItineraire] = useState([]);
+
      
 
 
   const commercantList = [{
     nom:'Macdo',
     horaire: '10h-17h',
+    statut: 'fast-food',
     latitude:  48.9,  
     longitude: 2.333333
   },{
     nom:'burgerKing',
     horaire: '10h-17h',
+    statut: 'fast-food',
     latitude:  48.9,  
     longitude: 2.34
   },{
     nom:'lidl',
     horaire: '10h-17h',
     latitude:  48.866667,  
+    statut: 'surface',
     longitude: 2.355555,
     coordinate: '48.866667, 2.355555'
   },{
     nom:'sushi',
     horaire: '10h-17h',
+    statut: 'asiatique',
     latitude:  48.866667,  
     longitude: 2.37
   },{
     nom:'carotte',
+    statut: 'traiteur',
     horaire: '10h-17h',
     latitude:  48.866667,  
     longitude: 2.32
@@ -120,22 +126,44 @@ export default function Map() {
 
     var closeOverlay = () => {
         setIsOpen(false) 
-        setAddPOI(false) ;
+
 }
 
 // ***************************** ADD Lat/Lng to State ****************************** 
 
-   var test = (bool,nom) => {
+   var test = (bool,nom,horaire,statut) => {
 
     setIsOpen(bool) ;
-    console.log(nom);
+    setMagasin({
+        nom:nom,
+        horaire:horaire,
+        statut:statut
+    })
         
 }
 // ***************************** ADD commercant to itinéraire ****************************** 
 
 
-function testAddToItinéraire (title , description,) {
-     
+function testAddToItinéraire (magasin) {
+
+    var isInside = false;
+
+
+    for (let i = 0; i < itineraire.length; i++) {
+
+        if (itineraire[i].status == magasin.statut) {
+
+            itineraire.splice(i,1,magasin) ;
+            isInside = true ;
+            
+        }
+        
+    }
+
+     if (!isInside) {
+        itineraire.push(magasin)
+     }
+
 
 }
 
@@ -143,7 +171,7 @@ function testAddToItinéraire (title , description,) {
         
  var markerList =  commercantList.map((commercant,i)=>{
 
-return <Marker key={i} pinColor='blue' onPress={()=>test(true,commercant.nom)} title={commercant.nom} description={commercant.horaire} coordinate={{latitude: commercant.latitude, longitude: commercant.longitude}}/>
+return <Marker key={i} pinColor='blue' onPress={()=>test(true,commercant.nom,commercant.horaire)} title={commercant.nom} description={commercant.horaire} coordinate={{latitude: commercant.latitude, longitude: commercant.longitude}}/>
  })        
 
 
@@ -160,14 +188,12 @@ return(
 
 
 
-<Overlay isVisible={isOpen} overlayStyle={{width: '70%'}} onBackdropPress={closeOverlay}>
-              <Text>{} </Text>
-        
-                <Input
-                   placeholder='Description '
-                   onChangeText={(value) => setTextDesc(value)} 
-                   value={textDesc} 
-                   />
+<Overlay isVisible={isOpen} overlayStyle={{width: '70%', justifyContent:'center', alignItems:'center'}} onBackdropPress={closeOverlay}>
+
+              <Text>{magasin.nom} </Text>
+              <Text>{magasin.statut} </Text>
+              <Text>{magasin.horaire} </Text>
+
                 
                 <Button
                 icon={
@@ -179,7 +205,7 @@ return(
                 buttonStyle={{backgroundColor:'#eb4d4b'}}
                 title="Ajouter a l'itinéraire"
                 type="solid"
-                // onPress={() => testAddToItinéraire(textTitle, textDesc)}
+                 onPress={() => testAddToItinéraire(magasin)}
                 />
 </Overlay>
 
@@ -195,8 +221,8 @@ return(
 }} >
 
 <MapViewDirections
-    origin={commercantList[3]}
-    // waypoints={commercantList[2]}
+    origin={commercantList[0]}
+    waypoints={[commercantList[2].coordinate]}
     destination={commercantList[4]}
     mode="WALKING"
     optimizeWaypoints={true}
