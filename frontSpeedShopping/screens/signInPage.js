@@ -1,5 +1,5 @@
 import React from 'react';
-import {View,TextInput,  StyleSheet, Text} from 'react-native';
+import {View,TextInput, Pressable,  StyleSheet, Text} from 'react-native';
 import {Button,Input } from 'react-native-elements';
 
 
@@ -14,7 +14,7 @@ import {Button,Input } from 'react-native-elements';
 export default function signInPage(props) {
     return (
       <View style={styles.container}>
-      <Text>Veuillez vous inscrire : </Text>
+      <Text>Veuillez dévoiler votre identité : </Text>
       <TextInput
         style={styles.input}
         placeholder='Username'
@@ -44,11 +44,11 @@ export default function signInPage(props) {
         placeholderTextColor='white'
         onChangeText={val => this.onChangeText('phone_number', val)}
       />
-      <Button
-        style={styles.button}
-        title='Sign In'
-        onPress={() => props.navigation.navigate('Mon Profil')}
-      />
+  
+      <Pressable style={styles.button} 
+       onPress={() => props.navigation.navigate('Mon Profil')}>
+      <Text style={styles.text}>Sign In</Text>
+    </Pressable>
     </View>
 
     )
@@ -65,8 +65,12 @@ export default function signInPage(props) {
         fontSize: 18,
         fontWeight: '500',
       },
-      button : {
-        color: '#C2D4E3', 
+      button: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 80, 
+        height: 55, 
+        backgroundColor: '#C2D4E3', 
         borderRadius: 8, 
       }, 
       container: {
