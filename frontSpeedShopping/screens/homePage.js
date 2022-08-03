@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, RecyclerViewBackedScrollView } from 'react-native';
-import {Button,Input,ListItem } from 'react-native-elements';
+import {Button,Input,ListItem,Pressable } from 'react-native-elements';
 
 import {Ionicons} from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -12,32 +12,20 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 export default function homePage(props) {
-  return (
-    <View style={styles.container}>
-    {/* BOUTON ACCES MON ESPACE  */}
-          <Button style={{
-            padding:40,
 
+  return (
+    <View style={styles.container} >
+    {/* BOUTON ACCES MON ESPACE  */}
+
+<Button style={{
+            padding:40,
+            
           }}      title="Mon Espace"
                   onPress={() => props.navigation.navigate('MonProfil')}
           />
+         
     {/* INPUT POSITION USER  */}
 
-<<<<<<< HEAD
-      <Text>On va jusu'où?</Text>
-      <Input
-            containerStyle = {{marginBottom: 25, width: '70%'}}
-            inputStyle={{marginLeft: 10}}
-            placeholder='Ta position'
-        />
-       
-       <Input
-            containerStyle = {{marginBottom: 25, width: '70%'}}
-            inputStyle={{marginLeft: 10}}
-            placeholder='Ton point de chute'
-        />
-        <Text>On y va comment?</Text>
-=======
           <Text style={styles.text}>On va jusqu'où?</Text>
                 <Input
                       containerStyle = {{width: '70%'}}
@@ -54,7 +42,6 @@ export default function homePage(props) {
       {/* INPUT MOYEN DE LOCOMOTION USER  */} 
 
         <Text style={styles.text}>On y va comment?</Text>
->>>>>>> 4e6cac9d668070025d38aeee3ef3a48764743814
         
         <View style={{flexDirection:"row"}} >
         <Icon 
@@ -100,6 +87,10 @@ export default function homePage(props) {
               title="START"
               onPress={() => props.navigation.navigate('ConfigurateurItineraire')}
       />
+    
+      
+      
+
     </View>
   );
  }
@@ -111,12 +102,14 @@ export default function homePage(props) {
     backgroundColor:'#fff',
     alignItems: 'center',
     justifyContent:'center',
+    
   },
   
   button:{
     paddingTop:35,
     paddingBottom:35,
-    backgroundColor: "#f194ff"
+    
+    
     
    
     },
@@ -137,6 +130,7 @@ marginLeft:10,
 padding: 10,
 color:"#eb4d4b",
 
-  }
+  },
+  
   
   })

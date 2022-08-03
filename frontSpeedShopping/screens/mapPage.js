@@ -16,7 +16,7 @@ import  MapViewDirections from'react-native-maps-directions'
 // pour itineraire https://www.npmjs.com/package/react-native-maps-directions
 
 
-export default function Map() {
+export default function Map(props) {
 // ***************************** ETATS ****************************** 
 
         const [currentLatitude, setCurrentLatitude] = useState(0) ; 
