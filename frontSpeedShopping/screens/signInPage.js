@@ -66,7 +66,8 @@ export default function signInPage(props) {
         fontWeight: '500',
       },
       button : {
-        color: '#052640', 
+        color: '#C2D4E3', 
+        borderRadius: 8, 
       }, 
       container: {
         flex: 1,
