@@ -1,6 +1,7 @@
 
 import React from 'react';
-import {View} from 'react-native';
+import {LogBox, View} from 'react-native';
+LogBox.ignoreLogs(['Warning:...']);
 import {Button,Input } from 'react-native-elements';
 
 
@@ -79,11 +80,11 @@ const configurateur = () => {
               let iconName;
     
               if (route.name == 'Profil') {
-                iconName = 'null';
-              } else if (route.name == 'Panier') {
-                iconName = 'null';
+                iconName = 'md-newspaper-outline';
               }else if (route.name == 'Home') {
-                iconName = 'null';
+                iconName = 'home';
+              }else if (route.name == 'Panier') {
+                iconName = 'md-basket-outline';
               }
       
               return <Ionicons name={iconName} size={25} color={color} />;
@@ -98,8 +99,9 @@ const configurateur = () => {
           }}
         >
           <Tab.Screen name="Profil" component={profilClient} />
-          <Tab.Screen name="Panier" component={panier} />
           <Tab.Screen name="Home" component={homePage} />
+          <Tab.Screen name="Panier" component={panier} />
+          
         </Tab.Navigator>
       );
         }
