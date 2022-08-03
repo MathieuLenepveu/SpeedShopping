@@ -18,7 +18,7 @@ export default function signInPage(props) {
 <Text>PAGE SIGN IN</Text>
 
 <Button title="Entrer"
-        onPress={() => props.navigation.navigate('Mon Profil')}
+        onPress={() => props.navigation.navigate('MonProfil')}
       />
 
 
