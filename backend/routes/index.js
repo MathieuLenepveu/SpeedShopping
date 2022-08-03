@@ -3,26 +3,145 @@ var router = express.Router();
 var mongoose = require('mongoose');
 
 
-var userModel = require('../models/users')
-var commercantModel = require('../models/commercants')
+var UserModel = require('../models/users')
+var CommercantModel = require('../models/commercants')
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'SpeedShopping' });
-});
+	
+const users = [
+    {
+      firstName: "Alice",
+      name: "Smith",
+      email: "as@gmail.com",
+      password: "123",
+      address: "119 Avenue maréchal de Saxe",
+      phonenumber: 623455589, 
+      
+    },
+    {
+      
+      firstName: "Jonh",
+      name: "Doe",
+      email: "jg@gmail.com",
+      password: "123",
+      address: "119 Avenue maréchal de Saxe", 
+      phonenumber: 623456789,
+    },
+    {
+    
+      firstName: "Tony",
+      name: "Paul",
+      email: "tp@gmail.com",
+      password: "123",
+      address: "119 Avenue maréchal de Saxe",
+      phonenumber: 623455009,
+
+    },
+  ];
+
+  const commercants = [
+    {
+      firstName: "Alice",
+      name: "Smith",
+      email: "as@gmail.com",
+      enseignecommerciale: "ladygaga", 
+      password: "123",
+      phonenumber: 623455589,
+      address: "119 Avenue maréchal de Saxe",
+      articles: 
+      {
+        article: "sac",
+        price: 15,
+        quantite: 10, 
+      },
+      hours: 
+      {
+        Dayclosed: "Saturday",
+        HeuresOuverts: 8,
+        Heuresfermes: 18, 
+      }, 
+
+      
+    },
+    {
+      
+      firstName: "Jonh",
+      name: "Doe",
+      email: "jg@gmail.com",
+      enseignecommerciale: "ladygaga", 
+      password: "123",
+      phonenumber: 623456789,
+      address: "119 Avenue maréchal de Saxe", 
+      articles: 
+      {
+        article: "sac",
+        price: 15,
+        quantite: 10, 
+      },
+      hours: 
+      {
+        Dayclosed: "Saturday",
+        HeuresOuverts: 8,
+        Heuresfermes: 18, 
+      }
+    },
+    {
+    
+      firstName: "Tony",
+      name: "Paul",
+      email: "tp@gmail.com",
+      enseignecommerciale: "ladygaga", 
+      password: "123",
+      phonenumber: 623455009,
+      address: "119 Avenue maréchal de Saxe",
+      articles: 
+      {
+        article: "sac",
+        price: 15,
+        quantite: 10, 
+      }, 
+      hours: 
+      {
+        Dayclosed: "Saturday",
+        HeuresOuverts: 8,
+        Heuresfermes: 18, 
+      }, 
+
+
+    },
+  ];
+
+  /* GET home page. Création de la base*/
+
+  router.get("/", async function (req, res, next) {
+
+    for (let i = 0; i < users.length; i++) {
+      let newUser = new UserModel(users[i]);
+      let newUserSaved = await newUser.save();
+    }
+    res.render("index", { title: "Create DB" });
+  });
+
+  router.get("/commercants", async function (req, res, next) {
+
+    for (let i = 0; i < commercants.length; i++) {
+      let newCommercant = new CommercantModel(commercants[i]);
+      let newCommercantSaved = await newCommercant.save();
+    }
+    res.render("index", { title: "Create DB" });
+  });
+
+
+
 
 
 router.get('/mycommandes', async function(req, res, next) {
 
  
 
-  var user = await userModel.findById(req.session.user._id)
+  var user = await UserModel.findById(req.session.user._id)
   var commandes = user.populate('articles')
 
-  
-  //console.log("On a bien le user suivant dans myLastTrips -->",user.historyTickets);
- // res.render('mycommandes, { title: '', mylastcommande }); 
- 
+
  res.render('mycommandes', { title: 'Express', commandes:commandes });
   
 });
@@ -32,7 +151,7 @@ router.post('/sign-in', async function(req, res, next) {
 
    //console.log(' /sign-In : result from the front -->',req.body)
 
-  var user = await userModel.find({ email: req.body.signInEmail, password: req.body.signInPassword })
+  var user = await UserModel.find({ email: req.body.signInEmail, password: req.body.signInPassword })
   if(user.length > 0){
 
     //console.log(' /sign IN : We do have a user with this email')
@@ -59,7 +178,7 @@ router.post('/sign-up', async function(req, res, next) {
 
   // console.log(' /Sign-Up : result from the front -->',req.body)
 
-  var user = await userModel.find({ email: req.body.signUpEmail })
+  var user = await UserModel.find({ email: req.body.signUpEmail })
   
   if(user.length > 0){
 
@@ -75,7 +194,7 @@ router.post('/sign-up', async function(req, res, next) {
 
     //console.log(' /Sign-UP : We dont have a user with this email, so we need to save it')
 
-    var newUser = new userModel ({
+    var newUser = new UserModel ({
       name: req.body.signUpName, 
       firstName: req.body.signUpFirstName, 
       password: req.body.signUpPassword, 
@@ -100,7 +219,7 @@ router.put('/sign-up', async function(req, res, next) {
 
     // console.log(' /Sign-Up : result from the front -->',req.body)
   
-    var user = await userModel.find({ email: req.body.signUpEmail })
+    var user = await UserModel.find({ email: req.body.signUpEmail })
     
     if(user.length > 0){
   
@@ -116,7 +235,7 @@ router.put('/sign-up', async function(req, res, next) {
   
       //console.log(' /Sign-UP : We dont have a user with this email, so we need to save it')
   
-      var newUser = new userModel ({
+      var newUser = new UserModel ({
         name: req.body.signUpName, 
         firstName: req.body.signUpFirstName, 
         password: req.body.signUpPassword, 
@@ -198,7 +317,7 @@ router.put('/sign-up', async function(req, res, next) {
     
         //console.log(' /Sign-UP : We dont have a user with this email, so we need to save it')
     
-        var newCommercant = new CommercantModel ({
+        var newCommercant = new commercantModel ({
           name: req.body.signUpName, 
           firstName: req.body.signUpFirstName, 
           password: req.body.signUpPassword, 
@@ -223,12 +342,12 @@ router.put('/sign-up', async function(req, res, next) {
 router.get('/myarticles', async function(req, res, next) {
 
  
-
+var articles = await commercantModel.findOne({ _id: req.commercant.id});
  
 
 
 
-    res.render('page1', {});
+    res.render('page1', {article:articles.article, price:articles.prices});
   
   
 });
@@ -236,15 +355,23 @@ router.get('/myarticles', async function(req, res, next) {
 
 router.post('/newarticle', async function(req, res, next) {
 
+var commercant = await commercantModel.findOne({ _id: req.commercant.id});
+
+commercant.Articles.push ({
+  article : req.body.article,
+  price: req.body.price,
+  quantite: req.body.quantite, 
+
+})
 
 
-
-  res.redirect('/myarticle')
+  res.redirect('/myarticles')
   
 });
 
 
-router.get('/newarticle', async function(req, res, next) {
+router.delete('/article', async function(req, res, next) {
+  var commercant = await commercantModel.findOne({ _id: req.commercant.id});
 
   res.render('newarticle',{myarticle});
   
