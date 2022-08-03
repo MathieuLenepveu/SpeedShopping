@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {LogBox, View} from 'react-native';
 LogBox.ignoreLogs(['Warning:...']);
@@ -13,7 +14,7 @@ import ajoutArticlePage from './screens/ajoutArticlePage'
 import commandesCommercant from './screens/commandesCommercant'
 import homePage from './screens/homePage'
 import itinerairePage from './screens/itinerairePage'
-import mapPage from './screens/mapPage'
+import mapPage from './screens/map'
 import monStore from './screens/monStore'
 import navigationPage from './screens/navigationPage'
 import paiement from './screens/paiement'
@@ -180,6 +181,7 @@ export default function App() {
       <Stack.Screen name="Paiement" component={paiement} />
       <Stack.Screen name="MonProfil" component={monProfilUser} />
       <Stack.Screen name="MonStore" component={monProfilVendeur} />
+      
 
     </Stack.Navigator>
   </NavigationContainer>
@@ -190,9 +192,3 @@ export default function App() {
 
 
 
-
-{/*STOCKAGE
-
-        
-        
-*/}
