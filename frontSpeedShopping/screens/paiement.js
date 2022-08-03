@@ -6,57 +6,35 @@ import { Text, View, StyleSheet, Pressable } from 'react-native';
 export default function Button(props) {
   
   return (
-    <View style={[styles.container,{paddingLeft:100, }]}>
+    <View style={styles.container}>
 
- <Pressable style={styles.button} >
-      <Text style={styles.text}>Bouton 1</Text>
+ <Pressable style={{ width: 80, height: 30, backgroundColor: "skyblue", borderRadius: 6, alignItems: 'center',
+    justifyContent: 'center'}} >
+      <Text style={styles.text}>Payement</Text>
     </Pressable>
 
 </View>
 
+);
+}
+
+  
 const styles = StyleSheet.create({
-  button: {
-    
-    width : "40%",
+  container: {
+    flex:1,
+    backgroundColor:'white',
     alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    borderRadius: 6,
-    elevation: 3,
-    backgroundColor: '#2999E4',
-    position : 'absolute',
+    justifyContent:'center',
+    
   },
   text: {
     fontSize: 15,
     lineHeight: 15,
     fontWeight: 'bold',
     letterSpacing: 0.25,
-    color: 'white',
-  },
-  container: {
-    flex:1,
-    backgroundColor:'#8CB0C9',
+    color: '#052640',
     alignItems: 'center',
-    justifyContent:'center',
+    justifyContent: 'center',
   },
-  header:{
 
-<<<<<<< HEAD
-
-<Pressable >
-  <Text>I'm pressable!</Text>
-</Pressable>
-
-</View>
-
-
-
-
-    ) 
-  }
-=======
-
-  }
 });
->>>>>>> 4cce7ff7b73f5b5e1696daefa764de0c3958e38e
