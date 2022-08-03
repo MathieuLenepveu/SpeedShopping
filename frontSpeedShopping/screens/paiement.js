@@ -1,9 +1,7 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {Pressable, View, Text} from 'react-native';
 import {Button,Input } from 'react-native-elements';
-
-
-
+import { StripeProvider } from '@stripe/stripe-react-native';
 
 
 
@@ -18,12 +16,17 @@ export default function paiement() {
 RENVOI SIGN IN ou SIGN UP si pas ok
 </Text>
 
-<Text>
-PAGE DE CHARGEMENT DE l'OUTIL DE PAIEMENT
-</Text>
 
+
+
+<Pressable >
+  <Text>I'm pressable!</Text>
+</Pressable>
 
 </View>
+
+
+
 
     ) 
   }
