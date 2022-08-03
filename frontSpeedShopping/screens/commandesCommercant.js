@@ -20,7 +20,7 @@ export default function commandesCommercant() {
           {key: 'Vin rosé', price: '20€'},
           {key: 'Saucisson', price: '20€'}, 
         ]}
-        renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
+        renderItem={({item, item2}) => <Text style={styles.item}>{item.key}</Text>}
       />
     </View>
 
