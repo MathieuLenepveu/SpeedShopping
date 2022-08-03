@@ -8,9 +8,10 @@ var userSchema = mongoose.Schema({
     email: String,
     password:String,
     address:String, 
+    phonenumer: Number, 
     userCommandes : [{ type: mongoose.Schema.Types.ObjectId, ref: 'articles' }],
   });
   
-var userModel = mongoose.model('users', userSchema);
+var UserModel = mongoose.model('users', userSchema);
 
-module.exports = userModel
+module.exports = UserModel

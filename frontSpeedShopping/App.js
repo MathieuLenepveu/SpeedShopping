@@ -13,7 +13,7 @@ import ajoutArticlePage from './screens/ajoutArticlePage'
 import commandesCommercant from './screens/commandesCommercant'
 import homePage from './screens/homePage'
 import itinerairePage from './screens/itinerairePage'
-import mapPage from './screens/mapPage'
+import mapPage from '.screens/mapPage'
 import monStore from './screens/monStore'
 import navigationPage from './screens/navigationPage'
 import paiement from './screens/paiement'
@@ -187,15 +187,6 @@ export default function App() {
   
 );
 }
-
-
-
-
-{/*STOCKAGE
-
-        
-        
-*/}
 
 
 

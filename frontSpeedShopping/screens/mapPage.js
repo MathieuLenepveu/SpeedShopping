@@ -1,107 +1,100 @@
-// import React from 'react';
-// import {View, Text} from 'react-native';
-// import {Button,Input } from 'react-native-elements';
-
-
-
-
-
-
-
-
-
-// export default function mapPage(props) {
-//     return (
-
-
-
-//       <View>
-// <Text>
-// PAGE DE CHARGEMENT DE L'ITINERAIRE INITIAL
-// </Text>
-// <Button title="PRE COMMANDE"
-//         onPress={() => props.navigation.navigate('PreCommande')}
-//       />
-// <Button title="GO"
-//         onPress={() => props.navigation.navigate('Navigation')}
-//       />
-
-
-// </View>
-
-//     ) 
-//   }
-
-// *******************INSERTION CODE MATHYS*************
-
 import React, {useState, useEffect} from 'react' ;
 import { View,Text} from 'react-native' ;
-import {Button,Overlay, Input,ListItem} from 'react-native-elements';
+import {Button,Overlay, Input,ListItem, Tab} from 'react-native-elements';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 
 import * as Location from 'expo-location';
 import { FontAwesome } from '@expo/vector-icons'; 
 import  MapViewDirections from'react-native-maps-directions'
-// import {store} from "frontSpeedShopping/reducers/redux.js" ;
+
 
 
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-// var socket = socketIOClient("http://172.20.10.2:3000");
-
 
 // pour itineraire https://www.npmjs.com/package/react-native-maps-directions
 
 
-export default function mapPage(props) {
-
-
-
-
+export default function Map() {
 // ***************************** ETATS ****************************** 
 
         const [currentLatitude, setCurrentLatitude] = useState(0) ; 
         const [currentLongitude, setCurrentLongitude] = useState(0) ;
-        // const [commercantList, setCommercantList] = useState([]) ;
 
 
-     
         const [isOpen, setIsOpen] = useState(false) ;
-        const [textDesc , setTextDesc] = useState('') ;
-        const [nomMagasin,setNomMagasin] = useState('');
-     
-
+        const [magasin,setMagasin] = useState('');
+        const [waypoints , setWaypoints] = useState([]);
 
   const commercantList = [{
     nom:'Macdo',
     horaire: '10h-17h',
+    statut: 'fast-food',
     latitude:  48.9,  
-    longitude: 2.333333
+    longitude: 2.333333,
+    coordinate: '48.866667, 2.333333'
+
   },{
     nom:'burgerKing',
     horaire: '10h-17h',
-    latitude:  48.9,  
-    longitude: 2.34
+    statut: 'fast-food',
+    latitude:  48.85,  
+    longitude: 2.34,
+    coordinate: '48.866667, 2.34'
+
   },{
     nom:'lidl',
     horaire: '10h-17h',
     latitude:  48.866667,  
+    statut: 'fast-food',
     longitude: 2.355555,
     coordinate: '48.866667, 2.355555'
   },{
     nom:'sushi',
     horaire: '10h-17h',
+    statut: 'asiatique',
     latitude:  48.866667,  
-    longitude: 2.37
+    longitude: 2.37,
+    coordinate: '48.866667, 2.37'
+
   },{
     nom:'carotte',
+    statut: 'traiteur',
     horaire: '10h-17h',
     latitude:  48.866667,  
-    longitude: 2.32
+    longitude: 2.32,
+    coordinate: '48.866667, 2.32'
+
   },
 ] ;
 
+
+var waypointsTest = [{
+  nom:'lidl',
+  horaire: '10h-17h',
+  latitude:  48.866667,  
+  statut: 'surface',
+  longitude: 2.355555,
+  coordinate: '48.866667, 2.355555'
+},{
+  nom:'sushi',
+  horaire: '10h-17h',
+  statut: 'asiatique',
+  latitude:  48.866667,  
+  longitude: 2.37,
+  coordinate: '48.866667, 2.37'
+
+}
+// ,{
+//   nom:'carotte',
+//   statut: 'traiteur',
+//   horaire: '10h-17h',
+//   latitude:  48.866667,  
+//   longitude: 2.32,
+//   coordinate: '48.866667, 2.32'
+
+ ]
 
 
 // ***************************** ASK & SET localistaion ****************************** 
@@ -115,19 +108,20 @@ export default function mapPage(props) {
           }
           Location.watchPositionAsync({distanceInterval: 10}, (location) => { setCurrentLatitude(location.coords.latitude), setCurrentLongitude(location.coords.longitude) 
 
-        // var data = await fetch("http://192.168.0.109:3000/map") ;
+          // var data = await fetch("http://192.168.0.109:3000/map") ;
           // var response = await data.json();
 
-          // // setCommercantList(response.commercant);
-          // // setCurrentLatitude(response.adresse);
-          // // setCurrentLongitude(response.adresse); 
+
+
+          // setWaypoints(response.commercant)
+          // setCurrentLatitude(response.adresse);
+          // setCurrentLongitude(response.adresse); 
          });
         
       })();
     }) ;
-
-
       
+ 
 
 
     // AsyncStorage.getItem("POI", function(error, data) {
@@ -152,26 +146,50 @@ export default function mapPage(props) {
 
 
 
+
+
 // ***************************** CLOSE the overlay ****************************** 
 
     var closeOverlay = () => {
         setIsOpen(false) 
-        setAddPOI(false) ;
+
 }
 
 // ***************************** ADD Lat/Lng to State ****************************** 
 
-   var test = (bool,nom) => {
+   var test = (bool,nom,horaire,statut) => {
 
     setIsOpen(bool) ;
-    console.log(nom);
+    setMagasin({
+        nom:nom,
+        horaire:horaire,
+        statut:statut
+    })
         
 }
 // ***************************** ADD commercant to itinéraire ****************************** 
 
 
-function testAddToItinéraire (title , description,) {
-     
+function testAddToItinéraire (magasin) {
+
+    var isInside = false;
+
+
+    for (let i = 0; i < waypointsTest.length; i++) {
+
+        if (waypointsTest[i].status == magasin.statut) {
+
+          waypointsTest.splice(i,1,magasin) ;
+            isInside = true ;
+            
+        }
+        console.log('test',waypointsTest);
+    }
+
+     if (!isInside) {
+        itineraire.push(magasin)
+     }
+
 
 }
 
@@ -179,7 +197,7 @@ function testAddToItinéraire (title , description,) {
         
  var markerList =  commercantList.map((commercant,i)=>{
 
-return <Marker key={i} pinColor='blue' onPress={()=>test(true,commercant.nom)} title={commercant.nom} description={commercant.horaire} coordinate={{latitude: commercant.latitude, longitude: commercant.longitude}}/>
+return <Marker key={i} pinColor='blue' onPress={()=>test(true,commercant.nom,commercant.horaire)} title={commercant.nom} description={commercant.horaire} coordinate={{latitude: commercant.latitude, longitude: commercant.longitude}}/>
  })        
 
 
@@ -196,14 +214,12 @@ return(
 
 
 
-<Overlay isVisible={isOpen} overlayStyle={{width: '70%'}} onBackdropPress={closeOverlay}>
-              <Text>{} </Text>
-        
-                <Input
-                   placeholder='Description '
-                   onChangeText={(value) => setTextDesc(value)} 
-                   value={textDesc} 
-                   />
+<Overlay isVisible={isOpen} overlayStyle={{width: '70%', justifyContent:'center', alignItems:'center'}} onBackdropPress={closeOverlay}>
+
+              <Text>{magasin.nom} </Text>
+              <Text>{magasin.statut} </Text>
+              <Text>{magasin.horaire} </Text>
+
                 
                 <Button
                 icon={
@@ -215,7 +231,7 @@ return(
                 buttonStyle={{backgroundColor:'#eb4d4b'}}
                 title="Ajouter a l'itinéraire"
                 type="solid"
-                // onPress={() => testAddToItinéraire(textTitle, textDesc)}
+                 onPress={() => testAddToItinéraire(magasin)}
                 />
 </Overlay>
 
@@ -231,12 +247,12 @@ return(
 }} >
 
 <MapViewDirections
-    origin={commercantList[3]}
-    // waypoints={commercantList[2]}
-    destination={commercantList[4]}
-    mode="WALKING"
+    origin={commercantList[0]}
+    waypoints={waypointsTest}
+    destination={commercantList[0]}
+    mode="DRIVING"
     optimizeWaypoints={true}
-    onReady={(result)=> {console.log(result);}}
+    // onReady={(result)=> {console.log(result);}}
     timePrecision="now"
     apikey='AIzaSyD5OG3mJyZ7ogU9wiuUmngHz2GOvBr9SqU'
     strokeWidth={3}
@@ -271,6 +287,9 @@ return(
       />
 
 
+<Text>Adaptez votre itinéraire en fonction de vos envies </Text>
+
+
 {/* *****************************  LISTE COMMERCANT CHOISI  ******************************  */}
 
 {
@@ -292,6 +311,5 @@ return(
     
     
 }
-
 
 
