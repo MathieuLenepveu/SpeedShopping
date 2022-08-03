@@ -1,8 +1,6 @@
-
-
 import React, {useState, useEffect} from 'react' ;
 import { View,Text} from 'react-native' ;
-import {Button,Overlay, Input,ListItem} from 'react-native-elements';
+import {Button,Overlay, Input,ListItem, Tab} from 'react-native-elements';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 
 import * as Location from 'expo-location';
@@ -19,42 +17,37 @@ import  MapViewDirections from'react-native-maps-directions'
 
 
 export default function Map() {
-
-
-
-
 // ***************************** ETATS ****************************** 
 
         const [currentLatitude, setCurrentLatitude] = useState(0) ; 
         const [currentLongitude, setCurrentLongitude] = useState(0) ;
-        // const [commercantList, setCommercantList] = useState([]) ;
 
 
-     
         const [isOpen, setIsOpen] = useState(false) ;
         const [magasin,setMagasin] = useState('');
-        const [itineraire , setItineraire] = useState([]);
-
-     
-
+        const [waypoints , setWaypoints] = useState([]);
 
   const commercantList = [{
     nom:'Macdo',
     horaire: '10h-17h',
     statut: 'fast-food',
     latitude:  48.9,  
-    longitude: 2.333333
+    longitude: 2.333333,
+    coordinate: '48.866667, 2.333333'
+
   },{
     nom:'burgerKing',
     horaire: '10h-17h',
     statut: 'fast-food',
-    latitude:  48.9,  
-    longitude: 2.34
+    latitude:  48.85,  
+    longitude: 2.34,
+    coordinate: '48.866667, 2.34'
+
   },{
     nom:'lidl',
     horaire: '10h-17h',
     latitude:  48.866667,  
-    statut: 'surface',
+    statut: 'fast-food',
     longitude: 2.355555,
     coordinate: '48.866667, 2.355555'
   },{
@@ -62,16 +55,46 @@ export default function Map() {
     horaire: '10h-17h',
     statut: 'asiatique',
     latitude:  48.866667,  
-    longitude: 2.37
+    longitude: 2.37,
+    coordinate: '48.866667, 2.37'
+
   },{
     nom:'carotte',
     statut: 'traiteur',
     horaire: '10h-17h',
     latitude:  48.866667,  
-    longitude: 2.32
+    longitude: 2.32,
+    coordinate: '48.866667, 2.32'
+
   },
 ] ;
 
+
+var waypointsTest = [{
+  nom:'lidl',
+  horaire: '10h-17h',
+  latitude:  48.866667,  
+  statut: 'surface',
+  longitude: 2.355555,
+  coordinate: '48.866667, 2.355555'
+},{
+  nom:'sushi',
+  horaire: '10h-17h',
+  statut: 'asiatique',
+  latitude:  48.866667,  
+  longitude: 2.37,
+  coordinate: '48.866667, 2.37'
+
+}
+// ,{
+//   nom:'carotte',
+//   statut: 'traiteur',
+//   horaire: '10h-17h',
+//   latitude:  48.866667,  
+//   longitude: 2.32,
+//   coordinate: '48.866667, 2.32'
+
+ ]
 
 
 // ***************************** ASK & SET localistaion ****************************** 
@@ -85,19 +108,20 @@ export default function Map() {
           }
           Location.watchPositionAsync({distanceInterval: 10}, (location) => { setCurrentLatitude(location.coords.latitude), setCurrentLongitude(location.coords.longitude) 
 
-        // var data = await fetch("http://192.168.0.109:3000/map") ;
+          // var data = await fetch("http://192.168.0.109:3000/map") ;
           // var response = await data.json();
 
-          // // setCommercantList(response.commercant);
-          // // setCurrentLatitude(response.adresse);
-          // // setCurrentLongitude(response.adresse); 
+
+
+          // setWaypoints(response.commercant)
+          // setCurrentLatitude(response.adresse);
+          // setCurrentLongitude(response.adresse); 
          });
         
       })();
     }) ;
-
-
       
+ 
 
 
     // AsyncStorage.getItem("POI", function(error, data) {
@@ -117,6 +141,8 @@ export default function Map() {
     //  }
 
     // });
+
+
 
 
 
@@ -149,15 +175,15 @@ function testAddToItinéraire (magasin) {
     var isInside = false;
 
 
-    for (let i = 0; i < itineraire.length; i++) {
+    for (let i = 0; i < waypointsTest.length; i++) {
 
-        if (itineraire[i].status == magasin.statut) {
+        if (waypointsTest[i].status == magasin.statut) {
 
-            itineraire.splice(i,1,magasin) ;
+          waypointsTest.splice(i,1,magasin) ;
             isInside = true ;
             
         }
-        
+        console.log('test',waypointsTest);
     }
 
      if (!isInside) {
@@ -222,11 +248,11 @@ return(
 
 <MapViewDirections
     origin={commercantList[0]}
-    waypoints={[commercantList[2].coordinate]}
-    destination={commercantList[4]}
-    mode="WALKING"
+    waypoints={waypointsTest}
+    destination={commercantList[0]}
+    mode="DRIVING"
     optimizeWaypoints={true}
-    onReady={(result)=> {console.log(result);}}
+    // onReady={(result)=> {console.log(result);}}
     timePrecision="now"
     apikey='AIzaSyD5OG3mJyZ7ogU9wiuUmngHz2GOvBr9SqU'
     strokeWidth={3}
