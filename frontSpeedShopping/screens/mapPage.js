@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react' ;
-import { View,Text,TouchableOpacity,StyleSheet, ScrollView} from 'react-native' ;
+import { View,Text,TouchableOpacity,StyleSheet, ScrollView, Pressable} from 'react-native' ;
 import {Button,Overlay, Input,ListItem, Tab} from 'react-native-elements';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import Geocoder from 'react-native-geocoding';
@@ -296,15 +296,16 @@ return(
 
 </View>
 
-
+<View style={styles.bloc}>
 
 <Text>Adaptez votre itinéraire en fonction de vos envies </Text>
 
-<Button title="START"
-        onPress={() => props.navigation.navigate('PreCommande')}
-      />
+<Pressable style={styles.button} 
+       onPress={() => props.navigation.navigate('PreCommande')}>
+      <Text style={styles.text2}>Start</Text>
+    </Pressable>
 
-
+</View>
 
 {/* *****************************  LISTE COMMERCANT CHOISI  ******************************  */}
 
@@ -339,6 +340,13 @@ const styles = StyleSheet.create({
 marginTop: 10,
 
   },
+  button : {
+    backgroundColor: '#052640', 
+    alignItems :'center',
+    borderRadius: 10, 
+    width: 150, 
+    height: 40,  
+  }, 
 
   bloc:{
 marginTop: 15,
@@ -389,6 +397,13 @@ alignItems :'center',
   
   },
 
+  text2:{
+    fontSize:20 ,
+    color:'white',
+   
+    margin :0,
+  
+  },
   input:{
 fontSize:10,
 margin:5,
