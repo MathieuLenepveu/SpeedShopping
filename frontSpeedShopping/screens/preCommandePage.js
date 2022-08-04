@@ -1,31 +1,55 @@
 import React from 'react';
-import {View, Text} from 'react-native';
-import {Button,Input } from 'react-native-elements';
-
-
-
-
-
+import {View, Text, Pressable, StyleSheet} from 'react-native';
+import {Button,Input, withTheme } from 'react-native-elements';
 
 
 
 
 export default function preCommandePage(props) {
     return (
-      <View>
+      <View style={styles.container} >
 <Text>
 PAGE DE PRECOMMANDE
 </Text>
 
-<Button title="PANIER"
-        onPress={() => props.navigation.navigate('Panier')}
-      />
+<Pressable style={styles.button} 
+onPress={() => props.navigation.navigate('Panier')}>
+<Text style={styles.text}>Panier</Text>
+       
+       </Pressable>
 
-<Button title="JE VERRAI SUR PLACE"
-        onPress={() => props.navigation.navigate('Paiement')}
-      />
+<Pressable style={styles.button} 
+onPress={() => props.navigation.navigate('Paiement')}>
+<Text style={styles.text}>Je verrai sur place</Text>
+        
+        </Pressable>
 
 </View>
 
     ) 
   }
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center", 
+    },
+    text: {
+      fontSize: 16, 
+      color: 'white', 
+    },
+    button: {
+      padding: 20,
+      margin: 10,
+      alignItems: "center", 
+      justifyContent: "center", 
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: '#f0f0f0',
+      backgroundColor: '#052640', 
+      width: 200, 
+      borderRadius: 8, 
+      color: "#FFFFFF"
+    }
+  });
+  

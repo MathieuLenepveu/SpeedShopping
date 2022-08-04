@@ -4,12 +4,6 @@ import {Button,Input } from 'react-native-elements';
 
 
 
-
-
-
-
-
-
 export default function monStore(props) {
     return (
       <View>

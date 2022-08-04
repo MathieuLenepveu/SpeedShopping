@@ -343,6 +343,7 @@ marginTop: 10,
   button : {
     backgroundColor: '#052640', 
     alignItems :'center',
+    justifyContent: 'center', 
     borderRadius: 10, 
     width: 150, 
     height: 40,  
