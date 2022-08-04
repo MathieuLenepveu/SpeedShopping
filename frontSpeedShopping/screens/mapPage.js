@@ -7,9 +7,6 @@ import * as Location from 'expo-location';
 import { FontAwesome } from '@expo/vector-icons'; 
 import  MapViewDirections from'react-native-maps-directions'
 
-import * as Location from 'expo-location';
-import { FontAwesome } from '@expo/vector-icons'; 
-import  MapViewDirections from'react-native-maps-directions'
 
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 

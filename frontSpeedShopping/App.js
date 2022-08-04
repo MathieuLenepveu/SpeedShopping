@@ -3,7 +3,6 @@ import React from 'react';
 import {LogBox, View} from 'react-native';
 LogBox.ignoreLogs(['Warning:...']);
 import {Button,Input } from 'react-native-elements';
-import { LogBox } from 'react-native';
 LogBox.ignoreAllLogs();
 
 
