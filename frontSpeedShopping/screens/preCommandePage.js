@@ -8,7 +8,7 @@ import {Button,Input, withTheme } from 'react-native-elements';
 export default function preCommandePage(props) {
     return (
       <View style={styles.container} >
-<Text>
+<Text style={styles.texttitle} >
 PAGE DE PRECOMMANDE
 </Text>
 
@@ -46,10 +46,13 @@ onPress={() => props.navigation.navigate('Paiement')}>
       justifyContent: "center", 
       borderWidth: StyleSheet.hairlineWidth,
       borderColor: '#f0f0f0',
-      backgroundColor: '#052640', 
+      backgroundColor: '#2294DF', 
       width: 200, 
       borderRadius: 8, 
       color: "#FFFFFF"
+    }, 
+    texttitle: {
+      color: '#052640', 
     }
   });
   
