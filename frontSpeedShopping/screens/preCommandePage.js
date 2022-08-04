@@ -46,7 +46,7 @@ onPress={() => props.navigation.navigate('Paiement')}>
       justifyContent: "center", 
       borderWidth: StyleSheet.hairlineWidth,
       borderColor: '#f0f0f0',
-      backgroundColor: '#052640', 
+      backgroundColor: '#2294DF', 
       width: 200, 
       borderRadius: 8, 
       color: "#FFFFFF"
