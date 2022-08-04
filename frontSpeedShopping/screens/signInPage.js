@@ -13,6 +13,9 @@ import {Button,Input } from 'react-native-elements';
 
 export default function signInPage(props) {
     return (
+
+  
+
       <View style={styles.container}>
       <Text>Veuillez dévoiler votre identité : </Text>
       <TextInput
@@ -21,6 +24,7 @@ export default function signInPage(props) {
         autoCapitalize="none"
         placeholderTextColor='white'
         onChangeText={val => this.onChangeText('username', val)}
+
       />
       <TextInput
         style={styles.input}
