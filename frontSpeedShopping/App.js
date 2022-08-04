@@ -51,19 +51,7 @@ const Tab = createBottomTabNavigator();
 //           } else if (route.name == 'Gérer la selection') {
 //             iconName = 'null';
 //           }
-
-const configurateur = () => {
-  return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ color }) => {
-          let iconName;
-
-          if (route.name == 'Speed Selection') {
-            iconName = 'home';
-          } else if (route.name == 'Gérer la selection') {
-            iconName = 'home';
-          }
+        
 
   
 //           return <Ionicons name={iconName} size={25} color={color} />;
@@ -203,6 +191,4 @@ export default function App() {
   
 );
 }
-
-
 
