@@ -3,11 +3,6 @@ import React from 'react';
 import {LogBox, View} from 'react-native';
 LogBox.ignoreLogs(['Warning:...']);
 import {Button,Input } from 'react-native-elements';
-<<<<<<< HEAD
-
-=======
-LogBox.ignoreAllLogs();
->>>>>>> 42f591359b0c7037e837480d4c28b8c843b08fa7
 
 
 // import { StatusBar } from 'expo-status-bar';
