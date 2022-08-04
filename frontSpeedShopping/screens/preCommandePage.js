@@ -34,6 +34,7 @@ onPress={() => props.navigation.navigate('Paiement')}>
       flex: 1,
       justifyContent: "center",
       alignItems: "center", 
+      backgroundColor: '#5A7E95',
     },
     text: {
       fontSize: 16, 

@@ -33,6 +33,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { Ionicons } from '@expo/vector-icons';
 
+import {Provider} from 'react-redux';
+
+import {createStore, combineReducers}  from 'redux';
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -170,6 +174,7 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     
+
     <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen name="Accueil" component={accueil} />
@@ -187,6 +192,7 @@ export default function App() {
 
     </Stack.Navigator>
   </NavigationContainer>
+
 
   
 );
