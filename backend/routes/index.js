@@ -11,7 +11,7 @@ var CommercantModel = require('../models/commercants')
   /* GET home page. Création de la base*/
 
 
-router.get('/mycommandes', async function(req, res, next) {
+router.get('/:userId/mycommandes', async function(req, res, next) {
 
  
 
@@ -216,7 +216,7 @@ router.put('/sign-up', async function(req, res, next) {
       }  
     });
 
-router.get('/myarticles', async function(req, res, next) {
+router.get('/:commercantId/myarticles', async function(req, res, next) {
 
  
 var articles = await commercantModel.findOne({ _id: req.commercant.id});
@@ -230,7 +230,7 @@ var articles = await commercantModel.findOne({ _id: req.commercant.id});
 });
 
 
-router.post('/newarticle', async function(req, res, next) {
+router.post('/:commercantId/newarticle', async function(req, res, next) {
 
 var commercant = await commercantModel.findOne({ _id: req.commercant.id});
 
@@ -247,7 +247,7 @@ commercant.Articles.push ({
 });
 
 
-router.delete('/article', async function(req, res, next) {
+router.delete('/:commercantId/article', async function(req, res, next) {
   var commercant = await commercantModel.findOne({ _id: req.commercant.id});
 
   res.render('newarticle',{myarticle});
