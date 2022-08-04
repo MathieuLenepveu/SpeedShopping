@@ -8,7 +8,7 @@ import {Button,Input } from 'react-native-elements';
 export default function panier(props) {
     return (
       <View style={styles.container} >
-<Text>
+<Text style={styles.texttitle}>
 PANIER CLIENT
 </Text>
 
@@ -46,5 +46,8 @@ onPress={() => props.navigation.navigate('Paiement')}>
       width: 200, 
       borderRadius: 8, 
       color: "#FFFFFF"
+    }, 
+    texttitle: {
+      color: '#052640', 
     }
   });
