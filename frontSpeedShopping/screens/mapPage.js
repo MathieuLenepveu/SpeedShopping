@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react' ;
-import { View,Text} from 'react-native' ;
+import { View,Text,TouchableOpacity,StyleSheet, ScrollView} from 'react-native' ;
 import {Button,Overlay, Input,ListItem, Tab} from 'react-native-elements';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import Geocoder from 'react-native-geocoding';
@@ -195,8 +195,7 @@ if (commercantList != 0 ) {
 return(
 
 
-
- <View style= {{flex: 1}}>
+ <View>
 
 {/* ***************************** OVERLAY   ******************************  */}
 <View style={{height:400}}>
@@ -268,11 +267,47 @@ return(
 </MapView> 
 </View>
 
+
+<View style={[{justifyContent:'space-around'}]}>
+
+{/* BOUTON MISE A JOUR*/}
+
+
+<TouchableOpacity
+        style={styles.button3}
+        onPress={() => props.navigation.navigate('ConfigurateurItineraire')}
+      >
+        <Text>METTRE A JOUR L'ITINERAIRE</Text>
+      </TouchableOpacity>
+
+{/* BOUTON PRE COMMANDE*/}
+
+      <TouchableOpacity
+        style={styles.button3}
+        onPress={() => props.navigation.navigate('PreCommande')}
+      >
+        <Text>PRE-COMMANDER CHEZ LES COMMERCANTS</Text>
+      </TouchableOpacity>
+
+ {/* Button GO  */}
+      <TouchableOpacity
+        style={styles.button3}
+        onPress={() => props.navigation.navigate('Navigation')}
+      >
+        <Text>ACTIVER L'ITINERAIRE</Text>
+      </TouchableOpacity>
+
+
+</View>
+
+
+
 <Text>Adaptez votre itinéraire en fonction de vos envies </Text>
 
 <Button title="START"
         onPress={() => props.navigation.navigate('PreCommande')}
       />
+
 
 
 {/* *****************************  LISTE COMMERCANT CHOISI  ******************************  */}
@@ -290,9 +325,98 @@ return(
   }
 
  </View>
+)    
+}
 
 
-)
+
+const styles = StyleSheet.create({
+
+  container: {
+    flex:1,
+    backgroundColor:'#5A7E95',
+    alignItems: 'center',
+    justifyContent:'space-around',
+  },
+
+  header:{
+marginTop: 10,
+
+  },
+
+  bloc:{
+marginTop: 15,
+marginBottom:15,
+alignItems :'center',
+  },
+  
+  button1:{
+    borderWidth : 2 ,
+    borderColor : 'black',
+    borderRadius : 100,
+    padding:15,
+    margin : 20,
+    backgroundColor :'#2294DF',
+    alignItems : 'center',
+  
     
-}  
+    },
+
+    button2:{
+      borderWidth : 2 ,
+      borderColor : 'black',
+      borderRadius : 5,
+      padding:2,
+      margin :1,
+      backgroundColor :'#2294DF',
+      alignItems : 'center',
+      
+      
+      },
+
+      button3:{
+        borderWidth : 2 ,
+        borderColor : 'black',
+        borderRadius : 20,
+        padding:2,
+        margin :10,
+        backgroundColor :'#2294DF',
+        alignItems : 'center',
+        
+        },
+
+  text:{
+    fontSize:20 ,
+    color:'black',
+   
+    margin :0,
+  
+  },
+
+  input:{
+fontSize:10,
+margin:5,
+padding: 10,
+borderWidth : 2,
+borderColor : "black",
+width : "100%",
+height : 20,
+borderRadius : 10,
+textAlign : "center",
+backgroundColor: '#93CAEF',
+
+  },
+
+  icon:{
+padding: 10,
+margin:10,
+color:"#2E43D8",
+
+  },
+  
+  
+  })
+
+    
+
 
