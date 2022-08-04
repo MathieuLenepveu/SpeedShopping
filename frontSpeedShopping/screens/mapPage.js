@@ -65,26 +65,20 @@ var waypointsTest = [{
             });
             
              rawResponse = await rawResponse.json();
-            setCommercantList(rawResponse)
 
-
-
-
+            var newTab= [];
               for (let i = 0; i < rawResponse.commercantAfficher.length; i++) {
 
                 var location = rawResponse.commercantAfficher[i].address ; 
                 var tryIt =   await Location.geocodeAsync(location) ;
-
                 if(tryIt != 0){
 
-                  console.log(commercantList.commercantAfficher[i].address);
-                  
-                setStateLocation([...stateLocation,{latitude:tryIt[0].latitude,longitude:tryIt[0].longitude} ])
-          
+                   newTab = [...rawResponse.commercantAfficher]
+                   newTab[i].address = {latitude  :tryIt[0].latitude,longitude : tryIt[0].longitude }
+                   setCommercantList(newTab)
             }
             }
-      
-            console.log(stateLocation);
+  
 
           // setWaypoints(response.commercant)
           // setCurrentLatitude(response.adresse);
@@ -93,6 +87,9 @@ var waypointsTest = [{
 } ,[]) ;
       
  
+console.log('essaie',commercantList);
+
+
 
 
     // AsyncStorage.getItem("POI", function(error, data) {
@@ -161,17 +158,34 @@ function testAddToItinéraire (magasin) {
 
 // ***************************** SHOW ALL THE MARKER  ****************************** 
 
-if (commercantList != 0 && stateLocation !=0) {
+if (commercantList != 0 ) {
 
-
-
-  var markerList = commercantList.commercantAfficher.map((commercant,i)=>{
-    return <Marker key={i} pinColor='blue' onPress={()=>test(true,commercant.enseignecommerciale,commercant.hours[0],commercant.type)} title={commercant.enseignecommerciale} coordinate={{latitude:stateLocation.latitude, longitude:stateLocation.longitude}} description={commercant.hours[0]}/>
+  var markerList = commercantList.map((commercant,i)=>{
+  console.log(commercant.address);
+    return <Marker key={i} pinColor='blue' onPress={()=>test(true,commercant.enseignecommerciale,commercant.hours[0],commercant.type)} title={commercant.enseignecommerciale} coordinate={{latitude :commercant.address.latitude, longitude: commercant.address.longitude}} description={commercant.hours[0]}/>
      })     
 
-     
-
 }
+
+
+
+if (commercantList != 0 ) {
+
+    var directions = 
+    <MapViewDirections
+    origin={commercantList[0].address}
+    waypoints={waypointsTest}
+    destination={commercantList[0].address}
+    mode="DRIVING"
+    optimizeWaypoints={true}
+    // onReady={(result)=> {console.log(result);}}
+    timePrecision="now"
+    apikey='AIzaSyD5OG3mJyZ7ogU9wiuUmngHz2GOvBr9SqU'
+    strokeWidth={3}
+  />
+}
+
+   
 
    
 
@@ -220,17 +234,7 @@ return(
    longitudeDelta: 0.0421,
 }} >
 
-<MapViewDirections
-    origin={commercantList[0]}
-    waypoints={waypointsTest}
-    destination={commercantList[0]}
-    mode="DRIVING"
-    optimizeWaypoints={true}
-    // onReady={(result)=> {console.log(result);}}
-    timePrecision="now"
-    apikey='AIzaSyD5OG3mJyZ7ogU9wiuUmngHz2GOvBr9SqU'
-    strokeWidth={3}
-  />
+{directions}
 
 
 
