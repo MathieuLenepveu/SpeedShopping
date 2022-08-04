@@ -3,7 +3,7 @@ import React from 'react';
 import {LogBox, View} from 'react-native';
 LogBox.ignoreLogs(['Warning:...']);
 import {Button,Input } from 'react-native-elements';
-
+LogBox.ignoreAllLogs();
 
 
 // import { StatusBar } from 'expo-status-bar';
@@ -51,6 +51,20 @@ const Tab = createBottomTabNavigator();
 //           } else if (route.name == 'Gérer la selection') {
 //             iconName = 'null';
 //           }
+
+const configurateur = () => {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ color }) => {
+          let iconName;
+
+          if (route.name == 'Speed Selection') {
+            iconName = 'home';
+          } else if (route.name == 'Gérer la selection') {
+            iconName = 'home';
+          }
+
   
 //           return <Ionicons name={iconName} size={25} color={color} />;
 //         },
@@ -151,7 +165,7 @@ const Tab = createBottomTabNavigator();
             }
           }}
         >
-           <Tab.Screen name="Mon Compte" component={profilCommercant} />
+          <Tab.Screen name="Mon Compte" component={profilCommercant} />
           <Tab.Screen name="Mes Commandes" component={commandesCommercant} />
           <Tab.Screen name="Mon Store" component={gestionStore} />
         </Tab.Navigator>

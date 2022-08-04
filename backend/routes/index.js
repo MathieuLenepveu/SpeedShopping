@@ -6,132 +6,9 @@ var mongoose = require('mongoose');
 var UserModel = require('../models/users')
 var CommercantModel = require('../models/commercants')
 
-	
-const users = [
-    {
-      firstName: "Alice",
-      name: "Smith",
-      email: "as@gmail.com",
-      password: "123",
-      address: "119 Avenue maréchal de Saxe",
-      phonenumber: 623455589, 
-      
-    },
-    {
-      
-      firstName: "Jonh",
-      name: "Doe",
-      email: "jg@gmail.com",
-      password: "123",
-      address: "119 Avenue maréchal de Saxe", 
-      phonenumber: 623456789,
-    },
-    {
-    
-      firstName: "Tony",
-      name: "Paul",
-      email: "tp@gmail.com",
-      password: "123",
-      address: "119 Avenue maréchal de Saxe",
-      phonenumber: 623455009,
 
-    },
-  ];
-
-  const commercants = [
-    {
-      firstName: "Alice",
-      name: "Smith",
-      email: "as@gmail.com",
-      enseignecommerciale: "ladygaga", 
-      password: "123",
-      phonenumber: 623455589,
-      address: "119 Avenue maréchal de Saxe",
-      articles: 
-      {
-        article: "sac",
-        price: 15,
-        quantite: 10, 
-      },
-      hours: 
-      {
-        Dayclosed: "Saturday",
-        HeuresOuverts: 8,
-        Heuresfermes: 18, 
-      }, 
-
-      
-    },
-    {
-      
-      firstName: "Jonh",
-      name: "Doe",
-      email: "jg@gmail.com",
-      enseignecommerciale: "ladygaga", 
-      password: "123",
-      phonenumber: 623456789,
-      address: "119 Avenue maréchal de Saxe", 
-      articles: 
-      {
-        article: "sac",
-        price: 15,
-        quantite: 10, 
-      },
-      hours: 
-      {
-        Dayclosed: "Saturday",
-        HeuresOuverts: 8,
-        Heuresfermes: 18, 
-      }
-    },
-    {
-    
-      firstName: "Tony",
-      name: "Paul",
-      email: "tp@gmail.com",
-      enseignecommerciale: "ladygaga", 
-      password: "123",
-      phonenumber: 623455009,
-      address: "119 Avenue maréchal de Saxe",
-      articles: 
-      {
-        article: "sac",
-        price: 15,
-        quantite: 10, 
-      }, 
-      hours: 
-      {
-        Dayclosed: "Saturday",
-        HeuresOuverts: 8,
-        Heuresfermes: 18, 
-      }, 
-
-
-    },
-  ];
 
   /* GET home page. Création de la base*/
-
-  router.get("/", async function (req, res, next) {
-
-    for (let i = 0; i < users.length; i++) {
-      let newUser = new UserModel(users[i]);
-      let newUserSaved = await newUser.save();
-    }
-    res.render("index", { title: "Create DB" });
-  });
-
-  router.get("/commercants", async function (req, res, next) {
-
-    for (let i = 0; i < commercants.length; i++) {
-      let newCommercant = new CommercantModel(commercants[i]);
-      let newCommercantSaved = await newCommercant.save();
-    }
-    res.render("index", { title: "Create DB" });
-  });
-
-
-
 
 
 router.get('/mycommandes', async function(req, res, next) {
@@ -399,27 +276,24 @@ router.delete('/sign-up', async function(req, res, next) {
 
 
 /* RAJOUTER LE TYPE D'ENSEIGNE DANS LA BDD (BOULNGE,POISSONERIE, ETC )*/
-router.post('/map', function(req, res, next) {
+router.post('/map',async function(req, res, next) {
   var commercantAfficher = [] ;
-  var user = UserModel.find({name: req.body.username}) ;
 
-  var commercant = commercantModel.find() ;
-  commercant = commercant.statut
+  var user = await UserModel.find({name:'Smith'}) ;
+  var commercant = await CommercantModel.find() ;
 
-  for (let i = 0; i < besoinUser.length; i++) {
+
+  for (let i = 0; i < user[0].besoin.length; i++) {
     for (let j = 0; j < commercant.length; j++) {
 
-      if (besoinUser[i] == commercant[j]) {
-
+      if (user[0].besoin[i] == commercant[j].type) {
         commercantAfficher.push(commercant[j])
         
       }
     }
   }
-  
-  res.json( {adresse: user.adresse},commercantAfficher);
+  res.json({commercantAfficher});
 });
-
 
 
 

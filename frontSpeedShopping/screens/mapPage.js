@@ -2,16 +2,16 @@ import React, {useState, useEffect} from 'react' ;
 import { View,Text,TouchableOpacity,StyleSheet, ScrollView} from 'react-native' ;
 import {Button,Overlay, Input,ListItem, Tab} from 'react-native-elements';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-
+import Geocoder from 'react-native-geocoding';
 import * as Location from 'expo-location';
 import { FontAwesome } from '@expo/vector-icons'; 
 import  MapViewDirections from'react-native-maps-directions'
 
 
-
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // pour itineraire https://www.npmjs.com/package/react-native-maps-directions
 
@@ -21,53 +21,13 @@ export default function Map(props) {
 
         const [currentLatitude, setCurrentLatitude] = useState(0) ; 
         const [currentLongitude, setCurrentLongitude] = useState(0) ;
-
-
         const [isOpen, setIsOpen] = useState(false) ;
         const [magasin,setMagasin] = useState('');
+        const [stateLocation, setStateLocation] = useState([])
         const [waypoints , setWaypoints] = useState([]);
+        const [commercantList , setCommercantList] = useState([]);
+      Geocoder.init("AIzaSyD5OG3mJyZ7ogU9wiuUmngHz2GOvBr9SqU", {language : "fr"})
 
-  const commercantList = [{
-    nom:'Macdo',
-    horaire: '10h-17h',
-    statut: 'fast-food',
-    latitude:  48.9,  
-    longitude: 2.333333,
-    coordinate: '48.866667, 2.333333'
-
-  },{
-    nom:'burgerKing',
-    horaire: '10h-17h',
-    statut: 'fast-food',
-    latitude:  48.85,  
-    longitude: 2.34,
-    coordinate: '48.866667, 2.34'
-
-  },{
-    nom:'lidl',
-    horaire: '10h-17h',
-    latitude:  48.866667,  
-    statut: 'fast-food',
-    longitude: 2.355555,
-    coordinate: '48.866667, 2.355555'
-  },{
-    nom:'sushi',
-    horaire: '10h-17h',
-    statut: 'asiatique',
-    latitude:  48.866667,  
-    longitude: 2.37,
-    coordinate: '48.866667, 2.37'
-
-  },{
-    nom:'carotte',
-    statut: 'traiteur',
-    horaire: '10h-17h',
-    latitude:  48.866667,  
-    longitude: 2.32,
-    coordinate: '48.866667, 2.32'
-
-  },
-] ;
 
 
 var waypointsTest = [{
@@ -85,16 +45,7 @@ var waypointsTest = [{
   longitude: 2.37,
   coordinate: '48.866667, 2.37'
 
-}
-// ,{
-//   nom:'carotte',
-//   statut: 'traiteur',
-//   horaire: '10h-17h',
-//   latitude:  48.866667,  
-//   longitude: 2.32,
-//   coordinate: '48.866667, 2.32'
-
- ]
+}]
 
 
 // ***************************** ASK & SET localistaion ****************************** 
@@ -106,20 +57,40 @@ var waypointsTest = [{
             setErrorMsg('Permission to access location was denied');
             return;
           }
-          Location.watchPositionAsync({distanceInterval: 10}, (location) => { setCurrentLatitude(location.coords.latitude), setCurrentLongitude(location.coords.longitude) 
+          Location.watchPositionAsync({distanceInterval: 10}, (location) => { setCurrentLatitude(location.coords.latitude), setCurrentLongitude(location.coords.longitude)});
 
-          // var data = await fetch("http://192.168.0.109:3000/map") ;
-          // var response = await data.json();
+            var rawResponse = await fetch("http://192.168.0.109:3000/map", {
+              method: 'POST',
+              body: 'essai'
+            });
+            
+             rawResponse = await rawResponse.json();
+            setCommercantList(rawResponse)
 
 
+
+
+              for (let i = 0; i < rawResponse.commercantAfficher.length; i++) {
+
+                var location = rawResponse.commercantAfficher[i].address ; 
+                var tryIt =   await Location.geocodeAsync(location) ;
+
+                if(tryIt != 0){
+
+                  console.log(commercantList.commercantAfficher[i].address);
+                  
+                setStateLocation([...stateLocation,{latitude:tryIt[0].latitude,longitude:tryIt[0].longitude} ])
+          
+            }
+            }
+      
+            console.log(stateLocation);
 
           // setWaypoints(response.commercant)
           // setCurrentLatitude(response.adresse);
           // setCurrentLongitude(response.adresse); 
-         });
-        
-      })();
-    }) ;
+      })();  
+} ,[]) ;
       
  
 
@@ -160,11 +131,7 @@ var waypointsTest = [{
    var test = (bool,nom,horaire,statut) => {
 
     setIsOpen(bool) ;
-    setMagasin({
-        nom:nom,
-        horaire:horaire,
-        statut:statut
-    })
+console.log(nom,horaire,statut);
         
 }
 // ***************************** ADD commercant to itinéraire ****************************** 
@@ -183,7 +150,6 @@ function testAddToItinéraire (magasin) {
             isInside = true ;
             
         }
-        console.log('test',waypointsTest);
     }
 
      if (!isInside) {
@@ -194,11 +160,20 @@ function testAddToItinéraire (magasin) {
 }
 
 // ***************************** SHOW ALL THE MARKER  ****************************** 
-        
- var markerList =  commercantList.map((commercant,i)=>{
 
-return <Marker key={i} pinColor='blue' onPress={()=>test(true,commercant.nom,commercant.horaire)} title={commercant.nom} description={commercant.horaire} coordinate={{latitude: commercant.latitude, longitude: commercant.longitude}}/>
- })        
+if (commercantList != 0 && stateLocation !=0) {
+
+
+
+  var markerList = commercantList.commercantAfficher.map((commercant,i)=>{
+    return <Marker key={i} pinColor='blue' onPress={()=>test(true,commercant.enseignecommerciale,commercant.hours[0],commercant.type)} title={commercant.enseignecommerciale} coordinate={{latitude:stateLocation.latitude, longitude:stateLocation.longitude}} description={commercant.hours[0]}/>
+     })     
+
+     
+
+}
+
+   
 
 
 // ***************************** RETURN ****************************** 
@@ -271,12 +246,23 @@ return(
      description="I am here"
      draggable  // Rendre le marqueur drag & dropable
     />
+
+
+<Marker coordinate={{
+        latitude: 40.4774107 , longitude:  0.4663123
+      }}
+
+     title="Hello"
+     description="I am here"
+     draggable  // Rendre le marqueur drag & dropable
+    />
 {/* ***************************** MARQERUR LISTE  ******************************  */}
 
   {markerList} 
 
 </MapView> 
 </View>
+
 
 <View style={[{justifyContent:'space-around'}]}>
 
@@ -310,6 +296,13 @@ return(
 
 </View>
 
+
+
+<Text>Adaptez votre itinéraire en fonction de vos envies </Text>
+
+<Button title="START"
+        onPress={() => props.navigation.navigate('PreCommande')}
+      />
 
 
 
@@ -419,4 +412,9 @@ color:"#2E43D8",
   
   
   })
+
+)
+    
+}  
+
 

@@ -20,6 +20,7 @@ var commercantsSchema = mongoose.Schema({
     name: String,
     firstName: String,
     enseignecommerciale: String, 
+    type:String,
     email: String,
     password:String,
     address:String, 
