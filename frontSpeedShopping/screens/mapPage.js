@@ -7,10 +7,14 @@ import * as Location from 'expo-location';
 import { FontAwesome } from '@expo/vector-icons'; 
 import  MapViewDirections from'react-native-maps-directions'
 
+import * as Location from 'expo-location';
+import { FontAwesome } from '@expo/vector-icons'; 
+import  MapViewDirections from'react-native-maps-directions'
 
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // pour itineraire https://www.npmjs.com/package/react-native-maps-directions
 
@@ -94,7 +98,6 @@ var waypointsTest = [{
  
 
 
-
     // AsyncStorage.getItem("POI", function(error, data) {
     //   var dataParse = JSON.parse(data) ;
     //  if (dataParse !== null) {
@@ -150,7 +153,6 @@ function testAddToItinéraire (magasin) {
             isInside = true ;
             
         }
-
     }
 
      if (!isInside) {
@@ -291,5 +293,5 @@ return(
 
 )
     
-    
-}
+}  
+
