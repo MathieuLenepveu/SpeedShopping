@@ -8,7 +8,8 @@ var userSchema = mongoose.Schema({
     email: String,
     password:String,
     address:String, 
-    phonenumer: Number, 
+    phonenumer: Number,
+    besoin:Array, 
     userCommandes : [{ type: mongoose.Schema.Types.ObjectId, ref: 'articles' }],
   });
   

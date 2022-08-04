@@ -2,7 +2,8 @@
 import React from 'react';
 import {View} from 'react-native';
 import {Button,Input } from 'react-native-elements';
-
+import { LogBox } from 'react-native';
+LogBox.ignoreAllLogs();
 
 
 // import { StatusBar } from 'expo-status-bar';
@@ -13,7 +14,7 @@ import ajoutArticlePage from './screens/ajoutArticlePage'
 import commandesCommercant from './screens/commandesCommercant'
 import homePage from './screens/homePage'
 import itinerairePage from './screens/itinerairePage'
-import mapPage from './screens/map'
+import mapPage from './screens/mapPage'
 import monStore from './screens/monStore'
 import navigationPage from './screens/navigationPage'
 import paiement from './screens/paiement'
@@ -46,9 +47,9 @@ const configurateur = () => {
           let iconName;
 
           if (route.name == 'Speed Selection') {
-            iconName = 'null';
+            iconName = 'home';
           } else if (route.name == 'Gérer la selection') {
-            iconName = 'null';
+            iconName = 'home';
           }
   
           return <Ionicons name={iconName} size={25} color={color} />;
@@ -149,7 +150,7 @@ const configurateur = () => {
             }
           }}
         >
-           <Tab.Screen name="Mon Compte" component={profilCommercant} />
+          <Tab.Screen name="Mon Compte" component={profilCommercant} />
           <Tab.Screen name="Mes Commandes" component={commandesCommercant} />
           <Tab.Screen name="Mon Store" component={gestionStore} />
         </Tab.Navigator>
