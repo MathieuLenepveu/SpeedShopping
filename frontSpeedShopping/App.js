@@ -3,7 +3,11 @@ import React from 'react';
 import {LogBox, View} from 'react-native';
 LogBox.ignoreLogs(['Warning:...']);
 import {Button,Input } from 'react-native-elements';
+<<<<<<< HEAD
 
+=======
+LogBox.ignoreAllLogs();
+>>>>>>> 42f591359b0c7037e837480d4c28b8c843b08fa7
 
 
 // import { StatusBar } from 'expo-status-bar';
@@ -39,35 +43,37 @@ const Tab = createBottomTabNavigator();
 
 /*Creation du naviguateur TAB dans la page Itineraire "Configurateur"*/
 
-const configurateur = () => {
-  return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ color }) => {
-          let iconName;
+// const configurateur = () => {
+//   return (
+//     <Tab.Navigator
+//       screenOptions={({ route }) => ({
+//         tabBarIcon: ({ color }) => {
+//           let iconName;
 
-          if (route.name == 'Speed Selection') {
-            iconName = 'home';
-          } else if (route.name == 'Gérer la selection') {
-            iconName = 'home';
-          }
+//           if (route.name == 'Speed Selection') {
+//             iconName = 'null';
+//           } else if (route.name == 'Gérer la selection') {
+//             iconName = 'null';
+//           }
+        
+
   
-          return <Ionicons name={iconName} size={25} color={color} />;
-        },
-        })}
-      tabBarOptions={{
-        activeTintColor: '#eb4d4b',
-        inactiveTintColor: '#FFFFFF',
-        style: {
-          backgroundColor: '#130f40',
-        }
-      }}
-    >
-      <Tab.Screen name="Speed Selection" component={mapPage} />
-      <Tab.Screen name="Gérer la selection" component={itinerairePage} />
-    </Tab.Navigator>
-  );
-    }
+//           return <Ionicons name={iconName} size={25} color={color} />;
+//         },
+//         })}
+//       tabBarOptions={{
+//         activeTintColor: '#eb4d4b',
+//         inactiveTintColor: '#FFFFFF',
+//         style: {
+//           backgroundColor: '#130f40',
+//         }
+//       }}
+//     >
+//       <Tab.Screen name="Speed Selection" component={mapPage} />
+//       <Tab.Screen name="Gérer la selection" component={itinerairePage} />
+//     </Tab.Navigator>
+//   );
+//     }
 
 
     /*Creation du naviguateur TAB dans la page  profilUser "monProfilUser" */
@@ -177,7 +183,7 @@ export default function App() {
       <Stack.Screen name="PreCommande" component={preCommandePage} />
       <Stack.Screen name="Navigation" component={navigationPage} />
       <Stack.Screen name="Panier" component={panier} /> 
-      <Stack.Screen name="ConfigurateurItineraire" component={configurateur} />
+      <Stack.Screen name="ConfigurateurItineraire" component={mapPage} />
       <Stack.Screen name="Paiement" component={paiement} />
       <Stack.Screen name="MonProfil" component={monProfilUser} />
       <Stack.Screen name="MonStore" component={monProfilVendeur} />
@@ -189,6 +195,4 @@ export default function App() {
   
 );
 }
-
-
 
