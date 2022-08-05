@@ -80,11 +80,11 @@ router.post('/sign-up', async function(req, res, next) {
 
     var newUser = new UserModel ({
       name: req.body.username, 
-      firtsName: 'Geoffroy', 
+      firstName: req.body.username,  
       password: req.body.pwd,  
       email: req.body.email, 
-      phonenumer: 0629095, 
-      address: "125 rue des chameaux", 
+      phonenumer: req.body.phonenumber, 
+      address: req.body.address, 
     });
 
     await newUser.save()
@@ -95,7 +95,7 @@ router.post('/sign-up', async function(req, res, next) {
    // req.session.user = newUser
 
     // We can render the next page 
-    res.render('index');
+    res.json( );
     
   }  
 });
@@ -287,19 +287,27 @@ router.delete('/sign-up', async function(req, res, next) {
 router.post('/map',async function(req, res, next) {
   var commercantAfficher = [] ;
 
-  var user = await UserModel.find({name:'Smith'}) ;
   var commercant = await CommercantModel.find() ;
 
+      var besoin = req.body
+      besoin = besoin.redux
+console.log(besoin);
 
-  for (let i = 0; i < user[0].besoin.length; i++) {
+if (besoin.length !== 0 ) {
+
+  for (let i = 0; i < besoin.length; i++) {
     for (let j = 0; j < commercant.length; j++) {
-
-      if (user[0].besoin[i] == commercant[j].type) {
-        commercantAfficher.push(commercant[j])
-        
+      if (besoin[i] == commercant[j].type) {
+        commercantAfficher.push(commercant[j])  
       }
     }
   }
+  
+}
+
+console.log(commercantAfficher);
+
+
   res.json({commercantAfficher});
 });
 
