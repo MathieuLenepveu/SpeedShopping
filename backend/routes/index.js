@@ -25,10 +25,12 @@ router.get('/:userId/mycommandes', async function(req, res, next) {
 
 /* Post Sign-in */
 router.post('/sign-in', async function(req, res, next) {
-
+  
+   var isLogin= 'True', 
+   
    console.log(req.body)
 
-  var user = await UserModel.find({ email: req.body.signInEmail, password: req.body.signInPassword })
+  var user = await UserModel.find({ email: req.body.email, password: req.body.pwd })
   if(user.length > 0){
 
     //console.log(' /sign IN : We do have a user with this email')
@@ -37,7 +39,7 @@ router.post('/sign-in', async function(req, res, next) {
     req.session.user = user[0]
 
     // We can render the next page 
-    res.render('index', {user:req.session.user });
+    res.json();
 
   }else{
 
