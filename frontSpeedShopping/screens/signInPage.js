@@ -1,10 +1,8 @@
 import React from 'react';
 import {View,TextInput, Pressable,  StyleSheet, Text} from 'react-native';
 import {Button,Input } from 'react-native-elements';
-
-
-
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {useState} from "react";
 
 
 /*Bouton de validation SIGN IN à gérer en ETAT pour renvoyer vers le profil type CLIENT/COMMERCANT ---- DEFAUT LIEN VERS ESPACE CLIENT*/
@@ -12,6 +10,30 @@ import {Button,Input } from 'react-native-elements';
 
 
 export default function signInPage(props) {
+
+
+  const [signinEmail, setSigninEmail] = useState("");
+  const [signinPwd, setSigninPwd] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  var handleSubmitSignIn = async () => {
+    var res = await fetch("http://172.16.189.14:3000/sign-in", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `email=${signinEmail}&pwd=${signinPwd}`,
+    });
+    res = await res.json();
+    if (res.isLogin) {
+      AsyncStorage.setItem("userID", res.userID);
+      props.navigation.navigate("Home");
+    } else {
+      setErrorMessage(res.errorMessage);
+     
+    }
+  };
+
+
+
     return (
 
   
@@ -20,37 +42,22 @@ export default function signInPage(props) {
       <Text>Veuillez dévoiler votre identité : </Text>
       <TextInput
         style={styles.input}
-        placeholder='Username'
-        autoCapitalize="none"
-        placeholderTextColor='white'
-        onChangeText={val => this.onChangeText('username', val)}
-
-      />
+        onChangeText={(email) => setSigninEmail(email)}
+        value={signinEmail}
+        placeholder="geoffroy.goirand@gmail.com"
+              />
+     
       <TextInput
         style={styles.input}
-        placeholder='Password'
         secureTextEntry={true}
-        autoCapitalize="none"
-        placeholderTextColor='white'
-        onChangeText={val => this.onChangeText('password', val)}
+        onChangeText={(pwd) => setSigninPwd(pwd)}
+        value={signinPwd}
+        placeholder="Password"
       />
-      <TextInput
-        style={styles.input}
-        placeholder='Email'
-        autoCapitalize="none"
-        placeholderTextColor='white'
-        onChangeText={val => this.onChangeText('email', val)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder='Phone Number'
-        autoCapitalize="none"
-        placeholderTextColor='white'
-        onChangeText={val => this.onChangeText('phone_number', val)}
-      />
+     
   
       <Pressable style={styles.button} 
-       onPress={() => props.navigation.navigate('ItinerairePage')}>
+       onPress={() => handleSubmitSignIn()}>
       <Text style={styles.text}>Sign In</Text>
     </Pressable>
     </View>
