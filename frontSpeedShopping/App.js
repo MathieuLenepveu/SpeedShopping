@@ -34,6 +34,10 @@ import {Provider} from 'react-redux';
 
 import { Ionicons } from '@expo/vector-icons';
 
+import {Provider} from 'react-redux';
+
+import {createStore, combineReducers}  from 'redux';
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -171,7 +175,11 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     
+
     <Provider store={store}>
+
+
+
     <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen name="Accueil" component={accueil} />
@@ -187,7 +195,9 @@ export default function App() {
       <Stack.Screen name="MonStore" component={monProfilVendeur} />
     </Stack.Navigator>
   </NavigationContainer>
+
 </Provider>
+
   
 );
 }

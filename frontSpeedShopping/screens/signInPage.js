@@ -50,7 +50,7 @@ export default function signInPage(props) {
       />
   
       <Pressable style={styles.button} 
-       onPress={() => props.navigation.navigate('Mon Profil')}>
+       onPress={() => props.navigation.navigate('ItinerairePage')}>
       <Text style={styles.text}>Sign In</Text>
     </Pressable>
     </View>
