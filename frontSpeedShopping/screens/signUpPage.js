@@ -16,6 +16,8 @@ export default function signUpPage(props) {
   const [signupEmail, setSignupEmail] = useState("");
   const [signupPwd, setSignupPwd] = useState("");
   const [signupUserName, setSignupUserName] = useState("");
+  const [signupPhoneNumber, setSignupPhoneNumber] = useState("");
+  const [signupAddress, setSignupAddress] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
 
@@ -23,7 +25,7 @@ export default function signUpPage(props) {
     var res = await fetch("http://172.16.189.14:3000/sign-up", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `email=${signupEmail}&pwd=${signupPwd}&username=${signupUserName}`,
+      body: `email=${signupEmail}&pwd=${signupPwd}&username=${signupUserName}&phonenumber=${signupPhoneNumber}&address=${signupAddress}`,
     });
     res = await res.json();
     if (res.isLogin) {
@@ -41,14 +43,26 @@ export default function signUpPage(props) {
         style={styles.input}
         onChangeText={(username) => setSignupUserName(username)}
         value={signupUserName}
-        placeholder="geoffroy.goirand"
+        placeholder="Identifiant"
       />
     
       <TextInput
         style={styles.input}
         onChangeText={(email) => setSignupEmail(email)}
         value={signupEmail}
-        placeholder="geoffroy.goirand@gmail.com"
+        placeholder="Mail"
+      />
+       <TextInput
+        style={styles.input}
+        onChangeText={(phonenumber) => setSignupPhoneNumber(phonenumber)}
+        value={signupPhoneNumber}
+        placeholder="Phone Number"
+      />
+       <TextInput
+        style={styles.input}
+        onChangeText={(address) => setSignupAddress(address)}
+        value={signupAddress}
+        placeholder="Adresse"
       />
       <TextInput
         style={styles.input}

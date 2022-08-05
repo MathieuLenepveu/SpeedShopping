@@ -78,11 +78,11 @@ router.post('/sign-up', async function(req, res, next) {
 
     var newUser = new UserModel ({
       name: req.body.username, 
-      firsname: 'Geoffroy'
+      firstName: req.body.username,  
       password: req.body.pwd,  
       email: req.body.email, 
-      phonenumer: 0629095, 
-      address: "125 rue des chameaux", 
+      phonenumer: req.body.phonenumber, 
+      address: req.body.address, 
     });
 
     await newUser.save()
