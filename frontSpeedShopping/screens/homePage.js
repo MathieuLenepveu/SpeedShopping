@@ -236,6 +236,7 @@ borderRadius : 10,
 textAlign : "center",
 justifyContent : "center",
 backgroundColor: '#93CAEF',
+color: 'black',
 
   },
 
