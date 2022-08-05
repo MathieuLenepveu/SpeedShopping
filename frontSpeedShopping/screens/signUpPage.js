@@ -81,9 +81,18 @@ export default function signUpPage(props) {
         fontSize: 18,
         fontWeight: '500',
       },
-      button : {
-        color: '#052640', 
-      }, 
+      button: {
+        padding: 20,
+        margin: 10,
+        alignItems: "center", 
+        justifyContent: "center", 
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: '#f0f0f0',
+        backgroundColor: '#2294DF', 
+        width: 200, 
+        borderRadius: 8, 
+        color: "#FFFFFF"
+      },  
       container: {
         flex: 1,
         justifyContent: 'center',

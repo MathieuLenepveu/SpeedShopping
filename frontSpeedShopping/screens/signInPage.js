@@ -81,12 +81,16 @@ export default function signInPage(props) {
         fontWeight: '500',
       },
       button: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 80, 
-        height: 55, 
-        backgroundColor: '#C2D4E3', 
+        padding: 20,
+        margin: 10,
+        alignItems: "center", 
+        justifyContent: "center", 
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: '#f0f0f0',
+        backgroundColor: '#2294DF', 
+        width: 200, 
         borderRadius: 8, 
+        color: "#FFFFFF"
       }, 
       container: {
         flex: 1,
