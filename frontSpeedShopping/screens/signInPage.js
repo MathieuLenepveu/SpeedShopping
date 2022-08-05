@@ -60,6 +60,10 @@ export default function signInPage(props) {
        onPress={() => handleSubmitSignIn()}>
       <Text style={styles.text}>Sign In</Text>
     </Pressable>
+    <Pressable style={styles.button} 
+       onPress={() => props.navigation.navigate('Home')}>
+      <Text style={styles.text}>Suivre l'itinéraire</Text>
+    </Pressable>
     </View>
 
     )

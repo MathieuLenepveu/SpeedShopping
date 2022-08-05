@@ -55,28 +55,34 @@ router.post('/sign-up', async function(req, res, next) {
 
   // console.log(' /Sign-Up : result from the front -->',req.body)
 
-  var user = await UserModel.find({ email: req.body.signUpEmail })
+
+
+  console.log(req.body.username)
   
-  if(user.length > 0){
+  
+  if(!req.body.username){
 
     //console.log('We already have a user with this email')
 
     // Session
-    req.session.user = user
+    //req.session.user = user
 
     // We can render the next page 
-    res.render('index', { title: 'Express',user:req.session.user });
+    res.render('index', { title: 'Express' });
 
   }else{
 
     //console.log(' /Sign-UP : We dont have a user with this email, so we need to save it')
 
+    console.log(req.body.username)
+
     var newUser = new UserModel ({
-      name: req.body.signUpName, 
-      firstName: req.body.signUpFirstName, 
-      password: req.body.signUpPassword, 
-      address: req.body.signUpAddress, 
-      email: req.body.signUpEmail, 
+      name: req.body.username, 
+      firsname: 'Geoffroy'
+      password: req.body.pwd,  
+      email: req.body.email, 
+      phonenumer: 0629095, 
+      address: "125 rue des chameaux", 
     });
 
     await newUser.save()
@@ -84,10 +90,10 @@ router.post('/sign-up', async function(req, res, next) {
     //console.log(' /Sign-UP : Our new user -->',newUser)
 
     // Session
-    req.session.user = newUser
+   // req.session.user = newUser
 
     // We can render the next page 
-    res.render('index', {user: req.session.user});
+    res.render('index');
     
   }  
 });
