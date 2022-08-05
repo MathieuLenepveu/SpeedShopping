@@ -26,7 +26,7 @@ router.get('/:userId/mycommandes', async function(req, res, next) {
 /* Post Sign-in */
 router.post('/sign-in', async function(req, res, next) {
 
-   //console.log(' /sign-In : result from the front -->',req.body)
+   console.log(req.body)
 
   var user = await UserModel.find({ email: req.body.signInEmail, password: req.body.signInPassword })
   if(user.length > 0){
