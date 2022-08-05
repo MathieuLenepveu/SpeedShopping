@@ -37,7 +37,7 @@ router.post('/sign-in', async function(req, res, next) {
     req.session.user = user[0]
 
     // We can render the next page 
-    res.render('index', {user:req.session.user });
+    res.json();
 
   }else{
 
