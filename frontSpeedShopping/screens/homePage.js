@@ -1,18 +1,57 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react' ;
 import {View, Text,TextInput, StyleSheet, RecyclerViewBackedScrollView,TouchableOpacity,Pressable } from 'react-native';
+import { useDispatch} from 'react-redux';
 import {Button,Input } from 'react-native-elements';
-
 import {Ionicons} from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-
-
-
-
-
 export default function homePage(props) {
 
+  const [depart, setDepart] = useState('');
+  const [arrive, setArrive] = useState('');
+  const [horaire, setHoraire] = useState('');
+  const [transport, setTransport] = useState('');
+  const [besoinTest, setBesoin] = useState([])
+  const dispatch = useDispatch() ;
+
+
+  function start(depart,arrive,horaire,transport,besoin) {
+
+    dispatch({
+            type:'itineraire/setItineraire',
+            payload: {                       
+              depart:depart,
+              arrive:arrive,
+              horaire:horaire,
+              transport:transport,
+              besoin:besoin
+            }
+           }) 
+    props.navigation.navigate('ConfigurateurItineraire')
+  }
+
+
+
+function test(besoin) {
+
+     var newTab = [...besoinTest]
+     var isInside = false;
+
+     for (let i = 0; i < newTab.length ; i++) {
+      if (newTab[i] === besoin) {
+        newTab.splice(i,1)
+        isInside = true
+      }
+    }
+     if (!isInside) {
+      newTab.push(besoin)
+     }
+    setBesoin(newTab)
+    
+  }
+
+  
   return (
   <View style={styles.container} >
 
@@ -35,15 +74,20 @@ export default function homePage(props) {
       {/* INPUT POSITION USER  */}
 
       <Text style={styles.text}>On va jusqu'où?</Text>
-                <TextInput style={styles.input}
+                <Input 
                             placeholder='Ta position ?'
+                            onChange={(e) => setDepart(e.nativeEvent.text)}
+                            value={depart} 
                   />
                 
-                <TextInput style={styles.input}
+                <Input
                             placeholder='Ton point de chute ?'
-                  />
-      
-      </View>     
+                            onChange={(e) => setArrive(e.nativeEvent.text)}
+                            value={arrive}
+                  /> 
+
+  
+      </View>    
       <View style={styles.bloc}>
 
 {/* INPUT MOYEN DE LOCOMOTION USER  */} 
@@ -54,21 +98,25 @@ export default function homePage(props) {
         <Icon 
                 style={styles.icon}
                 name='car'
+                onPress={()=> {setTransport('DRIVING')}}
                 size={24}
                 />
         <Icon
                 style={styles.icon}
                 name='subway'
+                onPress={()=> {setTransport('TRANSIT')}}
                 size={24}
                 />
         <Icon
                 style={styles.icon}
                 name='bicycle'
+                onPress={()=> {setTransport('BICYCLING')}}
                 size={24}
                 />
         <Icon
                 style={styles.icon}
                 name='male'
+                onPress={()=> {setTransport('WALKING')}}
                 size={24}
                 />          
 
@@ -76,14 +124,16 @@ export default function homePage(props) {
 
 
       </View>
+
     <View style={styles.bloc}>
 
- 
        {/* INPUT DATE ET HEURE DE COLLECT  */}  
 
        <Text style={styles.text}>On fait ça quand ?</Text>
-          <TextInput style={styles.input}
+          <TextInput 
                     placeholder='Date et Heure de collect ?'
+                    onChange={(e) => setHoraire(e.nativeEvent.text)} 
+                    value={horaire}
                   />
 
     </View>
@@ -96,28 +146,30 @@ export default function homePage(props) {
 <View style={[{flexDirection:"row"}, {marginTop :15} ]}>
 <TouchableOpacity
         style={styles.button2}
-        onPress={undefined}
+        onPress={()=> {test('boucher',depart,arrive)}}
       >
         <Text>Boucher</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button2}
-        onPress={undefined}      >
+        onPress={()=> test('Boulanger')}>
         <Text>Boulanger</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button2}
-        onPress={undefined}      >
+        onPress={()=> test('Primeur')}>
+
         <Text>Primeur</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button2}
-        onPress={undefined}      >
+        onPress={()=> test('Fleuriste')}>
+
         <Text>Fleuriste</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button2}
-        onPress={undefined}      >
+        onPress={()=> test('Tabac')}>
         <Text>Tabac</Text>
       </TouchableOpacity>
 
@@ -125,23 +177,26 @@ export default function homePage(props) {
 <View style={[{flexDirection:"row"}, {marginTop :15} ]}>
 <TouchableOpacity
         style={styles.button2}
-        onPress={undefined}
+        onPress={()=> test('Poissonerie')}
       >
         <Text>Poissonerie</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button2}
-        onPress={undefined}      >
+        onPress={()=> test('Droguerie')}
+>
         <Text>Droguerie</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button2}
-        onPress={undefined}      >
+        onPress={()=> test('Epicerie')}
+>
         <Text>Epicerie</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button2}
-        onPress={undefined}      >
+        onPress={()=> test('Patisserie')}
+>
         <Text>Patisserie</Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -163,7 +218,7 @@ export default function homePage(props) {
 
 <TouchableOpacity
         style={styles.button1}
-        onPress={() => props.navigation.navigate('ConfigurateurItineraire')}
+        onPress={() => start(depart,arrive,horaire,transport,besoinTest)}
       >
         <Text>START !</Text>
       </TouchableOpacity>
@@ -236,7 +291,6 @@ borderRadius : 10,
 textAlign : "center",
 justifyContent : "center",
 backgroundColor: '#93CAEF',
-
   },
 
   icon:{

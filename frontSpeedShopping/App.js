@@ -12,7 +12,6 @@ import accueil from './screens/accueil'
 import ajoutArticlePage from './screens/ajoutArticlePage'
 import commandesCommercant from './screens/commandesCommercant'
 import homePage from './screens/homePage'
-import itinerairePage from './screens/itinerairePage'
 import mapPage from './screens/mapPage'
 import monStore from './screens/monStore'
 import navigationPage from './screens/navigationPage'
@@ -29,6 +28,9 @@ import signUpPage from './screens/signUpPage'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import {store} from './reducers/redux' ;
+import {Provider} from 'react-redux';
 
 import { Ionicons } from '@expo/vector-icons';
 
@@ -174,6 +176,10 @@ export default function App() {
   return (
     
 
+    <Provider store={store}>
+
+
+
     <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen name="Accueil" component={accueil} />
@@ -187,11 +193,10 @@ export default function App() {
       <Stack.Screen name="Paiement" component={paiement} />
       <Stack.Screen name="MonProfil" component={monProfilUser} />
       <Stack.Screen name="MonStore" component={monProfilVendeur} />
-      
-
     </Stack.Navigator>
   </NavigationContainer>
 
+</Provider>
 
   
 );

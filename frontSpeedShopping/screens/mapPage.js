@@ -1,11 +1,20 @@
 import React, {useState, useEffect} from 'react' ;
+
+
+import {useSelector, useDispatch} from 'react-redux';
+
+
 import { View,Text,TouchableOpacity,StyleSheet, ScrollView, Pressable} from 'react-native' ;
+
 import {Button,Overlay, Input,ListItem, Tab} from 'react-native-elements';
+
+import * as Location from 'expo-location';
+import  MapViewDirections from'react-native-maps-directions'
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import Geocoder from 'react-native-geocoding';
-import * as Location from 'expo-location';
+
+
 import { FontAwesome } from '@expo/vector-icons'; 
-import  MapViewDirections from'react-native-maps-directions'
 
 
 // import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -23,29 +32,21 @@ export default function Map(props) {
         const [currentLongitude, setCurrentLongitude] = useState(0) ;
         const [isOpen, setIsOpen] = useState(false) ;
         const [magasin,setMagasin] = useState('');
-        const [stateLocation, setStateLocation] = useState([])
+        
+        const [depart,setDepart] = useState('');
+        const [arrive,setArrive] = useState('');
+        const [transport,setTransport] = useState('');
+        const [besoin,setBesoin] = useState([]);
+
+
+
+
         const [waypoints , setWaypoints] = useState([]);
         const [commercantList , setCommercantList] = useState([]);
       Geocoder.init("AIzaSyD5OG3mJyZ7ogU9wiuUmngHz2GOvBr9SqU", {language : "fr"})
+      const redux = useSelector((state)=> state ) ;
 
 
-
-var waypointsTest = [{
-  nom:'lidl',
-  horaire: '10h-17h',
-  latitude:  48.866667,  
-  statut: 'surface',
-  longitude: 2.355555,
-  coordinate: '48.866667, 2.355555'
-},{
-  nom:'sushi',
-  horaire: '10h-17h',
-  statut: 'asiatique',
-  latitude:  48.866667,  
-  longitude: 2.37,
-  coordinate: '48.866667, 2.37'
-
-}]
 
 
 // ***************************** ASK & SET localistaion ****************************** 
@@ -58,13 +59,31 @@ var waypointsTest = [{
             return;
           }
           Location.watchPositionAsync({distanceInterval: 10}, (location) => { setCurrentLatitude(location.coords.latitude), setCurrentLongitude(location.coords.longitude)});
+// ***************************** RECEPTION STORE ****************************** 
 
-            var rawResponse = await fetch("http://192.168.0.109:3000/map", {
-              method: 'POST',
-              body: 'essai'
-            });
-            
-             rawResponse = await rawResponse.json();
+          setDepart(redux.saveIti.depart)
+          setArrive(redux.saveIti.arrive)
+          setTransport(redux.saveIti.transport)
+          setBesoin(redux.saveIti.besoin)
+
+
+// ***************************** ASK & SET commercantList ****************************** 
+
+// fetch("http://192.168.0.109:3000/map", {
+//               method: 'POST',
+//               body:'oui'
+//             });
+            var rawResponse = await fetch('http://192.168.0.109:3000/map', {
+                      method: 'POST',
+                      headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                      },
+                      body: JSON.stringify({redux:redux.saveIti.besoin})
+                    });
+                                
+
+            rawResponse = await rawResponse.json();
 
             var newTab= [];
               for (let i = 0; i < rawResponse.commercantAfficher.length; i++) {
@@ -74,37 +93,25 @@ var waypointsTest = [{
                 if(tryIt != 0){
 
                    newTab = [...rawResponse.commercantAfficher]
-                   newTab[i].address = {latitude  :tryIt[0].latitude,longitude : tryIt[0].longitude }
+                   newTab[i].address = {latitude:tryIt[0].latitude,longitude : tryIt[0].longitude }
                    setCommercantList(newTab)
             }
             }
   
 
-          // setWaypoints(response.commercant)
-          // setCurrentLatitude(response.adresse);
-          // setCurrentLongitude(response.adresse); 
+
       })();  
 } ,[]) ;
       
- 
-console.log('essaie',commercantList);
 
-
+console.log(depart,arrive);
 
 
     // AsyncStorage.getItem("POI", function(error, data) {
     //   var dataParse = JSON.parse(data) ;
     //  if (dataParse !== null) {
     //   dataParse.map((poi,i)=>{
-    //     dispatch({
-    //       type:'POI/setPOI',
-    //       payload: {                           STORE
-    //         title:poi.title,
-    //         description:poi.description,
-    //         latitude:poi.latitude,
-    //         longitude:poi.longitude
-    //       }
-    //      }) 
+    //     
     //   })
     //  }
 
@@ -127,8 +134,15 @@ console.log('essaie',commercantList);
 
    var test = (bool,nom,horaire,statut) => {
 
+
     setIsOpen(bool) ;
-console.log(nom,horaire,statut);
+    setMagasin({
+      nom : nom,
+      ouverture: horaire.HeuresOuverts,
+      fermeture: horaire.Heuresfermes
+    })
+
+
         
 }
 // ***************************** ADD commercant to itinéraire ****************************** 
@@ -161,24 +175,40 @@ function testAddToItinéraire (magasin) {
 if (commercantList != 0 ) {
 
   var markerList = commercantList.map((commercant,i)=>{
-  console.log(commercant.address);
-    return <Marker key={i} pinColor='blue' onPress={()=>test(true,commercant.enseignecommerciale,commercant.hours[0],commercant.type)} title={commercant.enseignecommerciale} coordinate={{latitude :commercant.address.latitude, longitude: commercant.address.longitude}} description={commercant.hours[0]}/>
+
+  //   var newTab = [...waypoints] ;
+
+  // newTab.push({
+  //   latitude:commercant.address.latitude,
+  //   longitude:commercant.address.longitude
+  // })
+
+  // setWaypoints(newTab) ;
+
+    return <Marker 
+    key={i} 
+    pinColor='blue' 
+    onPress={()=>test(true,commercant.enseignecommerciale, commercant.hours[0], commercant.type)}
+    coordinate={{latitude :commercant.address.latitude, longitude: commercant.address.longitude}}
+    title={commercant.enseignecommerciale}
+    description={`${commercant.hours[0].HeuresOuverts}h - ${commercant.hours[0].Heuresfermes}h`}
+    />
      })     
+    
 
 }
 
 
 
-if (commercantList != 0 ) {
+if (commercantList != 0 && depart != '' && arrive != '' && transport != '' ) {
 
     var directions = 
     <MapViewDirections
-    origin={commercantList[0].address}
-    waypoints={waypointsTest}
-    destination={commercantList[0].address}
-    mode="DRIVING"
+    origin={commercantList[0]}
+    // waypoints={waypoints}
+    destination={commercantList[1]}
+    mode={transport}
     optimizeWaypoints={true}
-    // onReady={(result)=> {console.log(result);}}
     timePrecision="now"
     apikey='AIzaSyD5OG3mJyZ7ogU9wiuUmngHz2GOvBr9SqU'
     strokeWidth={3}
@@ -205,9 +235,7 @@ return(
 <Overlay isVisible={isOpen} overlayStyle={{width: '70%', justifyContent:'center', alignItems:'center'}} onBackdropPress={closeOverlay}>
 
               <Text>{magasin.nom} </Text>
-              <Text>{magasin.statut} </Text>
-              <Text>{magasin.horaire} </Text>
-
+              <Text>{magasin.ouverture}h - {magasin.fermeture}h </Text>
                 
                 <Button
                 icon={
@@ -245,17 +273,6 @@ return(
 <Marker coordinate={{
         latitude: currentLatitude , longitude: currentLongitude
       }}
-
-     title="Hello"
-     description="I am here"
-     draggable  // Rendre le marqueur drag & dropable
-    />
-
-
-<Marker coordinate={{
-        latitude: 40.4774107 , longitude:  0.4663123
-      }}
-
      title="Hello"
      description="I am here"
      draggable  // Rendre le marqueur drag & dropable
@@ -270,15 +287,6 @@ return(
 
 <View style={[{justifyContent:'space-around'}]}>
 
-{/* BOUTON MISE A JOUR*/}
-
-
-<TouchableOpacity
-        style={styles.button3}
-        onPress={() => props.navigation.navigate('ConfigurateurItineraire')}
-      >
-        <Text>METTRE A JOUR L'ITINERAIRE</Text>
-      </TouchableOpacity>
 
 {/* BOUTON PRE COMMANDE*/}
 
