@@ -4,12 +4,6 @@ import {Button,Input } from 'react-native-elements';
 
 
 
-
-
-
-
-
-
 export default function monStore(props) {
     return (
       <View>
@@ -17,9 +11,10 @@ export default function monStore(props) {
         // onPress={() => props.navigation.navigate('monStore')}
       />
 
-<Button title="Ajouter un Article"
-        onPress={() => props.navigation.navigate('MesArticles')}
-      />
+<Pressable style={styles.button} 
+       onPress={() => props.navigation.navigate('Mes articles')}>
+      <Text style={styles.text}>Mes articles</Text>
+    </Pressable>
 
 <Text>
 PAGE DE VISUALISATION DU STORE COMMERCANT

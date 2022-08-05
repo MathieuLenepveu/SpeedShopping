@@ -18,7 +18,7 @@ var newItineraire = {
     transport: action.payload.transport,
 }
 
-
+console.log(action.payload.besoin);
 return newItineraire
 
   }

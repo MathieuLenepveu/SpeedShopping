@@ -30,9 +30,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import {store} from './reducers/redux' ;
-import {Provider} from 'react-redux';
 
 import { Ionicons } from '@expo/vector-icons';
+
+import {Provider} from 'react-redux';
+
+import {createStore, combineReducers}  from 'redux';
 
 
 const Stack = createStackNavigator();

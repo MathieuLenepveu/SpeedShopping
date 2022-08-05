@@ -1,8 +1,5 @@
 import React, {useState, useEffect} from 'react' ;
-
-import {useSelector, useDispatch} from 'react-redux';
-
-import { View,Text,TouchableOpacity,StyleSheet, ScrollView} from 'react-native' ;
+import { View,Text,TouchableOpacity,StyleSheet, ScrollView, Pressable} from 'react-native' ;
 import {Button,Overlay, Input,ListItem, Tab} from 'react-native-elements';
 
 import * as Location from 'expo-location';
@@ -10,6 +7,7 @@ import  MapViewDirections from'react-native-maps-directions'
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import Geocoder from 'react-native-geocoding';
 
+import { useSelector, useDispatch } from 'react-redux'
 
 import { FontAwesome } from '@expo/vector-icons'; 
 
@@ -38,6 +36,7 @@ export default function Map(props) {
 
 
 
+
         const [waypoints , setWaypoints] = useState([]);
         const [commercantList , setCommercantList] = useState([]);
       Geocoder.init("AIzaSyD5OG3mJyZ7ogU9wiuUmngHz2GOvBr9SqU", {language : "fr"})
@@ -55,7 +54,7 @@ export default function Map(props) {
             setErrorMsg('Permission to access location was denied');
             return;
           }
-          Location.watchPositionAsync({distanceInterval: 10}, (location) => { setCurrentLatitude(location.coords.latitude), setCurrentLongitude(location.coords.longitude)});
+          Location.watchPositionAsync({distanceInterval: 10000}, (location) => { setCurrentLatitude(location.coords.latitude), setCurrentLongitude(location.coords.longitude)});
 // ***************************** RECEPTION STORE ****************************** 
 
           setDepart(redux.saveIti.depart)
@@ -66,11 +65,8 @@ export default function Map(props) {
 
 // ***************************** ASK & SET commercantList ****************************** 
 
-// fetch("http://192.168.0.109:3000/map", {
-//               method: 'POST',
-//               body:'oui'
-//             });
-            var rawResponse = await fetch('http://192.168.0.109:3000/map', {
+
+            var rawResponse = await fetch('http://172.20.10.2:3000/map', {
                       method: 'POST',
                       headers: {
                         Accept: 'application/json',
@@ -99,23 +95,6 @@ export default function Map(props) {
 
       })();  
 } ,[]) ;
-      
-
-console.log(depart,arrive);
-
-
-    // AsyncStorage.getItem("POI", function(error, data) {
-    //   var dataParse = JSON.parse(data) ;
-    //  if (dataParse !== null) {
-    //   dataParse.map((poi,i)=>{
-    //     
-    //   })
-    //  }
-
-    // });
-
-
-
 
 
 
@@ -197,24 +176,23 @@ if (commercantList != 0 ) {
 
 
 
-if (commercantList != 0 && depart != '' && arrive != '' && transport != '' ) {
 
-    var directions = 
-    <MapViewDirections
-    origin={commercantList[0]}
-    // waypoints={waypoints}
-    destination={commercantList[1]}
-    mode={transport}
-    optimizeWaypoints={true}
-    timePrecision="now"
-    apikey='AIzaSyD5OG3mJyZ7ogU9wiuUmngHz2GOvBr9SqU'
-    strokeWidth={3}
-  />
-}
+if (commercantList != 0) {
+  
 
-   
+  var directions = 
+  <MapViewDirections
+  origin={depart}
+  waypoints={[{latitude:commercantList[0].address.latitude, longitude: commercantList[0].address.longitude}]}
+  destination={arrive}
+  // mode={transport}
+  optimizeWaypoints={true}
+  timePrecision="now"
+  apikey='AIzaSyD5OG3mJyZ7ogU9wiuUmngHz2GOvBr9SqU'
+  strokeWidth={3}
+/>
 
-   
+}   
 
 
 // ***************************** RETURN ****************************** 
@@ -305,15 +283,16 @@ return(
 
 </View>
 
-
+<View style={styles.bloc}>
 
 <Text>Adaptez votre itinéraire en fonction de vos envies </Text>
 
-<Button title="START"
-        onPress={() => props.navigation.navigate('PreCommande')}
-      />
+<Pressable style={styles.button} 
+       onPress={() => props.navigation.navigate('PreCommande')}>
+      <Text style={styles.text2}>Start</Text>
+    </Pressable>
 
-
+</View>
 
 {/* *****************************  LISTE COMMERCANT CHOISI  ******************************  */}
 
@@ -348,6 +327,14 @@ const styles = StyleSheet.create({
 marginTop: 10,
 
   },
+  button : {
+    backgroundColor: '#052640', 
+    alignItems :'center',
+    justifyContent: 'center', 
+    borderRadius: 10, 
+    width: 150, 
+    height: 40,  
+  }, 
 
   bloc:{
 marginTop: 15,
@@ -398,6 +385,13 @@ alignItems :'center',
   
   },
 
+  text2:{
+    fontSize:20 ,
+    color:'white',
+   
+    margin :0,
+  
+  },
   input:{
 fontSize:10,
 margin:5,
