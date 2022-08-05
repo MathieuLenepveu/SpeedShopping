@@ -93,7 +93,7 @@ router.post('/sign-up', async function(req, res, next) {
    // req.session.user = newUser
 
     // We can render the next page 
-    res.render('index');
+    res.json( );
     
   }  
 });
