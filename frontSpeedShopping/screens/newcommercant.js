@@ -73,7 +73,7 @@ export default function signUpCommercantPage(props) {
       <TextInput
         style={styles.input}
         secureTextEntry={true}
-        onChangeText={(password) => setSignupCommercantPwd(passwordd)}
+        onChangeText={(commercantpassword) => setSignupCommercantPwd(commercantpasswordd)}
         value={signupCommercantPwd}
         placeholder="Password"
       />
