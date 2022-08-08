@@ -1,8 +1,13 @@
 
 import React from 'react';
-import {LogBox, View} from 'react-native';
+import {LogBox, View, Pressable} from 'react-native';
 LogBox.ignoreLogs(['Warning:...']);
 import {Button,Input } from 'react-native-elements';
+
+
+
+
+
 
 
 // import { StatusBar } from 'expo-status-bar';
@@ -139,11 +144,11 @@ const Tab = createBottomTabNavigator();
               let iconName;
     
               if (route.name == 'Mes Commandes') {
-                iconName = 'null';
+                iconName = 'home';
               } else if (route.name == 'Mon Store') {
-                iconName = 'null';
+                iconName = 'home';
               }else if (route.name == 'Mon Compte') {
-                iconName = 'null';
+                iconName = 'home';
               }
       
               return <Ionicons name={iconName} size={25} color={color} />;
@@ -153,7 +158,7 @@ const Tab = createBottomTabNavigator();
             activeTintColor: '#eb4d4b',
             inactiveTintColor: '#FFFFFF',
             style: {
-              backgroundColor: '#130f40',
+              backgroundColor: '#2294DF',
             }
           }}
         >

@@ -74,9 +74,10 @@ export default function signUpPage(props) {
       <Pressable style={styles.button} 
        onPress={() => handleSubmitSignUp()}>
       <Text style={styles.text}>Sign Up</Text>
+
     </Pressable>
     <Pressable style={styles.button} 
-       onPress={() => props.navigation.navigate('Home')}>
+       onPress={() => props.navigation.navigate('MonStore')}>
       <Text style={styles.text}>Suivre l'itinéraire</Text>
     </Pressable>
     </View>
