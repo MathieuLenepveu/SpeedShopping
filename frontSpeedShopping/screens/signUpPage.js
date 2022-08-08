@@ -1,7 +1,6 @@
 import React from 'react';
 import {View,TextInput,  StyleSheet, Text, Pressable} from 'react-native';
 import {Button,Input } from 'react-native-elements';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useState} from "react";
 
 
@@ -18,21 +17,21 @@ export default function signUpPage(props) {
   const [signupUserName, setSignupUserName] = useState("");
   const [signupPhoneNumber, setSignupPhoneNumber] = useState("");
   const [signupAddress, setSignupAddress] = useState("");
+  const [signupFirstName, setSignupFirstName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
 
   var handleSubmitSignUp = async () => {
-    var res = await fetch("http://172.16.189.14:3000/sign-up", {
+    var res = await fetch("http://172.16.189.11:3000/sign-up", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `email=${signupEmail}&pwd=${signupPwd}&username=${signupUserName}&phonenumber=${signupPhoneNumber}&address=${signupAddress}`,
+      body: `firstname=${signupFirstName}&email=${signupEmail}&pwd=${signupPwd}&username=${signupUserName}&phonenumber=${signupPhoneNumber}&address=${signupAddress}`,
     });
     res = await res.json();
     if (res.isLogin) {
-      AsyncStorage.setItem("userID", res.userID);
       props.navigation.navigate("Home");
     } else {
-      setErrorMessage(res.errorMessage);
+      alert("Vous n'êtes pas connecté"); 
      
     }
   };
@@ -43,7 +42,13 @@ export default function signUpPage(props) {
         style={styles.input}
         onChangeText={(username) => setSignupUserName(username)}
         value={signupUserName}
-        placeholder="Identifiant"
+        placeholder="Nom"
+      />
+      <TextInput
+        style={styles.input}
+        onChangeText={(firstname) => setSignupFirstName(firstname)}
+        value={signupFirstName}
+        placeholder="Prénom"
       />
     
       <TextInput

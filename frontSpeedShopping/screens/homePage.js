@@ -4,6 +4,7 @@ import { useDispatch} from 'react-redux';
 import {Button,Input } from 'react-native-elements';
 import {Ionicons} from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 export default function homePage(props) {
@@ -53,7 +54,14 @@ function test(besoin) {
 
   
   return (
-  <View style={styles.container} >
+
+    <LinearGradient
+        // Background Linear Gradient
+        colors={["#d1e8e8", "#4364e8"]}
+        style={{flex: 1}}
+        start = {{ X: -1, Y: 0}}
+        end= {{ x:1, y: 0.3}}
+      >
 
 
       <View style={styles.header}>
@@ -224,7 +232,7 @@ function test(besoin) {
       </TouchableOpacity>
 
 </View>
-    </View>
+    </LinearGradient>
   );
  }
 
