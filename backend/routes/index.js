@@ -80,7 +80,7 @@ var isLogin = true;
 
     var newUser = new UserModel ({
       name: req.body.username, 
-      firstName: req.body.username,  
+      firstName: req.body.firstname,  
       password: req.body.pwd,  
       email: req.body.email, 
       phonenumer: req.body.phonenumber, 
