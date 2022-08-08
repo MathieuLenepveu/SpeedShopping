@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text,StyleSheet, Pressable, TouchableOpacity} from 'react-native';
 import {Button,Input } from 'react-native-elements';
+
 
 
 
@@ -13,7 +14,6 @@ export default function ajoutArticlePage(props) {
   const [article, setArticle] = useState('');
   const [price, setPrice] = useState('');
   const [quantite, setQuantite] = useState('');
-
 
 
 var handleSubmitSignUp = async () => {
