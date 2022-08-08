@@ -27,6 +27,7 @@ import profilClient from './screens/profilClient'
 import profilCommercant from './screens/profilCommercant'
 import signInPage from './screens/signInPage'
 import signUpPage from './screens/signUpPage'
+import newCommercant from './screens/newCommercant'
 
 
 
@@ -91,7 +92,7 @@ const Tab = createBottomTabNavigator();
               let iconName;
     
               if (route.name == 'Profil') {
-                iconName = 'md-newspaper-outline';
+                iconName = 'information-circle';
               }else if (route.name == 'Home') {
                 iconName = 'home';
               }else if (route.name == 'Panier') {
@@ -105,7 +106,7 @@ const Tab = createBottomTabNavigator();
             activeTintColor: '#eb4d4b',
             inactiveTintColor: '#FFFFFF',
             style: {
-              backgroundColor: '#130f40',
+              backgroundColor: '#2294DF',
             }
           }}
         >
@@ -144,11 +145,11 @@ const Tab = createBottomTabNavigator();
               let iconName;
     
               if (route.name == 'Mes Commandes') {
-                iconName = 'home';
+                iconName = 'document-text';
               } else if (route.name == 'Mon Store') {
-                iconName = 'home';
+                iconName = 'list';
               }else if (route.name == 'Mon Compte') {
-                iconName = 'home';
+                iconName = 'information-circle';
               }
       
               return <Ionicons name={iconName} size={25} color={color} />;
@@ -181,7 +182,7 @@ export default function App() {
     
     <Provider store={store}>
     <NavigationContainer>
-    <Stack.Navigator>
+    <Stack.Navigator >
       <Stack.Screen name="Accueil" component={accueil} />
       <Stack.Screen name="Home" component={homePage} />
       <Stack.Screen name="SignIn" component={signInPage} />
@@ -193,6 +194,8 @@ export default function App() {
       <Stack.Screen name="Paiement" component={paiement} />
       <Stack.Screen name="MonProfil" component={monProfilUser} />
       <Stack.Screen name="MonStore" component={monProfilVendeur} />
+      <Stack.Screen name="newCommercant" component={newCommercant} />
+
     </Stack.Navigator>
   </NavigationContainer>
 </Provider>

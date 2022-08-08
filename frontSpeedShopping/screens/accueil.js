@@ -20,7 +20,8 @@ export default function accueil(props) {
         <Image source={require('../assets/LogoSPEEDSHOPPING.jpeg')} style={{ width: 300, height: 200 }}/>
         </View>
         <View>
-              {/* <Button style={styles.button} color='red' title="J'essaie sans inscription"
+          <View>
+ {/* <Button style={styles.button} color='red' title="J'essaie sans inscription"
                 onPress={() => props.navigation.navigate('Home')}
               /> */}
               <TouchableOpacity
@@ -29,7 +30,10 @@ export default function accueil(props) {
       >
         <Text>J'essaie sans inscription</Text>
       </TouchableOpacity>
-              {/* <Button style={styles.button} title="J'ai un compte"
+
+          </View>
+          <View>
+{/* <Button style={styles.button} title="J'ai un compte"
                 onPress={() => props.navigation.navigate('SignIn')}
               /> */}
               <TouchableOpacity
@@ -38,15 +42,43 @@ export default function accueil(props) {
       >
         <Text>J'ai un compte</Text>
       </TouchableOpacity>
-              {/* <Button style={styles.button} title="Je m'inscris"
+
+          </View>
+          <View>
+            {/* <Button style={styles.button} title="Je m'inscris"
                 onPress={() => props.navigation.navigate('SignUp')}
               /> */}
               <TouchableOpacity
         style={styles.button1}
+        // onPress={() => props.navigation.navigate('SignUp')}
+      >
+        <Text>Je m'inscris comme:</Text>
+      </TouchableOpacity>
+
+      <View  style={{flexDirection:"row"}} >
+      <TouchableOpacity
+        style={styles.button3}
         onPress={() => props.navigation.navigate('SignUp')}
       >
-        <Text>Je m'inscris</Text>
+        <Text>Client</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button3}
+        onPress={() => props.navigation.navigate('newCommercant')}
+      >
+        <Text>Commerçant</Text>
+      </TouchableOpacity>
+            
+          
+          
+          </View>   
+              
+              
+
+
+
+      </View>
         </View>      
     </View>
   );
@@ -83,6 +115,18 @@ alignItems :'center',
     
     
     },
+
+    button3:{
+      borderWidth : 2 ,
+      borderColor : 'black',
+      borderRadius : 10,
+      padding:15,
+      margin : 20,
+      backgroundColor :'#2131A5',
+      alignItems : 'center',
+      
+      
+      },
 
   text:{
     fontSize:20 ,
