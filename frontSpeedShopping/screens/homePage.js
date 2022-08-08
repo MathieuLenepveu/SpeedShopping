@@ -5,7 +5,6 @@ import {Button,Input } from 'react-native-elements';
 import {Ionicons} from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { LinearGradient } from 'expo-linear-gradient';
-
 export default function homePage(props) {
 
   const [depart, setDepart] = useState('');
@@ -55,7 +54,6 @@ function test(besoin) {
 
   
   return (
-
   
     <LinearGradient
     // Background Linear Gradient
@@ -266,7 +264,9 @@ function test(besoin) {
         <Text style={{color:'#1A33A0'}}>START !</Text>
       </TouchableOpacity>
 
+
     </View>
+
     </LinearGradient>
   );
  }

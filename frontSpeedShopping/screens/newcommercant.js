@@ -10,28 +10,28 @@ import {useState} from "react";
 /*Bouton de validation SIGN UP à gérer en ETAT pour renvoyer vers le profil type CLIENT/COMMERCANT ----- Defaut lien vers Espace COMMERCANT*/
 
 
-export default function signUpPage(props) {
+export default function signUpCommercantPage(props) {
 
-  const [signupEmail, setSignupEmail] = useState("");
-  const [signupPwd, setSignupPwd] = useState("");
-  const [signupUserName, setSignupUserName] = useState("");
-  const [signupPhoneNumber, setSignupPhoneNumber] = useState("");
-  const [signupAddress, setSignupAddress] = useState("");
-  const [signupFirstName, setSignupFirstName] = useState("");
+  const [signupCommercantEmail, setSignupCommercantEmail] = useState("");
+  const [signupCommercantPwd, setSignupCommercantPwd] = useState("");
+  const [signupCommercantName, setSignupCommercantName] = useState("");
+  const [signupCommercantFirstName, setSignupCommercantFirstName] = useState("");
+  const [signupCommercantPhoneNumber, setSignupCommercantPhoneNumber] = useState("");
+  const [signupCommercantAddress, setSignupCommercantAddress] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
 
   var handleSubmitSignUp = async () => {
-    var res = await fetch("http://172.16.189.11:3000/sign-up", {
+    var res = await fetch("http://172.16.189.14:3000/commercants/sign-up", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `firstname=${signupFirstName}&email=${signupEmail}&pwd=${signupPwd}&username=${signupUserName}&phonenumber=${signupPhoneNumber}&address=${signupAddress}`,
+      body: `signupCommercantEmail=${signupCommercantEmail}&signupCommercantPwd=${signupCommercanPwd}&signupCommercantName=${signupCommercantName}&signupCommercantFirstName=${signupCommercantFirstName}&signupCommercantPhonenumber=${signupCommercantPhoneNumber}&signupCommercantAddress=${signupCommercantAddress}`,
     });
     res = await res.json();
     if (res.isLogin) {
       props.navigation.navigate("Home");
     } else {
-      alert("Vous n'êtes pas connecté"); 
+      setErrorMessage(res.errorMessage);
      
     }
   };
@@ -40,49 +40,49 @@ export default function signUpPage(props) {
       <Text>Veuillez vous inscrire : </Text>
       <TextInput
         style={styles.input}
-        onChangeText={(username) => setSignupUserName(username)}
-        value={signupUserName}
-        placeholder="Nom"
+        onChangeText={(commercantname) => setSignupCommercantName(commercantname)}
+        value={signupCommercantName}
+        placeholder="Identifiant"
       />
+
       <TextInput
         style={styles.input}
-        onChangeText={(firstname) => setSignupFirstName(firstname)}
-        value={signupFirstName}
-        placeholder="Prénom"
+        onChangeText={(commercantfirstname) => setSignupCommercanFirsttName(commercantfirstname)}
+        value={signupCommercantFirstName}
+        placeholder="Identifiant"
       />
     
       <TextInput
         style={styles.input}
-        onChangeText={(email) => setSignupEmail(email)}
-        value={signupEmail}
+        onChangeText={(commercantemail) => setSignupCommercantEmail(commercantemail)}
+        value={signupCommercantEmail}
         placeholder="Mail"
       />
        <TextInput
         style={styles.input}
-        onChangeText={(phonenumber) => setSignupPhoneNumber(phonenumber)}
-        value={signupPhoneNumber}
+        onChangeText={(commercantphonenumber) => setSignupCommercantPhoneNumber(commercantphonenumber)}
+        value={signupCommercantPhoneNumber}
         placeholder="Phone Number"
       />
        <TextInput
         style={styles.input}
-        onChangeText={(address) => setSignupAddress(address)}
-        value={signupAddress}
+        onChangeText={(commercantaddress) => setSignupCommercantAddress(commercantaddress)}
+        value={signupCommercantAddress}
         placeholder="Adresse"
       />
       <TextInput
         style={styles.input}
         secureTextEntry={true}
-        onChangeText={(pwd) => setSignupPwd(pwd)}
-        value={signupPwd}
+        onChangeText={(commercantpassword) => setSignupCommercantPwd(commercantpasswordd)}
+        value={signupCommercantPwd}
         placeholder="Password"
       />
       <Pressable style={styles.button} 
        onPress={() => handleSubmitSignUp()}>
       <Text style={styles.text}>Sign Up</Text>
-
     </Pressable>
     <Pressable style={styles.button} 
-       onPress={() => props.navigation.navigate('MonStore')}>
+       onPress={() => props.navigation.navigate('Home')}>
       <Text style={styles.text}>Suivre l'itinéraire</Text>
     </Pressable>
     </View>

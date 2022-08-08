@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text,StyleSheet, Pressable, TouchableOpacity} from 'react-native';
 import {Button,Input } from 'react-native-elements';
+
 
 
 
@@ -13,61 +14,85 @@ export default function ajoutArticlePage(props) {
   const [article, setArticle] = useState('');
   const [price, setPrice] = useState('');
   const [quantite, setQuantite] = useState('');
+
+
+var handleSubmitSignUp = async () => {
+    var res = await fetch("http://172.16.189.14:3000/:commercantId/newarticle", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `article=${article}&price=${price}&quantite=${quantite}`,
+    });
+    res = await res.json();
+    if (res.isLogin) {
+      props.navigation.navigate("Home");
+    } else {
+      setErrorMessage(res.errorMessage);
+     
+    }
+  };
     return (
-
-      <View>
-
-<Button title="Mon Store"
-        onPress={() => props.navigation.navigate('MonStore')}
+      <View style={styles.container}>
+      <Text>Veuillez vous inscrire : </Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={(article) => setArticle(article)}
+        value={article}
+        placeholder="Article"
       />
 
-<Input
-        containerStyle={{ marginBottom: 25, width: '70%' }}
-        inputStyle={{ marginLeft: 10 }}
-        placeholder='article'
-        
-        onChangeText={(val) => setArticle(val)}
+      <TextInput
+        style={styles.input}
+        onChangeText={(price) => setprice(price)}
+        value={price}
+        placeholder="Prix"
       />
-
-<Input
-        containerStyle={{ marginBottom: 25, width: '70%' }}
-        inputStyle={{ marginLeft: 10 }}
-        placeholder='price'
-      
-        onChangeText={(val) => setPrice(val)}
+    
+      <TextInput
+        style={styles.input}
+        onChangeText={(quantite) => setquantite(quantite)}
+        value={quantite}
+        placeholder="Quantite"
       />
+       
+      <Pressable style={styles.button} 
+       onPress={() => handleSubmitSignUp()}>
+      <Text style={styles.text}>Ajout d'article</Text>
+    </Pressable>
+    <Pressable style={styles.button} 
+       onPress={() => props.navigation.navigate('Home')}>
+      <Text style={styles.text}>Suivre l'itinéraire</Text>
+    </Pressable>
+    </View>
 
-<Input
-        containerStyle={{ marginBottom: 25, width: '70%' }}
-        inputStyle={{ marginLeft: 10 }}
-        placeholder='quantité'
-      
-        onChangeText={(val) => setQuantite(val)}
-      />
-
-
-<Button title="Ajouter un Article"
-        // onPress={() => props.navigation.navigate('ajoutArticlePage')}
-        onPress={async () => {
-         
-            var rawResponse = await fetch("http://192.168.248.50:3000/myarticles", {
-              method: 'POST',
-              body: data
-            });
-            var response = await rawResponse.json();
-            if (!response.error) {
-              props.onSnap(response);
-            }
-          
-          }
-        }
-      />
-<Text>
-PAGE D'AJOUT ARTICLE STORE
-</Text>
-
-
-</View>
-
-    ) 
-  }
+    )
+}
+    const styles = StyleSheet.create({
+      input: {
+        width: 350,
+        height: 55,
+        backgroundColor: '#C2D4E3',
+        margin: 10,
+        padding: 8,
+        color: 'white',
+        borderRadius: 14,
+        fontSize: 18,
+        fontWeight: '500',
+      },
+      button: {
+        padding: 20,
+        margin: 10,
+        alignItems: "center", 
+        justifyContent: "center", 
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: '#f0f0f0',
+        backgroundColor: '#2294DF', 
+        width: 200, 
+        borderRadius: 8, 
+        color: "#FFFFFF"
+      },  
+      container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+      }
+    })
