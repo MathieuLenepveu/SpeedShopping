@@ -283,12 +283,10 @@ router.delete('/sign-up', async function(req, res, next) {
 /* RAJOUTER LE TYPE D'ENSEIGNE DANS LA BDD (BOULNGE,POISSONERIE, ETC )*/
 router.post('/map',async function(req, res, next) {
   var commercantAfficher = [] ;
-
   var commercant = await CommercantModel.find() ;
 
       var besoin = req.body
       besoin = besoin.redux
-console.log(besoin);
 
 if (besoin.length !== 0 ) {
 
@@ -301,9 +299,6 @@ if (besoin.length !== 0 ) {
   }
   
 }
-
-console.log(commercantAfficher);
-
 
   res.json({commercantAfficher});
 });

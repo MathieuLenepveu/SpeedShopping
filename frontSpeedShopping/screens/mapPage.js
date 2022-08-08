@@ -7,12 +7,9 @@ import  MapViewDirections from'react-native-maps-directions'
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import Geocoder from 'react-native-geocoding';
 
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'; 
 
 import { FontAwesome } from '@expo/vector-icons'; 
-
-
-// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 // import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -21,29 +18,21 @@ import { FontAwesome } from '@expo/vector-icons';
 
 
 export default function Map(props) {
+  
 // ***************************** ETATS ****************************** 
 
         const [currentLatitude, setCurrentLatitude] = useState(0) ; 
         const [currentLongitude, setCurrentLongitude] = useState(0) ;
         const [isOpen, setIsOpen] = useState(false) ;
         const [magasin,setMagasin] = useState('');
-        
         const [depart,setDepart] = useState('');
         const [arrive,setArrive] = useState('');
         const [transport,setTransport] = useState('');
-        const [besoin,setBesoin] = useState([]);
-
-
-
-
-
+        // const [besoin,setBesoin] = useState([]);
         const [waypoints , setWaypoints] = useState([]);
         const [commercantList , setCommercantList] = useState([]);
-      Geocoder.init("AIzaSyD5OG3mJyZ7ogU9wiuUmngHz2GOvBr9SqU", {language : "fr"})
-      const redux = useSelector((state)=> state ) ;
-
-
-
+        Geocoder.init("AIzaSyD5OG3mJyZ7ogU9wiuUmngHz2GOvBr9SqU", {language : "fr"})
+        const redux = useSelector((state)=> state ) ;
 
 // ***************************** ASK & SET localistaion ****************************** 
 
@@ -55,16 +44,8 @@ export default function Map(props) {
             return;
           }
           Location.watchPositionAsync({distanceInterval: 10000}, (location) => { setCurrentLatitude(location.coords.latitude), setCurrentLongitude(location.coords.longitude)});
-// ***************************** RECEPTION STORE ****************************** 
-
-          setDepart(redux.saveIti.depart)
-          setArrive(redux.saveIti.arrive)
-          setTransport(redux.saveIti.transport)
-          setBesoin(redux.saveIti.besoin)
-
-
+  
 // ***************************** ASK & SET commercantList ****************************** 
-
 
             var rawResponse = await fetch('http://172.20.10.2:3000/map', {
                       method: 'POST',
@@ -77,26 +58,64 @@ export default function Map(props) {
                                 
 
             rawResponse = await rawResponse.json();
-
             var newTab= [];
-              for (let i = 0; i < rawResponse.commercantAfficher.length; i++) {
 
+              for (let i = 0; i < rawResponse.commercantAfficher.length; i++) {
                 var location = rawResponse.commercantAfficher[i].address ; 
                 var tryIt =   await Location.geocodeAsync(location) ;
-                if(tryIt != 0){
+// ***************************** SET commercantList AVEC adresse en LAT/LNG ****************************** 
 
                    newTab = [...rawResponse.commercantAfficher]
-                   newTab[i].address = {latitude:tryIt[0].latitude,longitude : tryIt[0].longitude }
-                   setCommercantList(newTab)
+                   newTab[i].address = {latitude:tryIt[0].latitude,longitude : tryIt[0].longitude }      
             }
-            }
-  
+            setCommercantList(newTab)
 
 
       })();  
+
+// ***************************** RECEPTION STORE ****************************** 
+      setDepart(redux.saveIti.depart)
+      setArrive(redux.saveIti.arrive)
+      setTransport(redux.saveIti.transport)
+      
 } ,[]) ;
 
+// useEffect juste pour les waypoints 
 
+
+useEffect(() => {
+  (async () => {
+// ***************************** ASK & SET commercantList ****************************** 
+      var rawResponse = await fetch('http://172.20.10.2:3000/map', {
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({redux:redux.saveIti.besoin})
+              });
+                          
+      rawResponse = await rawResponse.json();
+      var newWaypoints= [...waypoints];
+
+        for (let i = 0; i < rawResponse.commercantAfficher.length; i++) {
+          var location = rawResponse.commercantAfficher[i].address ; 
+          var tryIt =   await Location.geocodeAsync(location) ;
+
+// ***************************** SET waypoints ****************************** 
+
+             newWaypoints.push({
+              latitude:tryIt[0].latitude,
+              longitude : tryIt[0].longitude 
+             })
+      }
+
+      setWaypoints(newWaypoints)
+
+})();  
+} ,[]) ;
+
+console.log(waypoints);
 
 
 // ***************************** CLOSE the overlay ****************************** 
@@ -110,15 +129,13 @@ export default function Map(props) {
 
    var test = (bool,nom,horaire,statut) => {
 
-
     setIsOpen(bool) ;
     setMagasin({
       nom : nom,
       ouverture: horaire.HeuresOuverts,
-      fermeture: horaire.Heuresfermes
+      fermeture: horaire.Heuresfermes,
+      type: statut,
     })
-
-
         
 }
 // ***************************** ADD commercant to itinéraire ****************************** 
@@ -127,72 +144,60 @@ export default function Map(props) {
 function testAddToItinéraire (magasin) {
 
     var isInside = false;
+    var newTab = [...waypoints]
 
+    if (newTab != 0) {
+      for (let i = 0; i < commercantList.length; i++) {
 
-    for (let i = 0; i < waypointsTest.length; i++) {
-
-        if (waypointsTest[i].status == magasin.statut) {
-
-          waypointsTest.splice(i,1,magasin) ;
+        if (commercantList[i].type == magasin.type) {
+          newTab.splice(i,1,magasin) 
+          setWaypoints(newTab)
             isInside = true ;
-            
         }
+    }
     }
 
      if (!isInside) {
-        itineraire.push(magasin)
+        newTab.push(magasin)
+        setWaypoints(newTab)
      }
-
 
 }
 
 // ***************************** SHOW ALL THE MARKER  ****************************** 
 
-if (commercantList != 0 ) {
+
+const essaie = ["Golf Meribel, Route de l'Altiport, Les Allues", "4 Avenue de la Tourelle, Saint-Maur-des-Fossés"]
+
+
 
   var markerList = commercantList.map((commercant,i)=>{
-
-  //   var newTab = [...waypoints] ;
-
-  // newTab.push({
-  //   latitude:commercant.address.latitude,
-  //   longitude:commercant.address.longitude
-  // })
-
-  // setWaypoints(newTab) ;
-
-    return <Marker 
-    key={i} 
-    pinColor='blue' 
-    onPress={()=>test(true,commercant.enseignecommerciale, commercant.hours[0], commercant.type)}
-    coordinate={{latitude :commercant.address.latitude, longitude: commercant.address.longitude}}
-    title={commercant.enseignecommerciale}
-    description={`${commercant.hours[0].HeuresOuverts}h - ${commercant.hours[0].Heuresfermes}h`}
-    />
-     })     
-    
-
-}
-
-
-
-
-if (commercantList != 0) {
-  
+      return (
+      <Marker 
+      key={i} 
+      pinColor='blue' 
+      onPress={()=>test(true,commercant.enseignecommerciale, commercant.hours[0], commercant.type)}
+      coordinate={{latitude :commercant.address.latitude, longitude: commercant.address.longitude}}
+      title={commercant.enseignecommerciale}
+      description={`${commercant.hours[0].HeuresOuverts}h - ${commercant.hours[0].Heuresfermes}h`}
+      />
+      )})     
 
   var directions = 
-  <MapViewDirections
-  origin={depart}
-  waypoints={[{latitude:commercantList[0].address.latitude, longitude: commercantList[0].address.longitude}]}
-  destination={arrive}
-  // mode={transport}
-  optimizeWaypoints={true}
-  timePrecision="now"
-  apikey='AIzaSyD5OG3mJyZ7ogU9wiuUmngHz2GOvBr9SqU'
-  strokeWidth={3}
-/>
+      <MapViewDirections
+      resetOnChange={false}
+      origin={depart}
+      waypoints={waypoints}
+      destination={arrive}
+      // mode={transport}
+      optimizeWaypoints={false}
+      timePrecision="now"
+      apikey='AIzaSyD5OG3mJyZ7ogU9wiuUmngHz2GOvBr9SqU'
+      strokeWidth={3}
+      />
 
-}   
+
+  
 
 
 // ***************************** RETURN ****************************** 
@@ -201,7 +206,6 @@ return(
 
 
  <View>
-
 {/* ***************************** OVERLAY   ******************************  */}
 <View style={{height:400}}>
 
@@ -238,8 +242,6 @@ return(
 }} >
 
 {directions}
-
-
 
 {/* ***************************** MARQERUR POS   ******************************  */}
 
@@ -294,19 +296,6 @@ return(
 
 </View>
 
-{/* *****************************  LISTE COMMERCANT CHOISI  ******************************  */}
-
-{
-    // listCommercant.map((l, i) => (
-    //   <ListItem key={i} bottomDivider>
-    //    <Avatar source={{uri: l.avatar_url}} />  {/* photo du commercant */}
-    //     <ListItem.Content>
-    //       <ListItem.Title>{l.name}</ListItem.Title> {/* nom du commercant */}
-    //       <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
-    //     </ListItem.Content>
-    //   </ListItem>
-    // ))
-  }
 
  </View>
 )    
