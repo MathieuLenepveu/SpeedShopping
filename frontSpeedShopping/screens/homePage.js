@@ -4,7 +4,7 @@ import { useDispatch} from 'react-redux';
 import {Button,Input } from 'react-native-elements';
 import {Ionicons} from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function homePage(props) {
 
@@ -13,7 +13,9 @@ export default function homePage(props) {
   const [horaire, setHoraire] = useState('');
   const [transport, setTransport] = useState('');
   const [besoinTest, setBesoin] = useState([])
+  const [essai, setEssai] = useState(false)
   const dispatch = useDispatch() ;
+  
 
 
   function start(depart,arrive,horaire,transport,besoin) {
@@ -53,18 +55,33 @@ function test(besoin) {
 
   
   return (
-  <View style={styles.container} >
 
+  
+    <LinearGradient
+    // Background Linear Gradient
+    colors={["#d1e8e8", "#4364e8"]}
+    style={{flex: 1,justifyContent:'space-between',alignItems:'center'}}
+    start = {{ X: -1, Y: 0}}
+    end= {{ x:1, y: 0.3}}
+  >
 
       <View style={styles.header}>
 
 {/* BOUTON ACCES MON ESPACE  */}
 
 <TouchableOpacity
-        style={styles.button1}
+        style={{
+          borderWidth: 2 ,
+          borderColor : '#1A33A0',
+          borderRadius : 10,
+          padding:15,
+          width:300,
+          marginTop : 40,
+          alignItems : 'center',
+          }}
         onPress={() => props.navigation.navigate('MonProfil')}
       >
-        <Text>MON ESPACE</Text>
+        <Text style={{color:'#1A33A0'}}>MON ESPACE COMMERCANT</Text>
       </TouchableOpacity>
 
       </View>
@@ -73,17 +90,20 @@ function test(besoin) {
       <View style={styles.bloc}>
       {/* INPUT POSITION USER  */}
 
-      <Text style={styles.text}>On va jusqu'où?</Text>
+      <Text  style={styles.text}>On va jusqu'où?</Text>
                 <Input 
                             placeholder='Ta position ?'
                             onChange={(e) => setDepart(e.nativeEvent.text)}
                             value={depart} 
+                            inputContainerStyle={{borderColor:'#1A33A0',borderWidth:1,borderRadius:5,marginTop:20, paddingLeft:10,width:'80%'}}
                   />
                 
                 <Input
                             placeholder='Ton point de chute ?'
                             onChange={(e) => setArrive(e.nativeEvent.text)}
                             value={arrive}
+                            inputContainerStyle={{borderColor:'#1A33A0',borderWidth:1,borderRadius:5,paddingLeft:10,width:'80%'}}
+
                   /> 
 
   
@@ -92,7 +112,12 @@ function test(besoin) {
 
 {/* INPUT MOYEN DE LOCOMOTION USER  */} 
 
-<Text style={styles.text}>On y va comment?</Text>
+<Text style={{
+    fontSize:20 ,
+    color:'black',
+    marginTop :-35,
+  
+  }}>On y va comment?</Text>
         
         <View style={{flexDirection:"row"}} >
         <Icon 
@@ -130,8 +155,9 @@ function test(besoin) {
        {/* INPUT DATE ET HEURE DE COLLECT  */}  
 
        <Text style={styles.text}>On fait ça quand ?</Text>
-          <TextInput 
+          <Input 
                     placeholder='Date et Heure de collect ?'
+                    inputContainerStyle={{borderColor:'#1A33A0',borderWidth:1,borderRadius:5,marginTop:20, paddingLeft:10, width:'80%'}}
                     onChange={(e) => setHoraire(e.nativeEvent.text)} 
                     value={horaire}
                   />
@@ -141,36 +167,42 @@ function test(besoin) {
        
 {/* INPUT SELECTION DES BESOINS  */}  
 
-<Text style={styles.text}>On cherche quoi?</Text>
+<Text style={{
+    fontSize:20 ,
+    color:'black',
+    marginTop :-30,
+  }}>On cherche quoi?</Text>
 
 <View style={[{flexDirection:"row"}, {marginTop :15} ]}>
 <TouchableOpacity
+
         style={styles.button2}
         onPress={()=> {test('boucher',depart,arrive)}}
       >
-        <Text>Boucher</Text>
+        <Text style={styles.texte}>Boucher</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button2}
+        disabled={essai}
         onPress={()=> test('Boulanger')}>
-        <Text>Boulanger</Text>
+        <Text style={styles.texte}>Boulanger</Text>
+
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button2}
         onPress={()=> test('Primeur')}>
-
-        <Text>Primeur</Text>
+        <Text style={styles.texte}>Primeur</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button2}
         onPress={()=> test('Fleuriste')}>
+        <Text style={styles.texte}>Fleuriste</Text>
 
-        <Text>Fleuriste</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button2}
         onPress={()=> test('Tabac')}>
-        <Text>Tabac</Text>
+        <Text style={styles.texte}>Tabac</Text>
       </TouchableOpacity>
 
 </View>
@@ -179,37 +211,39 @@ function test(besoin) {
         style={styles.button2}
         onPress={()=> test('Poissonerie')}
       >
-        <Text>Poissonerie</Text>
+        <Text style={styles.texte}>Poissonerie</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button2}
         onPress={()=> test('Droguerie')}
 >
-        <Text>Droguerie</Text>
+<Text style={styles.texte}>Droguerie</Text>
+
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button2}
         onPress={()=> test('Epicerie')}
 >
-        <Text>Epicerie</Text>
+<Text style={styles.texte}>Epicerie</Text>
+
+
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button2}
         onPress={()=> test('Patisserie')}
 >
-        <Text>Patisserie</Text>
+<Text style={styles.texte}>Patisserie</Text>
+
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button2}
         onPress={undefined}      >
-        <Text>Autre</Text>
+
+<Text style={styles.texte}>Autre</Text>
+
       </TouchableOpacity>
 
 </View>
-
-
-
-
     </View>
       
       
@@ -217,14 +251,23 @@ function test(besoin) {
 
 
 <TouchableOpacity
-        style={styles.button1}
+        style={{
+
+          borderWidth: 2 ,
+          borderColor : '#1A33A0',
+          borderRadius : 10,
+          padding:15,
+          marginBottom : 20,
+          alignItems : 'center',
+          
+          }}
         onPress={() => start(depart,arrive,horaire,transport,besoinTest)}
       >
-        <Text>START !</Text>
+        <Text style={{color:'#1A33A0'}}>START !</Text>
       </TouchableOpacity>
 
-</View>
     </View>
+    </LinearGradient>
   );
  }
 
@@ -232,8 +275,7 @@ function test(besoin) {
 
   container: {
     flex:1,
-    backgroundColor:'#5A7E95',
-    alignItems: 'center',
+
     justifyContent:'space-around',
   },
 
@@ -247,25 +289,29 @@ marginTop: 15,
 marginBottom:15,
 alignItems :'center',
   },
-  
+
+
   button1:{
-    borderWidth : 2 ,
-    borderColor : 'black',
-    borderRadius : 100,
+
+    borderWidth: 2 ,
+    borderColor : '#1A33A0',
+    borderRadius : 10,
     padding:15,
     margin : 20,
-    backgroundColor :'#2294DF',
     alignItems : 'center',
     
     },
 
+    texte:{color:'white'},
+
     button2:{
-      borderWidth : 2 ,
+
+      color:'#1A33A0',
       borderColor : 'black',
+      backgroundColor:'#3579f6',
       borderRadius : 5,
-      padding:2,
+      padding:7,
       margin :1,
-      backgroundColor :'#2294DF',
       alignItems : 'center',
       
       
@@ -275,7 +321,7 @@ alignItems :'center',
     fontSize:20 ,
     color:'black',
    
-    margin :0,
+    marginTop :-20,
   
   },
 
@@ -294,9 +340,12 @@ backgroundColor: '#93CAEF',
   },
 
   icon:{
-padding: 10,
+padding: 20,
 margin:10,
-color:"#2E43D8",
+borderWidth: 3,
+borderColor:'#1A33A0' ,
+borderRadius: 20,
+color:"#1A33A0",
 
   },
   

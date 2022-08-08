@@ -3,11 +3,8 @@ import React from 'react';
 import {LogBox, View} from 'react-native';
 LogBox.ignoreLogs(['Warning:...']);
 import {Button,Input } from 'react-native-elements';
-
-
 // import { StatusBar } from 'expo-status-bar';
 // import { StyleSheet, Text, View } from 'react-native';
-
 import accueil from './screens/accueil'
 import ajoutArticlePage from './screens/ajoutArticlePage'
 import commandesCommercant from './screens/commandesCommercant'
@@ -176,7 +173,7 @@ export default function App() {
     
     <Provider store={store}>
     <NavigationContainer>
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{headerShown:false}}>
       <Stack.Screen name="Accueil" component={accueil} />
       <Stack.Screen name="Home" component={homePage} />
       <Stack.Screen name="SignIn" component={signInPage} />
