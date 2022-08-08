@@ -247,7 +247,7 @@ commercant.Articles.push ({
 })
 
 
-  res.redirect('/myarticles')
+  res.json(); 
   
 });
 
