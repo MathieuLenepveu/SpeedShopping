@@ -12,79 +12,83 @@ import {useState} from "react";
 
 export default function signUpCommercantPage(props) {
 
-  const [signupCommercantEmail, setSignupCommercantEmail] = useState("");
-  const [signupCommercantPwd, setSignupCommercantPwd] = useState("");
-  const [signupCommercantName, setSignupCommercantName] = useState("");
-  const [signupCommercantFirstName, setSignupCommercantFirstName] = useState("");
-  const [signupCommercantPhoneNumber, setSignupCommercantPhoneNumber] = useState("");
-  const [signupCommercantAddress, setSignupCommercantAddress] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [SignupCommercantEmail, setSignupCommercantEmail] = useState("");
+  const [SignupCommercantType, setSignupCommercantType] = useState("");
+  const [SignupCommercantPassword, setSignupCommercantPassword] = useState("");
+  const [SignupCommercantName, setSignupCommercantName] = useState("");
+  const [SignupCommercantFirstName, setSignupCommercantFirstName] = useState("")
+  const [SignupCommercantAddress, setSignupCommercantAddress] = useState("");
+  const [SignupCommercantEnseignecommerciale, setSignupCommercantEnseignecommerciale] = useState("");
+  
 
 
-  var handleSubmitSignUp = async () => {
-    var res = await fetch("http://172.16.189.14:3000/commercants/sign-up", {
+  var handleCommercantSubmitSignUp = async () => {
+    var res = await fetch("http://172.16.189.16:3000/commercants/sign-up", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `signupCommercantEmail=${signupCommercantEmail}&signupCommercantPwd=${signupCommercanPwd}&signupCommercantName=${signupCommercantName}&signupCommercantFirstName=${signupCommercantFirstName}&signupCommercantPhonenumber=${signupCommercantPhoneNumber}&signupCommercantAddress=${signupCommercantAddress}`,
+      body: `commercantname=${SignupCommercantName}&commercantfirstname=${SignupCommercantFirstName}&commercantemail=${SignupCommercantEmail}&commercantaddress=${SignupCommercantAddress}&commercanttype=${SignupCommercantType}&commercantenseignecommerciale=${SignupCommercantEnseignecommerciale}&commercantpassword=${SignupCommercantPassword}`,
     });
     res = await res.json();
     if (res.isLogin) {
       props.navigation.navigate("Home");
     } else {
-      setErrorMessage(res.errorMessage);
-     
+      alert("Tu n as pas réussi à te connecter"); 
     }
   };
+
     return (
       <View style={styles.container}>
       <Text>Veuillez vous inscrire : </Text>
       <TextInput
         style={styles.input}
         onChangeText={(commercantname) => setSignupCommercantName(commercantname)}
-        value={signupCommercantName}
+        value={SignupCommercantName}
         placeholder="Identifiant"
       />
-
       <TextInput
         style={styles.input}
-        onChangeText={(commercantfirstname) => setSignupCommercanFirsttName(commercantfirstname)}
-        value={signupCommercantFirstName}
-        placeholder="Identifiant"
+        onChangeText={(commercantfirstname) => setSignupCommercantFirstName(commercantfirstname)}
+        value={SignupCommercantFirstName}
+        placeholder="FirstName"
       />
     
       <TextInput
         style={styles.input}
-        onChangeText={(commercantemail) => setSignupCommercantEmail(commercantemail)}
-        value={signupCommercantEmail}
+        onChangeText={(email) => setSignupCommercantEmail(email)}
+        value={SignupCommercantEmail}
         placeholder="Mail"
       />
        <TextInput
         style={styles.input}
-        onChangeText={(commercantphonenumber) => setSignupCommercantPhoneNumber(commercantphonenumber)}
-        value={signupCommercantPhoneNumber}
-        placeholder="Phone Number"
-      />
-       <TextInput
-        style={styles.input}
-        onChangeText={(commercantaddress) => setSignupCommercantAddress(commercantaddress)}
-        value={signupCommercantAddress}
+        onChangeText={(address) => setSignupCommercantAddress(address)}
+        value={SignupCommercantAddress}
         placeholder="Adresse"
+      />
+        <TextInput
+        style={styles.input}
+        onChangeText={(enseignecommerciale) => setSignupCommercantEnseignecommerciale(enseignecommerciale)}
+        value={SignupCommercantEnseignecommerciale}
+        placeholder="Enseigne commerciale"
+      />
+      <TextInput
+        style={styles.input}
+        onChangeText={(type) => setSignupCommercantType(type)}
+        value={SignupCommercantType}
+        placeholder="Type de commerce"
       />
       <TextInput
         style={styles.input}
         secureTextEntry={true}
-        onChangeText={(commercantpassword) => setSignupCommercantPwd(commercantpasswordd)}
-        value={signupCommercantPwd}
+        onChangeText={(password) => setSignupCommercantPassword(password)}
+        value={SignupCommercantPassword}
         placeholder="Password"
       />
       <Pressable style={styles.button} 
-       onPress={() => handleSubmitSignUp()}>
+       onPress={() => handleCommercantSubmitSignUp()}>
       <Text style={styles.text}>Sign Up</Text>
     </Pressable>
-    <Pressable style={styles.button} 
-       onPress={() => props.navigation.navigate('Home')}>
-      <Text style={styles.text}>Suivre l'itinéraire</Text>
-    </Pressable>
+
+
     </View>
 
     )

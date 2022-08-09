@@ -106,15 +106,15 @@ router.put('/sign-up', async function(req, res, next) {
   
     var user = await UserModel.find({ email: req.body.signUpEmail })
     
-    if(user.length > 0){
+    if(!req.body.username){
   
       //console.log('We already have a user with this email')
   
       // Session
-      req.session.user = user
+     
   
       // We can render the next page 
-      res.render('index', { title: 'Express',user:req.session.user });
+     res.json(); 
   
     }else{
   
@@ -141,29 +141,37 @@ router.put('/sign-up', async function(req, res, next) {
     }  
   });
 
-  router.post('commercants/sign-up', async function(req, res, next) {
+  router.post('/commercants/sign-up', async function(req, res, next) {
 
     // console.log(' /Sign-Up : result from the front -->',req.body)
   
-    var commercant = await CommercantModel.find({ email: req.body.signUpEmail })
-    
-    if(commercant.length > 0){
+    var isLogin = true; 
+
+    console.log(req.body.CommercantName); 
+
+    if(!req.body.CommercantName){
   
       //console.log('We already have a user with this email')
   
       // Session
       
+      res.json(); 
   
     }else{
   
       //console.log(' /Sign-UP : We dont have a user with this email, so we need to save it')
+
+      console.log(req.body.commercantcame); 
   
       var newCommercant = new CommercantModel ({
-        name: req.body.signupCommercantName, 
-        firstName: req.body.signupCommercantFirstName, 
-        address: req.body.signupCommercantAddress, 
-        password: req.body.signupCommercantPassword, 
-        email: req.body.signupCommercantEmail, 
+        name: req.body.commercantname, 
+        firstName: req.body.commercantfirstname, 
+        email: req.body.commercantemail, 
+        address: req.body.commercantaddress, 
+        enseignecommerciale: req.body.commercantenseignecommerciale, 
+        type: req.body.commercanttype, 
+        password: req.body.Commercantpassword, 
+       
       });
   
       await newCommercant.save()
@@ -174,7 +182,7 @@ router.put('/sign-up', async function(req, res, next) {
     
   
       // We can render the next page 
-      res.json();
+      res.json({isLogin});
       
     }  
   });
