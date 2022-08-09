@@ -285,8 +285,8 @@ marginTop: 10,
   },
 
   bloc:{
-marginTop: 15,
-marginBottom:15,
+marginTop: 5,
+marginBottom:5,
 alignItems :'center',
   },
 

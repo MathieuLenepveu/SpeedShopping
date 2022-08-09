@@ -14,24 +14,24 @@ export default function profilCommercant() {
     return (
       <View style={styles.container}>
  <TouchableOpacity
-        style={styles.button1}
+        style={styles.button10}
         // onPress={() => props.navigation.navigate('Home')}
       >
-        <Text>Mes informations</Text>
+        <Text style={styles.text}>MES INFORMATIONS PERSONELLES</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.button1}
+        style={styles.button10}
         // onPress={() => props.navigation.navigate('Home')}
       >
-        <Text>Mon Tableau de Bord</Text>
+        <Text style={styles.text}>MON TABLEAU DE BORD</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.button1}
+        style={styles.button10}
         // onPress={() => props.navigation.navigate('Home')}
       >
-        <Text>Contacter la plateforme</Text>
+        <Text style={styles.text}>CONTACTER LA PLATEFORME</Text>
       </TouchableOpacity>
 
 </View>
@@ -45,7 +45,7 @@ export default function profilCommercant() {
       flex:1,
       backgroundColor:'#5A7E95',
       alignItems: 'center',
-      justifyContent:'space-around',
+      justifyContent:'space-evently',
     },
   
     header:{
@@ -59,14 +59,17 @@ export default function profilCommercant() {
   alignItems :'center',
     },
     
-    button1:{
+    button10:{
+      height :150,
+      width : "90%",
       borderWidth : 2 ,
       borderColor : 'black',
-      borderRadius : 100,
-      padding:15,
-      margin : 20,
+      borderRadius : 30,
+      padding:20,
+      margin : 10,
       backgroundColor :'#2294DF',
       alignItems : 'center',
+      justifyContent:'center',
       
       },
   
@@ -83,8 +86,10 @@ export default function profilCommercant() {
         },
   
     text:{
-      fontSize:20 ,
+      fontSize:30 ,
       color:'black',
+      justifyContent :'center',
+      textAlign:'center',
      
       margin :0,
     

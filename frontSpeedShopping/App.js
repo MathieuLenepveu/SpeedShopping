@@ -19,7 +19,7 @@ import profilClient from './screens/profilClient'
 import profilCommercant from './screens/profilCommercant'
 import signInPage from './screens/signInPage'
 import signUpPage from './screens/signUpPage'
-import newCommercant from './screens/newCommercant'
+import newCommercant from './screens/newcommercant'
 
 
 

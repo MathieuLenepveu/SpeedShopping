@@ -23,7 +23,7 @@ export default function monStore(props) {
   <ScrollView>
 
   <Card
-  width='100%'
+  width='90%'
   >
   <Text style={styles.text}>
     LA BAGUETTE TRADITION
@@ -51,8 +51,9 @@ export default function monStore(props) {
   </TouchableOpacity>
 
 </Card>
+
 <Card
-  width='100%'
+  width='90%'
   >
   <Text style={styles.text}>
     LE CROISSANT
@@ -80,8 +81,9 @@ export default function monStore(props) {
   </TouchableOpacity>
 
 </Card>
+
 <Card
-  width='100%'
+  width='90%'
   >
   <Text style={styles.text}>
     LA PAIN AU CHOCOLAT
@@ -109,8 +111,9 @@ export default function monStore(props) {
   </TouchableOpacity>
 
 </Card>
+
 <Card
-  width='100%'
+  width='90%'
   >
   <Text style={styles.text}>
     PIZZA
@@ -138,8 +141,9 @@ export default function monStore(props) {
   </TouchableOpacity>
 
 </Card>
+
 <Card
-  width='100%'
+  width='90%'
   >
   <Text style={styles.text}>
    FARINE
