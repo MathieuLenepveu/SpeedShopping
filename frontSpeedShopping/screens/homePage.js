@@ -5,6 +5,7 @@ import {Button,Input } from 'react-native-elements';
 import {Ionicons} from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { LinearGradient } from 'expo-linear-gradient';
+import Autocomplete from "react-google-autocomplete";
 
 export default function homePage(props) {
 
@@ -12,10 +13,9 @@ export default function homePage(props) {
   const [arrive, setArrive] = useState('');
   const [horaire, setHoraire] = useState('');
   const [transport, setTransport] = useState('');
-  const [besoinTest, setBesoin] = useState([])
-  const [essai, setEssai] = useState(false)
+  const [besoinTest, setBesoin] = useState([]);
+  const [essai, setEssai] = useState(false);
   const dispatch = useDispatch() ;
-  
 
 
   function start(depart,arrive,horaire,transport,besoin) {
@@ -97,6 +97,7 @@ function test(besoin) {
                             value={depart} 
                             inputContainerStyle={{borderColor:'#1A33A0',borderWidth:1,borderRadius:5,marginTop:20, paddingLeft:10,width:'80%'}}
                   />
+
                 
                 <Input
                             placeholder='Ton point de chute ?'

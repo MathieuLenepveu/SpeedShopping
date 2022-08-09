@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react' ;
-import { View,Text,TouchableOpacity,StyleSheet, ScrollView, Pressable} from 'react-native' ;
+import { View,Text,TouchableOpacity,StyleSheet, Linking, Pressable} from 'react-native' ;
 import {Button,Overlay, Input,ListItem, Tab} from 'react-native-elements';
-
 import * as Location from 'expo-location';
 import  MapViewDirections from'react-native-maps-directions'
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
@@ -64,11 +63,11 @@ export default function Map(props) {
                 var location = rawResponse.commercantAfficher[i].address ; 
                 var tryIt =   await Location.geocodeAsync(location) ;
 // ***************************** SET commercantList AVEC adresse en LAT/LNG ****************************** 
-
                    newTab = [...rawResponse.commercantAfficher]
                    newTab[i].address = {latitude:tryIt[0].latitude,longitude : tryIt[0].longitude }      
             }
-            setCommercantList(newTab)
+
+          // setCommercantList(newTab)
 
 
       })();  
@@ -77,45 +76,83 @@ export default function Map(props) {
       setDepart(redux.saveIti.depart)
       setArrive(redux.saveIti.arrive)
       setTransport(redux.saveIti.transport)
+
+      setCommercantList([{
+        nom: 'Maison Farine ',
+        address: {
+          latitude: 45.7662403 ,
+          longitude:4.8276229
+        },
+        horaire:{
+          HeuresOuverts: 7,
+          Heuresfermes: 13
+        },
+        type: 'boulangerie'
+
+      },
+      {
+        nom: 'Poissonnerie Maison Vianey "Croix-Rousse"',
+        address: {
+          latitude: 45.774009704589844,
+          longitude: 4.827260494232178
+        },
+        horaire:{
+          HeuresOuverts: 8,
+          Heuresfermes: 19
+        },
+        type: 'poissonerie'
+      },
+      {
+        nom: "L'épicerie place des terreaux",
+        address: {
+          latitude: 45.76707077026367,
+          longitude: 4.832343578338623
+        },
+        horaire:{
+          HeuresOuverts: 0,
+          Heuresfermes: 24
+        },
+        type: 'epicerie'
+
+      }])
+
+      setWaypoints([{
+        latitude: 45.76707077026367,
+        longitude: 4.832343578338623
+      },{
+        latitude: 45.7662403 ,
+        longitude:4.8276229
+      },{
+        latitude: 45.774009704589844,
+        longitude: 4.827260494232178
+      },
+    ])
       
 } ,[]) ;
 
 // useEffect juste pour les waypoints 
 
 
-useEffect(() => {
-  (async () => {
+
+// useEffect(() => {
+//   (async () => {
 // ***************************** ASK & SET commercantList ****************************** 
-      var rawResponse = await fetch('http://172.20.10.2:3000/map', {
-                method: 'POST',
-                headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({redux:redux.saveIti.besoin})
-              });
-                          
-      rawResponse = await rawResponse.json();
-      var newWaypoints= [...waypoints];
+      
+// var newWaypoints= [...waypoints];
 
-        for (let i = 0; i < rawResponse.commercantAfficher.length; i++) {
-          var location = rawResponse.commercantAfficher[i].address ; 
-          var tryIt =   await Location.geocodeAsync(location) ;
 
-// ***************************** SET waypoints ****************************** 
+// for (let i = 0; i < newTab.length; i++) {
+// // ***************************** SET waypoints ****************************** 
 
-             newWaypoints.push({
-              latitude:tryIt[0].latitude,
-              longitude : tryIt[0].longitude 
-             })
-      }
+//      newWaypoints.push({
+//       latitude:newTab[i].address.latitude,
+//       longitude : newTab[i].address.longitude 
+//      })
+// }
 
-      setWaypoints(newWaypoints)
+// })();  
+// } ,[]) ;
 
-})();  
-} ,[]) ;
-
-console.log(waypoints);
 
 
 // ***************************** CLOSE the overlay ****************************** 
@@ -167,19 +204,15 @@ function testAddToItinéraire (magasin) {
 // ***************************** SHOW ALL THE MARKER  ****************************** 
 
 
-const essaie = ["Golf Meribel, Route de l'Altiport, Les Allues", "4 Avenue de la Tourelle, Saint-Maur-des-Fossés"]
-
-
-
   var markerList = commercantList.map((commercant,i)=>{
       return (
       <Marker 
       key={i} 
       pinColor='blue' 
-      onPress={()=>test(true,commercant.enseignecommerciale, commercant.hours[0], commercant.type)}
-      coordinate={{latitude :commercant.address.latitude, longitude: commercant.address.longitude}}
-      title={commercant.enseignecommerciale}
-      description={`${commercant.hours[0].HeuresOuverts}h - ${commercant.hours[0].Heuresfermes}h`}
+      // onPress={()=>test(true,commercant.enseignecommerciale, commercant.hours[0], commercant.type)}
+      coordinate={commercant.address}
+      title={commercant.nom}
+      description={`${commercant.horaire.HeuresOuverts}h - ${commercant.horaire.Heuresfermes}h`}
       />
       )})     
 
@@ -190,15 +223,11 @@ const essaie = ["Golf Meribel, Route de l'Altiport, Les Allues", "4 Avenue de la
       waypoints={waypoints}
       destination={arrive}
       // mode={transport}
-      optimizeWaypoints={false}
+      optimizeWaypoints={true}
       timePrecision="now"
       apikey='AIzaSyD5OG3mJyZ7ogU9wiuUmngHz2GOvBr9SqU'
       strokeWidth={3}
-      />
-
-
-  
-
+      />  
 
 // ***************************** RETURN ****************************** 
  
@@ -280,6 +309,10 @@ return(
         onPress={() => props.navigation.navigate('Navigation')}
       >
         <Text>ACTIVER L'ITINERAIRE</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => Linking.openURL(`maps://app?saddr=${depart}&daddr=${arrive}`)}>
+        <Text>Navigate</Text>
       </TouchableOpacity>
 
 
