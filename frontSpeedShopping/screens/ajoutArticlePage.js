@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text,StyleSheet, Pressable, TouchableOpacity} from 'react-native';
+import {View, Text,TextInput,StyleSheet, Pressable, TouchableOpacity} from 'react-native';
 import {Button,Input } from 'react-native-elements';
 
 
@@ -32,12 +32,24 @@ var handleSubmitSignUp = async () => {
   };
     return (
       <View style={styles.container}>
-      <Text>Veuillez vous inscrire : </Text>
+
+<Pressable style={styles.button1} 
+       onPress={() => props.navigation.navigate('MonStore')}>
+      <Text style={styles.text}>Retour au store</Text>
+    </Pressable>
+
+
+      <Text>Renseigner votre nouvel article : </Text>
       <TextInput
         style={styles.input}
         onChangeText={(article) => setArticle(article)}
         value={article}
         placeholder="Article"
+      />
+
+<TextInput
+        style={styles.input}
+        placeholder="Unité de vente"
       />
 
       <TextInput
@@ -58,10 +70,8 @@ var handleSubmitSignUp = async () => {
        onPress={() => handleSubmitSignUp()}>
       <Text style={styles.text}>Ajout d'article</Text>
     </Pressable>
-    <Pressable style={styles.button} 
-       onPress={() => props.navigation.navigate('Home')}>
-      <Text style={styles.text}>Suivre l'itinéraire</Text>
-    </Pressable>
+
+    
     </View>
 
     )
@@ -90,6 +100,19 @@ var handleSubmitSignUp = async () => {
         borderRadius: 8, 
         color: "#FFFFFF"
       },  
+
+      button1:{
+        borderWidth : 2 ,
+        borderColor : 'black',
+        borderRadius : 100,
+        padding:15,
+        margin : 20,
+        backgroundColor :'#2294DF',
+        alignItems : 'center',
+        
+        },
+
+
       container: {
         flex: 1,
         justifyContent: 'center',
