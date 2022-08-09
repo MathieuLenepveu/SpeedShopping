@@ -147,9 +147,9 @@ router.put('/sign-up', async function(req, res, next) {
   
     var isLogin = true; 
 
-    console.log(req.body.CommercantName); 
+    console.log(req.body); 
 
-    if(!req.body.CommercantName){
+    if(!req.body.commercantname){
   
       //console.log('We already have a user with this email')
   
@@ -161,7 +161,7 @@ router.put('/sign-up', async function(req, res, next) {
   
       //console.log(' /Sign-UP : We dont have a user with this email, so we need to save it')
 
-      console.log(req.body.commercantcame); 
+      console.log(req.body.commercantname); 
   
       var newCommercant = new CommercantModel ({
         name: req.body.commercantname, 
@@ -171,7 +171,13 @@ router.put('/sign-up', async function(req, res, next) {
         enseignecommerciale: req.body.commercantenseignecommerciale, 
         type: req.body.commercanttype, 
         password: req.body.Commercantpassword, 
-       
+        Articles : { article: "Item0", price: 0, quantite: 1}, 
+        Hours : {
+          Dayclosed: "Dimanche",
+          HeuresOuverts: 9,
+          Heuresfermes: 18, 
+  
+        }
       });
   
       await newCommercant.save()
@@ -187,48 +193,7 @@ router.put('/sign-up', async function(req, res, next) {
     }  
   });
   
-  router.put('commercants/sign-up', async function(req, res, next) {
   
-      // console.log(' /Sign-Up : result from the front -->',req.body)
-    
-      var commercant = await CommercantModel.find({ email: req.body.signUpEmail })
-      
-      if(commercant.length > 0){
-    
-        //console.log('We already have a user with this email')
-    
-        // Session
-        req.session.commercant = commercant
-    
-        // We can render the next page 
-        res.render('index', { title: 'Express',commercant:req.session.commercant });
-    
-      }else{
-    
-        //console.log(' /Sign-UP : We dont have a user with this email, so we need to save it')
-    
-        var newCommercant = new commercantModel ({
-          name: req.body.signUpName, 
-          firstName: req.body.signUpFirstName, 
-          password: req.body.signUpPassword, 
-          address: req.body.signUpAddress, 
-          email: req.body.signUpEmail, 
-          address: req.body.address, 
-        });
-    
-        await newCommercant.save()
-    
-        //console.log(' /Sign-UP : Our new user -->',newUser)
-    
-        // Session
-        req.session.commercant = newCommercant
-    
-        // We can render the next page 
-        res.render('index', {commercant: req.session.commercant});
-        
-      }  
-    });
-
 router.get('/:commercantId/myarticles', async function(req, res, next) {
 
  

@@ -16,7 +16,7 @@ export default function signUpCommercantPage(props) {
   const [SignupCommercantType, setSignupCommercantType] = useState("");
   const [SignupCommercantPassword, setSignupCommercantPassword] = useState("");
   const [SignupCommercantName, setSignupCommercantName] = useState("");
-  const [SignupCommercantFirstName, setSignupCommercantFirstName] = useState("")
+  const [SignupCommercantFirstName, setSignupCommercantFirstName] = useState(""); 
   const [SignupCommercantAddress, setSignupCommercantAddress] = useState("");
   const [SignupCommercantEnseignecommerciale, setSignupCommercantEnseignecommerciale] = useState("");
   

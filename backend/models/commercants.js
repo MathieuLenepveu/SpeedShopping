@@ -16,7 +16,7 @@ var HoursSchema = mongoose.Schema({
    });
 
 // commercants
-var commercantsSchema = mongoose.Schema({
+var commercantSchema = mongoose.Schema({
     name: String,
     firstName: String,
     enseignecommerciale: String, 
@@ -28,6 +28,6 @@ var commercantsSchema = mongoose.Schema({
     hours: [HoursSchema], 
   });
   
-var CommercantModel = mongoose.model('commercants', commercantsSchema);
+var CommercantModel = mongoose.model('commercants', commercantSchema);
 
 module.exports = CommercantModel
