@@ -2,8 +2,8 @@ import React from 'react';
 import {View,ScrollView, Text,StyleSheet, Pressable,TouchableOpacity,Image} from 'react-native';
 import {Button,Input,Card,ListItem,Icon } from 'react-native-elements';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash'
+
+
 
 
 
