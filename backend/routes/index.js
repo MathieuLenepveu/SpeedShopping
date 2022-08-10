@@ -144,10 +144,11 @@ router.put('/sign-up', async function(req, res, next) {
   router.post('/commercants/sign-up', async function(req, res, next) {
 
     // console.log(' /Sign-Up : result from the front -->',req.body)
+
+    console.log(req.body.commercantname);
   
     var isLogin = true; 
 
-    console.log(req.body.CommercantName); 
 
     if(!req.body.CommercantName){
   
