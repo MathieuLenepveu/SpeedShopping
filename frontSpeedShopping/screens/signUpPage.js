@@ -2,7 +2,7 @@ import React from 'react';
 import {View,TextInput,  StyleSheet, Text, Pressable} from 'react-native';
 import {Button,Input } from 'react-native-elements';
 import {useState} from "react";
-
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 
@@ -36,8 +36,14 @@ export default function signUpPage(props) {
     }
   };
     return (
-      <View style={styles.container}>
-      <Text>Veuillez vous inscrire : </Text>
+      <LinearGradient
+      // Background Linear Gradient
+      colors={["#d1e8e8", "#1E90FF"]}
+      style={{flex: 1,justifyContent:'space-between',alignItems:'center'}}
+      start = {{ X: -1, Y: 0}}
+      end= {{ x:1, y: 0.3}}
+    >
+      <Text style={styles.text3}>Veuillez vous inscrire : </Text>
       <TextInput
         style={styles.input}
         onChangeText={(username) => setSignupUserName(username)}
@@ -85,7 +91,7 @@ export default function signUpPage(props) {
        onPress={() => props.navigation.navigate('MonStore')}>
       <Text style={styles.text}>Suivre l'itinéraire</Text>
     </Pressable>
-    </View>
+    </LinearGradient>
 
     )
 }
@@ -93,7 +99,7 @@ export default function signUpPage(props) {
       input: {
         width: 350,
         height: 55,
-        backgroundColor: '#C2D4E3',
+        backgroundColor: 'white',
         margin: 10,
         padding: 8,
         color: 'white',
@@ -117,5 +123,8 @@ export default function signUpPage(props) {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
+      }, 
+      text3: {
+        color: '#0000FF', 
       }
     })

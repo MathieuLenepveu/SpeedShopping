@@ -2,6 +2,7 @@ import React from 'react';
 import {View,TextInput,  StyleSheet, Text, Pressable} from 'react-native';
 import {Button,Input } from 'react-native-elements';
 import {useState} from "react";
+import { LinearGradient } from 'expo-linear-gradient';
 
 /*Bouton de validation SIGN UP à gérer en ETAT pour renvoyer vers le profil type CLIENT/COMMERCANT ----- Defaut lien vers Espace COMMERCANT*/
 
@@ -33,8 +34,14 @@ export default function signUpCommercantPage(props) {
   };
 
     return (
-      <View style={styles.container}>
-      <Text>Veuillez vous inscrire : </Text>
+        <LinearGradient
+        // Background Linear Gradient
+        colors={["#d1e8e8", "#1E90FF"]}
+        style={{flex: 1,justifyContent:'space-between',alignItems:'center'}}
+        start = {{ X: -1, Y: 0}}
+        end= {{ x:1, y: 0.3}}
+      >
+      <Text style={styles.text3}>Veuillez vous inscrire : </Text>
       <TextInput
         style={styles.input}
         onChangeText={(commercantname) => setSignupCommercantName(commercantname)}
@@ -85,7 +92,7 @@ export default function signUpCommercantPage(props) {
     </Pressable>
 
 
-    </View>
+    </LinearGradient>
 
     )
 }
@@ -93,7 +100,7 @@ export default function signUpCommercantPage(props) {
       input: {
         width: 350,
         height: 55,
-        backgroundColor: '#C2D4E3',
+        backgroundColor: 'white',
         margin: 10,
         padding: 8,
         color: 'white',
@@ -117,5 +124,8 @@ export default function signUpCommercantPage(props) {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
+      }, 
+      text3: {
+        color: '#4682B4', 
       }
     })

@@ -1,6 +1,8 @@
 import React from 'react';
+
 import {View, Text, Image, StyleSheet,TouchableOpacity,Pressable} from 'react-native';
-import {Card, ListItem, Button, Icon, Badge } from 'react-native-elements';
+import {Button,Input, withTheme,Card, ListItem, Icon, Badge  } from 'react-native-elements';
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 
@@ -64,7 +66,13 @@ const boulangeList = boulangerie.map((article,i) => {
 
 
     return (
-      <View style={styles.container} >
+      <LinearGradient
+    // Background Linear Gradient
+     colors={["#d1e8e8", "#1E90FF"]}
+    style={{flex: 1,justifyContent:'center',alignItems:'center'}}
+    start = {{ X: -1, Y: 0}}
+    end= {{ x:1, y: 0.3}}
+  >
 <Text style={styles.texttitle} >
 Maison Farine
 </Text>
@@ -103,8 +111,9 @@ onPress={() => props.navigation.navigate('poissonerie')}>
 <Text style={styles.text}>Suivant</Text>
         
         </Pressable>
-</View>
 
+
+</LinearGradient>
 
 
 </View>

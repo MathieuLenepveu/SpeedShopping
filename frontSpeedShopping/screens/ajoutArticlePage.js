@@ -26,7 +26,7 @@ var handleSubmitSignUp = async () => {
     if (res.isLogin) {
       props.navigation.navigate("Home");
     } else {
-      setErrorMessage(res.errorMessage);
+      alert(Erreur);
      
     }
   };
@@ -47,27 +47,23 @@ var handleSubmitSignUp = async () => {
         placeholder="Article"
       />
 
-<TextInput
-        style={styles.input}
-        placeholder="Unité de vente"
-      />
 
       <TextInput
         style={styles.input}
-        onChangeText={(price) => setprice(price)}
+        onChangeText={(price) => setPrice(price)}
         value={price}
         placeholder="Prix"
       />
     
       <TextInput
         style={styles.input}
-        onChangeText={(quantite) => setquantite(quantite)}
+        onChangeText={(quantite) => setQuantite(quantite)}
         value={quantite}
         placeholder="Quantite"
       />
        
       <Pressable style={styles.button} 
-       onPress={() => handleSubmitSignUp()}>
+       onPress={() => handleSubmitSignUp(article, price, quantite)}>
       <Text style={styles.text}>Ajout d'article</Text>
     </Pressable>
 
