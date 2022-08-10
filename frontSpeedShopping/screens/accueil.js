@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Image,Text, StyleSheet,TouchableOpacity} from 'react-native';
 import {Button,Inpu } from 'react-native-elements';
-
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 
@@ -15,7 +15,13 @@ import {Button,Inpu } from 'react-native-elements';
 
 export default function accueil(props) {
   return (
-    <View style={styles.container}>
+    <LinearGradient
+    // Background Linear Gradient
+    colors={["#d1e8e8", "#4364e8"]}
+    style={{flex: 1,justifyContent:'space-between',alignItems:'center'}}
+    start = {{ X: -1, Y: 0}}
+    end= {{ x:1, y: 0.3}}
+  >
         <View>
         <Image source={require('../assets/LogoSPEEDSHOPPING.jpeg')} style={{ width: 300, height: 200 }}/>
         </View>
@@ -28,7 +34,7 @@ export default function accueil(props) {
         style={styles.button1}
         onPress={() => props.navigation.navigate('Home')}
       >
-        <Text>J'essaie sans inscription</Text>
+        <Text style={styles.text3}>J'essaie sans inscription</Text>
       </TouchableOpacity>
 
           </View>
@@ -40,7 +46,7 @@ export default function accueil(props) {
         style={styles.button1}
         onPress={() => props.navigation.navigate('SignIn')}
       >
-        <Text>J'ai un compte</Text>
+        <Text style={styles.text3}>J'ai un compte</Text>
       </TouchableOpacity>
 
           </View>
@@ -52,7 +58,7 @@ export default function accueil(props) {
         style={styles.button1}
         // onPress={() => props.navigation.navigate('SignUp')}
       >
-        <Text>Je m'inscris comme:</Text>
+        <Text style={styles.text3} >Je m'inscris comme:</Text>
       </TouchableOpacity>
 
       <View  style={{flexDirection:"row"}} >
@@ -60,14 +66,14 @@ export default function accueil(props) {
         style={styles.button3}
         onPress={() => props.navigation.navigate('SignUp')}
       >
-        <Text>Client</Text>
+        <Text style={styles.text3}>Client</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.button3}
         onPress={() => props.navigation.navigate('newCommercant')}
       >
-        <Text>Commerçant</Text>
+        <Text style={styles.text3}>Commerçant</Text>
       </TouchableOpacity>
             
           
@@ -80,7 +86,7 @@ export default function accueil(props) {
 
       </View>
         </View>      
-    </View>
+    </LinearGradient>
   );
  }
 
@@ -124,6 +130,13 @@ alignItems :'center',
       margin : 20,
       backgroundColor :'#2131A5',
       alignItems : 'center',
+    
+      
+      },
+
+      text3:{
+        
+        color:'white',
       
       
       },
