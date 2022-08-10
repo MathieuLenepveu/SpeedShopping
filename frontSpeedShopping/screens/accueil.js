@@ -17,7 +17,7 @@ export default function accueil(props) {
   return (
     <LinearGradient
     // Background Linear Gradient
-    colors={["#d1e8e8", "#4364e8"]}
+    colors={["#d1e8e8", "#1E90FF"]}
     style={{flex: 1,justifyContent:'space-between',alignItems:'center'}}
     start = {{ X: -1, Y: 0}}
     end= {{ x:1, y: 0.3}}
@@ -34,7 +34,7 @@ export default function accueil(props) {
         style={styles.button1}
         onPress={() => props.navigation.navigate('Home')}
       >
-        <Text style={styles.text3}>J'essaie sans inscription</Text>
+        <Text style={styles.text2}>J'essaie sans inscription</Text>
       </TouchableOpacity>
 
           </View>
@@ -46,7 +46,7 @@ export default function accueil(props) {
         style={styles.button1}
         onPress={() => props.navigation.navigate('SignIn')}
       >
-        <Text style={styles.text3}>J'ai un compte</Text>
+        <Text style={styles.text2}>J'ai un compte</Text>
       </TouchableOpacity>
 
           </View>
@@ -58,7 +58,7 @@ export default function accueil(props) {
         style={styles.button1}
         // onPress={() => props.navigation.navigate('SignUp')}
       >
-        <Text style={styles.text3} >Je m'inscris comme:</Text>
+        <Text style={styles.text2} >Je m'inscris comme:</Text>
       </TouchableOpacity>
 
       <View  style={{flexDirection:"row"}} >
@@ -116,7 +116,7 @@ alignItems :'center',
     borderRadius : 100,
     padding:15,
     margin : 20,
-    backgroundColor :'#2294DF',
+    backgroundColor :'white',
     alignItems : 'center',
     
     
@@ -130,6 +130,7 @@ alignItems :'center',
       margin : 20,
       backgroundColor :'#2131A5',
       alignItems : 'center',
+      width: 150, 
     
       
       },
