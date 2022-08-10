@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react' ;
-import { View,Text,TouchableOpacity,StyleSheet, ScrollView, Pressable} from 'react-native' ;
+import { View,Text,TouchableOpacity,StyleSheet, Linking, Pressable} from 'react-native' ;
 import {Button,Overlay, Input,ListItem, Tab} from 'react-native-elements';
-
 import * as Location from 'expo-location';
 import  MapViewDirections from'react-native-maps-directions'
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
@@ -10,6 +9,7 @@ import Geocoder from 'react-native-geocoding';
 import { useSelector, useDispatch } from 'react-redux'; 
 
 import { FontAwesome } from '@expo/vector-icons'; 
+import { Feather } from '@expo/vector-icons';
 
 
 // import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -64,11 +64,11 @@ export default function Map(props) {
                 var location = rawResponse.commercantAfficher[i].address ; 
                 var tryIt =   await Location.geocodeAsync(location) ;
 // ***************************** SET commercantList AVEC adresse en LAT/LNG ****************************** 
-
                    newTab = [...rawResponse.commercantAfficher]
                    newTab[i].address = {latitude:tryIt[0].latitude,longitude : tryIt[0].longitude }      
             }
-            setCommercantList(newTab)
+
+          // setCommercantList(newTab)
 
 
       })();  
@@ -77,45 +77,83 @@ export default function Map(props) {
       setDepart(redux.saveIti.depart)
       setArrive(redux.saveIti.arrive)
       setTransport(redux.saveIti.transport)
+
+      setCommercantList([{
+        nom: 'Maison Farine ',
+        address: {
+          latitude: 45.7662403 ,
+          longitude:4.8276229
+        },
+        horaire:{
+          HeuresOuverts: 7,
+          Heuresfermes: 13
+        },
+        type: 'boulangerie'
+
+      },
+      {
+        nom: 'Poissonnerie Maison Vianey "Croix-Rousse"',
+        address: {
+          latitude: 45.774009704589844,
+          longitude: 4.827260494232178
+        },
+        horaire:{
+          HeuresOuverts: 8,
+          Heuresfermes: 19
+        },
+        type: 'poissonerie'
+      },
+      {
+        nom: "L'épicerie place des terreaux",
+        address: {
+          latitude: 45.76707077026367,
+          longitude: 4.832343578338623
+        },
+        horaire:{
+          HeuresOuverts: 0,
+          Heuresfermes: 24
+        },
+        type: 'epicerie'
+
+      }])
+
+      setWaypoints([{
+        latitude: 45.76707077026367,
+        longitude: 4.832343578338623
+      },{
+        latitude: 45.7662403 ,
+        longitude:4.8276229
+      },{
+        latitude: 45.774009704589844,
+        longitude: 4.827260494232178
+      },
+    ])
       
 } ,[]) ;
 
 // useEffect juste pour les waypoints 
 
 
-useEffect(() => {
-  (async () => {
+
+// useEffect(() => {
+//   (async () => {
 // ***************************** ASK & SET commercantList ****************************** 
-      var rawResponse = await fetch('http://172.20.10.2:3000/map', {
-                method: 'POST',
-                headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({redux:redux.saveIti.besoin})
-              });
-                          
-      rawResponse = await rawResponse.json();
-      var newWaypoints= [...waypoints];
+      
+// var newWaypoints= [...waypoints];
 
-        for (let i = 0; i < rawResponse.commercantAfficher.length; i++) {
-          var location = rawResponse.commercantAfficher[i].address ; 
-          var tryIt =   await Location.geocodeAsync(location) ;
 
-// ***************************** SET waypoints ****************************** 
+// for (let i = 0; i < newTab.length; i++) {
+// // ***************************** SET waypoints ****************************** 
 
-             newWaypoints.push({
-              latitude:tryIt[0].latitude,
-              longitude : tryIt[0].longitude 
-             })
-      }
+//      newWaypoints.push({
+//       latitude:newTab[i].address.latitude,
+//       longitude : newTab[i].address.longitude 
+//      })
+// }
 
-      setWaypoints(newWaypoints)
+// })();  
+// } ,[]) ;
 
-})();  
-} ,[]) ;
-
-console.log(waypoints);
 
 
 // ***************************** CLOSE the overlay ****************************** 
@@ -167,19 +205,15 @@ function testAddToItinéraire (magasin) {
 // ***************************** SHOW ALL THE MARKER  ****************************** 
 
 
-const essaie = ["Golf Meribel, Route de l'Altiport, Les Allues", "4 Avenue de la Tourelle, Saint-Maur-des-Fossés"]
-
-
-
   var markerList = commercantList.map((commercant,i)=>{
       return (
       <Marker 
       key={i} 
       pinColor='blue' 
-      onPress={()=>test(true,commercant.enseignecommerciale, commercant.hours[0], commercant.type)}
-      coordinate={{latitude :commercant.address.latitude, longitude: commercant.address.longitude}}
-      title={commercant.enseignecommerciale}
-      description={`${commercant.hours[0].HeuresOuverts}h - ${commercant.hours[0].Heuresfermes}h`}
+      // onPress={()=>test(true,commercant.enseignecommerciale, commercant.hours[0], commercant.type)}
+      coordinate={commercant.address}
+      title={commercant.nom}
+      description={`${commercant.horaire.HeuresOuverts}h - ${commercant.horaire.Heuresfermes}h`}
       />
       )})     
 
@@ -190,15 +224,11 @@ const essaie = ["Golf Meribel, Route de l'Altiport, Les Allues", "4 Avenue de la
       waypoints={waypoints}
       destination={arrive}
       // mode={transport}
-      optimizeWaypoints={false}
+      optimizeWaypoints={true}
       timePrecision="now"
       apikey='AIzaSyD5OG3mJyZ7ogU9wiuUmngHz2GOvBr9SqU'
       strokeWidth={3}
-      />
-
-
-  
-
+      />  
 
 // ***************************** RETURN ****************************** 
  
@@ -207,9 +237,7 @@ return(
 
  <View>
 {/* ***************************** OVERLAY   ******************************  */}
-<View style={{height:400}}>
-
-
+<View style={{height:500}}>
 
 <Overlay isVisible={isOpen} overlayStyle={{width: '70%', justifyContent:'center', alignItems:'center'}} onBackdropPress={closeOverlay}>
 
@@ -241,6 +269,9 @@ return(
    longitudeDelta: 0.0421,
 }} >
 
+<Feather name="arrow-left-circle" onPress={() => props.navigation.navigate('Home')}  size={30} color="black" style={{marginTop:40, marginLeft:20}} />
+
+
 {directions}
 
 {/* ***************************** MARQERUR POS   ******************************  */}
@@ -262,37 +293,71 @@ return(
 </View>
 
 
-<View style={[{justifyContent:'space-around'}]}>
+<View style={[{justifyContent:'space-around',marginTop:50}]}>
 
 
 {/* BOUTON PRE COMMANDE*/}
 
-      <TouchableOpacity
-        style={styles.button3}
-        onPress={() => props.navigation.navigate('PreCommande')}
-      >
-        <Text>PRE-COMMANDER CHEZ LES COMMERCANTS</Text>
-      </TouchableOpacity>
-
  {/* Button GO  */}
       <TouchableOpacity
-        style={styles.button3}
-        onPress={() => props.navigation.navigate('Navigation')}
+        style={{
+
+          borderWidth: 2 ,
+          borderColor : '#1A33A0',
+          borderRadius : 10,
+          padding:15,
+          margin : 20,
+          alignItems : 'center',
+          
+          
+          }}
+          onPress={() => Linking.openURL(`maps://app?saddr=${depart}&daddr=${arrive}`)}
       >
         <Text>ACTIVER L'ITINERAIRE</Text>
       </TouchableOpacity>
+
+<View style={{display:'flex', flexDirection:'row'}}>
+<TouchableOpacity
+        style={{
+
+          borderWidth: 2 ,
+          borderColor : '#1A33A0',
+          borderRadius : 10,
+          padding:15,
+          margin : 20,
+          alignItems : 'center',
+          width:150,
+          display:'inline'
+          
+          }}
+          onPress={() => Linking.openURL(`maps://app?saddr=${depart}&daddr=${arrive}`)}
+      >
+        <Text> Modifier l'itinéraire</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={{
+
+          borderWidth: 2 ,
+          borderColor : '#1A33A0',
+          borderRadius : 10,
+          padding:15,
+          margin : 20,
+          alignItems : 'center',
+          width:150,
+          
+          }}
+          onPress={() => props.navigation.navigate('PreCommande')}
+      >
+        <Text style={{marginTop:10}}> COMMANDER </Text>
+      </TouchableOpacity>
+</View>
+   
 
 
 </View>
 
 <View style={styles.bloc}>
 
-<Text>Adaptez votre itinéraire en fonction de vos envies </Text>
-
-<Pressable style={styles.button} 
-       onPress={() => props.navigation.navigate('PreCommande')}>
-      <Text style={styles.text2}>Start</Text>
-    </Pressable>
 
 </View>
 
