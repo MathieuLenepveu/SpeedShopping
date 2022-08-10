@@ -113,7 +113,7 @@ function test(besoin) {
   
     <LinearGradient
     // Background Linear Gradient
-    colors={["#00d4ff", "#01b4e9","#029bd9","#0472be",]}
+    colors={["#00d4ff", "#01b4e9","#029bd9"]}
     style={{flex: 1,justifyContent:'space-between',alignItems:'center'}}
     start = {{x: 0.0, y: -0.20}}
     end= {{ x:1, y: 0.3}}

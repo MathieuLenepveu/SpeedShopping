@@ -18,11 +18,11 @@ export default function signUpCommercantPage(props) {
   
 
 
-  var handleCommercantSubmitSignUp = async () => {
-    var res = await fetch("http://172.16.189.16:3000/commercants/sign-up", {
+  var handleCommercantSubmitSignUp = async (name,firstname,email,adresse,enseignecommerciale,type,password) => {
+    var res = await fetch("http://172.20.10.2:3000/commercants/sign-up", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `commercantname=${SignupCommercantName}&commercantfirstname=${SignupCommercantFirstName}&commercantemail=${SignupCommercantEmail}&commercantaddress=${SignupCommercantAddress}&commercanttype=${SignupCommercantType}&commercantenseignecommerciale=${SignupCommercantEnseignecommerciale}&commercantpassword=${SignupCommercantPassword}`,
+      body: `commercantname=${name}&commercantfirstname=${firstname}&commercantemail=${email}&commercantaddress=${adresse}&commercanttype=${type}&commercantenseignecommerciale=${enseignecommerciale}&commercantpassword=${password}`,
     });
     res = await res.json();
     if (res.isLogin) {
@@ -80,7 +80,7 @@ export default function signUpCommercantPage(props) {
         placeholder="Password"
       />
       <Pressable style={styles.button} 
-       onPress={() => handleCommercantSubmitSignUp()}>
+       onPress={() => handleCommercantSubmitSignUp(SignupCommercantName,SignupCommercantFirstName,SignupCommercantEmail,SignupCommercantAddress,SignupCommercantEnseignecommerciale,SignupCommercantType,SignupCommercantPassword)}>
       <Text style={styles.text}>Sign Up</Text>
     </Pressable>
 
