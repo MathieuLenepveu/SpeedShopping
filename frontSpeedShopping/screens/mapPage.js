@@ -9,6 +9,7 @@ import Geocoder from 'react-native-geocoding';
 import { useSelector, useDispatch } from 'react-redux'; 
 
 import { FontAwesome } from '@expo/vector-icons'; 
+import { Feather } from '@expo/vector-icons';
 
 
 // import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -236,9 +237,7 @@ return(
 
  <View>
 {/* ***************************** OVERLAY   ******************************  */}
-<View style={{height:400}}>
-
-
+<View style={{height:500}}>
 
 <Overlay isVisible={isOpen} overlayStyle={{width: '70%', justifyContent:'center', alignItems:'center'}} onBackdropPress={closeOverlay}>
 
@@ -270,6 +269,9 @@ return(
    longitudeDelta: 0.0421,
 }} >
 
+<Feather name="arrow-left-circle" onPress={() => props.navigation.navigate('Home')}  size={30} color="black" style={{marginTop:40, marginLeft:20}} />
+
+
 {directions}
 
 {/* ***************************** MARQERUR POS   ******************************  */}
@@ -291,41 +293,71 @@ return(
 </View>
 
 
-<View style={[{justifyContent:'space-around'}]}>
+<View style={[{justifyContent:'space-around',marginTop:50}]}>
 
 
 {/* BOUTON PRE COMMANDE*/}
 
-      <TouchableOpacity
-        style={styles.button3}
-        onPress={() => props.navigation.navigate('PreCommande')}
-      >
-        <Text>PRE-COMMANDER CHEZ LES COMMERCANTS</Text>
-      </TouchableOpacity>
-
  {/* Button GO  */}
       <TouchableOpacity
-        style={styles.button3}
-        onPress={() => props.navigation.navigate('Navigation')}
+        style={{
+
+          borderWidth: 2 ,
+          borderColor : '#1A33A0',
+          borderRadius : 10,
+          padding:15,
+          margin : 20,
+          alignItems : 'center',
+          
+          
+          }}
+          onPress={() => Linking.openURL(`maps://app?saddr=${depart}&daddr=${arrive}`)}
       >
         <Text>ACTIVER L'ITINERAIRE</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => Linking.openURL(`maps://app?saddr=${depart}&daddr=${arrive}`)}>
-        <Text>Navigate</Text>
+<View style={{display:'flex', flexDirection:'row'}}>
+<TouchableOpacity
+        style={{
+
+          borderWidth: 2 ,
+          borderColor : '#1A33A0',
+          borderRadius : 10,
+          padding:15,
+          margin : 20,
+          alignItems : 'center',
+          width:150,
+          display:'inline'
+          
+          }}
+          onPress={() => Linking.openURL(`maps://app?saddr=${depart}&daddr=${arrive}`)}
+      >
+        <Text> Modifier l'itinéraire</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={{
+
+          borderWidth: 2 ,
+          borderColor : '#1A33A0',
+          borderRadius : 10,
+          padding:15,
+          margin : 20,
+          alignItems : 'center',
+          width:150,
+          
+          }}
+          onPress={() => props.navigation.navigate('PreCommande')}
+      >
+        <Text style={{marginTop:10}}> COMMANDER </Text>
+      </TouchableOpacity>
+</View>
+   
 
 
 </View>
 
 <View style={styles.bloc}>
 
-<Text>Adaptez votre itinéraire en fonction de vos envies </Text>
-
-<Pressable style={styles.button} 
-       onPress={() => props.navigation.navigate('PreCommande')}>
-      <Text style={styles.text2}>Start</Text>
-    </Pressable>
 
 </View>
 

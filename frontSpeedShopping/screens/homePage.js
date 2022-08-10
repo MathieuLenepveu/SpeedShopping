@@ -5,7 +5,7 @@ import {Button,Input } from 'react-native-elements';
 import {Ionicons} from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { LinearGradient } from 'expo-linear-gradient';
-import Autocomplete from "react-google-autocomplete";
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 export default function homePage(props) {
 
@@ -17,6 +17,61 @@ export default function homePage(props) {
   const [essai, setEssai] = useState(false);
   const dispatch = useDispatch() ;
 
+  // const GooglePlacesInput =   
+      // <GooglePlacesAutocomplete
+      //   placeholder='Search'
+      //   minLength={2} // minimum length of text to search
+      //   autoFocus={false}
+      //   returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
+      //   listViewDisplayed='auto'    // true/false/undefined
+      //   fetchDetails={true}
+      //   renderDescription={row => row.description} // custom description render
+      //   onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
+      //     console.log(data, details);
+      //   }}
+        
+      //   getDefaultValue={() => ''}
+        
+      //   query={{
+      //     // available options: https://developers.google.com/places/web-service/autocomplete
+      //     key: 'AIzaSyD5OG3mJyZ7ogU9wiuUmngHz2GOvBr9SqU',
+      //     language: 'en', // language of the results
+      //     types: '(cities)' // default: 'geocode'
+      //   }}
+        
+      //   styles={{
+      //     textInputContainer: {
+      //       width: '100%',
+      //     },
+      //     description: {
+      //       fontWeight: 'bold'
+      //     },
+      //     predefinedPlacesDescription: {
+      //       color: '#1faadb'
+      //     }
+      //   }}
+        
+      //   currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
+      //   currentLocationLabel="Current location"
+      //   nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+      //   GoogleReverseGeocodingQuery={{
+      //     // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
+      //   }}
+      //   GooglePlacesSearchQuery={{
+      //     // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
+      //     rankby: 'distance',
+      //     types: 'food'
+      //   }}
+  
+      //   filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
+      //   // predefinedPlaces={[homePlace, workPlace]}
+  
+      //   debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
+      // />
+
+  
+
+  
 
   function start(depart,arrive,horaire,transport,besoin) {
 
@@ -59,13 +114,15 @@ function test(besoin) {
   
     <LinearGradient
     // Background Linear Gradient
-    colors={["#d1e8e8", "#4364e8"]}
+    colors={["#00d4ff", "#01b4e9","#029bd9","#0472be",]}
     style={{flex: 1,justifyContent:'space-between',alignItems:'center'}}
-    start = {{ X: -1, Y: 0}}
+    start = {{x: 0.0, y: -0.20}}
     end= {{ x:1, y: 0.3}}
   >
 
       <View style={styles.header}>
+
+        
 
 {/* BOUTON ACCES MON ESPACE  */}
 
@@ -97,6 +154,7 @@ function test(besoin) {
                             value={depart} 
                             inputContainerStyle={{borderColor:'#1A33A0',borderWidth:1,borderRadius:5,marginTop:20, paddingLeft:10,width:'80%'}}
                   />
+
 
                 
                 <Input
@@ -250,7 +308,6 @@ function test(besoin) {
       
 <View style={styles.bloc}>
 
-
 <TouchableOpacity
         style={{
 
@@ -271,6 +328,8 @@ function test(besoin) {
     </LinearGradient>
   );
  }
+
+ 
 
  const styles = StyleSheet.create({
 
