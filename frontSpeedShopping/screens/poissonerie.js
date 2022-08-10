@@ -5,34 +5,36 @@ import {Card, ListItem, Button, Icon, Badge } from 'react-native-elements';
 
 
 
-export default function preCommandePage(props) {
+export default function poissonerie(props) {
 
-  // nom:'Maison Farine',
 
-  const boulangerie = [{
-      nom : 'Pain au chocolat',
-      prix : 1
+
+  const poissonerie = [{
+      nom : 'Mérou',
+      prix : 6
     },
     {
-      nom : 'Croissant',
-      prix : 0.80
+      nom : 'Daurade',
+      prix : 7
     },
     {
-      nom : 'Baguette tradition',
-      prix : 0.80
+      nom : 'Truite',
+      prix : 8
     },
     {
-      nom : 'Pain au blé complet',
+      nom :'cabillaud',
       prix : 3
-    },{
-      nom : 'Pain au levin',
-      prix : 2
-    }
-
+    },
+    {
+      nom : 'Thon',
+      prix : 10
+    },
   ]
-  
 
-const boulangeList = boulangerie.map((article,i) => {
+
+
+
+const poissonerieList = poissonerie.map((article,i) => {
   return (
 
             
@@ -66,10 +68,10 @@ const boulangeList = boulangerie.map((article,i) => {
     return (
       <View style={styles.container} >
 <Text style={styles.texttitle} >
-Maison Farine
+La poissonerie D'or
 </Text>
 
-{boulangeList}
+{poissonerieList}
 
 
 <View style={{display:'flex', flexDirection:'row', position:'absolute', bottom:40 , width:'80%',justifyContent:'space-between'}}>
@@ -99,7 +101,7 @@ onPress={() => props.navigation.navigate('Panier')}>
                 width:'40%',
 
               }}  
-onPress={() => props.navigation.navigate('poissonerie')}>
+onPress={() => props.navigation.navigate('epicerie')}>
 <Text style={styles.text}>Suivant</Text>
         
         </Pressable>

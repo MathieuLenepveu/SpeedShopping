@@ -5,6 +5,7 @@ import * as Location from 'expo-location';
 import  MapViewDirections from'react-native-maps-directions'
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import Geocoder from 'react-native-geocoding';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import { useSelector, useDispatch } from 'react-redux'; 
 
@@ -263,8 +264,8 @@ return(
 <MapView style={{flex : 1}}
   provider = {PROVIDER_GOOGLE}
   initialRegion={{
-   latitude:  48.866667,  // pour centrer la carte, REUSSIER A LE FAIRE SUR POS UTILISATEUR
-   longitude: 2.333333,
+   latitude:  45.764043,  
+   longitude: 4.835659,
    latitudeDelta: 0.0922,  // le rayon à afficher à partir du centre
    longitudeDelta: 0.0421,
 }} >
@@ -292,8 +293,6 @@ return(
 </MapView> 
 </View>
 
-
-<View style={[{justifyContent:'space-around',marginTop:50}]}>
 
 
 {/* BOUTON PRE COMMANDE*/}
@@ -352,17 +351,8 @@ return(
       </TouchableOpacity>
 </View>
    
-
-
-</View>
-
-<View style={styles.bloc}>
-
-
-</View>
-
-
  </View>
+ 
 )    
 }
 
