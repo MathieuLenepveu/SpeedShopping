@@ -26,7 +26,9 @@ router.get('/:userId/mycommandes', async function(req, res, next) {
 /* Post Sign-in */
 router.post('/sign-in', async function(req, res, next) {
 
-   console.log(req.body)
+  var isLogin = true ; 
+
+   
 
   var user = await UserModel.find({ email: req.body.signInEmail, password: req.body.signInPassword })
   if(user.length > 0){
@@ -37,7 +39,7 @@ router.post('/sign-in', async function(req, res, next) {
     req.session.user = user[0]
 
     // We can render the next page 
-    res.render('index', {user:req.session.user });
+    res.json({isLogin});
 
   }else{
 
@@ -55,7 +57,7 @@ router.post('/sign-up', async function(req, res, next) {
 
   // console.log(' /Sign-Up : result from the front -->',req.body)
 
-
+var isLogin = true; 
 
   console.log(req.body.username)
   
@@ -68,7 +70,7 @@ router.post('/sign-up', async function(req, res, next) {
     //req.session.user = user
 
     // We can render the next page 
-    res.render('index', { title: 'Express' });
+    res.json(); 
 
   }else{
 
@@ -78,11 +80,11 @@ router.post('/sign-up', async function(req, res, next) {
 
     var newUser = new UserModel ({
       name: req.body.username, 
-      firsname: 'Geoffroy',
+      firstName: req.body.firstname,  
       password: req.body.pwd,  
       email: req.body.email, 
-      phonenumer: 0623233, 
-      address: "125 rue des chameaux", 
+      phonenumer: req.body.phonenumber, 
+      address: req.body.address, 
     });
 
     await newUser.save()
@@ -93,7 +95,7 @@ router.post('/sign-up', async function(req, res, next) {
    // req.session.user = newUser
 
     // We can render the next page 
-    res.render('index');
+    res.json({isLogin});
     
   }  
 });
@@ -104,15 +106,15 @@ router.put('/sign-up', async function(req, res, next) {
   
     var user = await UserModel.find({ email: req.body.signUpEmail })
     
-    if(user.length > 0){
+    if(!req.body.username){
   
       //console.log('We already have a user with this email')
   
       // Session
-      req.session.user = user
+     
   
       // We can render the next page 
-      res.render('index', { title: 'Express',user:req.session.user });
+     res.json(); 
   
     }else{
   
@@ -139,32 +141,37 @@ router.put('/sign-up', async function(req, res, next) {
     }  
   });
 
-  router.post('commercants/sign-up', async function(req, res, next) {
+  router.post('/commercants/sign-up', async function(req, res, next) {
 
     // console.log(' /Sign-Up : result from the front -->',req.body)
   
-    var commercant = await CommercantModel.find({ email: req.body.signUpEmail })
-    
-    if(commercant.length > 0){
+    var isLogin = true; 
+
+    console.log(req.body.CommercantName); 
+
+    if(!req.body.CommercantName){
   
       //console.log('We already have a user with this email')
   
       // Session
-      req.session.commercant = commercant
-  
-      // We can render the next page 
-      res.render('index', { title: 'Express',user:req.session.user });
+      
+      res.json(); 
   
     }else{
   
       //console.log(' /Sign-UP : We dont have a user with this email, so we need to save it')
+
+      console.log(req.body.commercantcame); 
   
       var newCommercant = new CommercantModel ({
-        name: req.body.signUpName, 
-        firstName: req.body.signUpFirstName, 
-        address: req.body.signUpAddress, 
-        password: req.body.signUpPassword, 
-        email: req.body.signUpEmail, 
+        name: req.body.commercantname, 
+        firstName: req.body.commercantfirstname, 
+        email: req.body.commercantemail, 
+        address: req.body.commercantaddress, 
+        enseignecommerciale: req.body.commercantenseignecommerciale, 
+        type: req.body.commercanttype, 
+        password: req.body.Commercantpassword, 
+       
       });
   
       await newCommercant.save()
@@ -172,10 +179,10 @@ router.put('/sign-up', async function(req, res, next) {
       //console.log(' /Sign-UP : Our new user -->',newUser)
   
       // Session
-      req.session.commercant = newCommercant
+    
   
       // We can render the next page 
-      res.render('index', {user: req.session.commercant});
+      res.json({isLogin});
       
     }  
   });
@@ -248,7 +255,7 @@ commercant.Articles.push ({
 })
 
 
-  res.redirect('/myarticles')
+  res.json(); 
   
 });
 

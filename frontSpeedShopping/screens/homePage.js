@@ -110,7 +110,6 @@ function test(besoin) {
 
   
   return (
-
   
     <LinearGradient
     // Background Linear Gradient
@@ -324,7 +323,9 @@ function test(besoin) {
         <Text style={{color:'#1A33A0'}}>START !</Text>
       </TouchableOpacity>
 
+
     </View>
+
     </LinearGradient>
   );
  }
@@ -345,8 +346,8 @@ marginTop: 10,
   },
 
   bloc:{
-marginTop: 15,
-marginBottom:15,
+marginTop: 5,
+marginBottom:5,
 alignItems :'center',
   },
 

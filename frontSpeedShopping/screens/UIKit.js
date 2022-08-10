@@ -1,3 +1,74 @@
+
+import React, {useState} from 'react';
+import {View, Text,TextInput,StyleSheet, Pressable, TouchableOpacity} from 'react-native';
+import {Button,Input } from 'react-native-elements';
+
+
+
+
+
+
+
+
+export default function ajoutArticlePage(props) {
+
+  
+    return (
+      <View style={styles.container}>
+
+<Pressable style={styles.button1}>
+      <Text style={styles.text}>Retour au store</Text>
+    </Pressable>
+
+
+      <Text>Renseigner votre nouvel article : </Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={(article) => setArticle(article)}
+        value={article}
+        placeholder="Article"
+      />
+
+<TextInput
+        style={styles.input}
+        placeholder="Unité de vente"
+      />
+
+      <TextInput
+        style={styles.input}
+        onChangeText={(price) => setprice(price)}
+        value={price}
+        placeholder="Prix"
+      />
+    
+      <TextInput
+        style={styles.input}
+        onChangeText={(quantite) => setquantite(quantite)}
+        value={quantite}
+        placeholder="Quantite"
+      />
+       
+      <Pressable style={styles.button} 
+       onPress={() => handleSubmitSignUp()}>
+      <Text style={styles.text}>Ajout d'article</Text>
+    </Pressable>
+
+    
+    </View>
+
+    )
+}
+
+
+
+
+
+
+
+
+
+
+
 const styles = StyleSheet.create({
 
     container: {
@@ -9,7 +80,6 @@ const styles = StyleSheet.create({
   
     header:{
   marginTop: 10,
-  
     },
   
     bloc:{
