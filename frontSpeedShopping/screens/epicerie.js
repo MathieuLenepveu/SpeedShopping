@@ -1,62 +1,57 @@
 import React from 'react';
-
 import {View, Text, Image, StyleSheet,TouchableOpacity,Pressable} from 'react-native';
-import {Button,Input, withTheme,Card, ListItem, Icon, Badge  } from 'react-native-elements';
-import { LinearGradient } from 'expo-linear-gradient';
+import {Card, ListItem, Button, Icon, Badge } from 'react-native-elements';
 
 
 
 
-export default function preCommandePage(props) {
+export default function epicerie(props) {
 
-  // nom:'Maison Farine',
 
-  const boulangerie = [{
-      nom : 'Pain au chocolat',
-      prix : 1
-    },
-    {
-      nom : 'Croissant',
-      prix : 0.80
-    },
-    {
-      nom : 'Baguette tradition',
-      prix : 0.80
-    },
-    {
-      nom : 'Pain au blé complet',
-      prix : 3
-    },{
-      nom : 'Pain au levin',
-      prix : 2
-    }
-
-  ]
+    const epicerie = [{
+        nom : 'Farine',
+        prix : 6
+      },
+      {
+        nom : 'Purée de Fruits',
+        prix : 7
+      },
+      {
+        nom : 'Fruits Secs',
+        prix : 8
+      },
+      {
+        nom :'Arômes alimentaires',
+        prix : 3
+      },
+      {
+        nom : 'Chips',
+        prix : 6
+      }
+    ]
   
-
-const boulangeList = boulangerie.map((article,i) => {
+const epicerieList = epicerie.map((article,i) => {
   return (
+ 
+<View key={i} style={{width:'90%',marginBottom:10, height:40,justifyContent:'space-between',alignItems:'center', display:'flex',flexDirection:'row', borderWidth:3,borderColor:'black',borderRadius:10,height:80}}>
 
-            
-            <View key={i} style={{width:'90%',marginBottom:10, height:40,justifyContent:'space-between',alignItems:'center', display:'flex',flexDirection:'row', borderWidth:3,borderColor:'black',borderRadius:10,height:80}}>
+        <Text style={{marginLeft:40, width:'30%'}}>{article.nom}</Text>
+        <Text  >{article.prix} € </Text>
+        <TouchableOpacity
 
-<Text style={{marginLeft:40, width:'30%'}}>{article.nom}</Text>
-<Text  >{article.prix} € </Text>
-<TouchableOpacity
+                style={{
 
-        style={{
-
-          marginRight:30,
-            borderWidth: 2 ,
-            borderColor : '#1A33A0',
-            borderRadius : 10,
-            alignItems : 'center',
-            justifyContent:'center',
-            padding:10,
-            height:50,
-                    }}
-        onPress={()=> {}}
-      >
+                marginRight:30,
+                    borderWidth: 2 ,
+                    borderColor : '#1A33A0',
+                    borderRadius : 10,
+                    alignItems : 'center',
+                    justifyContent:'center',
+                    padding:10,
+                    height:50,
+                            }}
+                onPress={()=> {}}
+            >
         <Text style={styles.texte}>ADD</Text>
       </TouchableOpacity>
 
@@ -66,18 +61,12 @@ const boulangeList = boulangerie.map((article,i) => {
 
 
     return (
-      <LinearGradient
-    // Background Linear Gradient
-     colors={["#d1e8e8", "#1E90FF"]}
-    style={{flex: 1,justifyContent:'center',alignItems:'center'}}
-    start = {{ X: -1, Y: 0}}
-    end= {{ x:1, y: 0.3}}
-  >
+      <View style={styles.container} >
 <Text style={styles.texttitle} >
-Maison Farine
+L'épicerie place des terreaux
 </Text>
 
-{boulangeList}
+{epicerieList}
 
 
 <View style={{display:'flex', flexDirection:'row', position:'absolute', bottom:40 , width:'80%',justifyContent:'space-between'}}>
@@ -107,13 +96,12 @@ onPress={() => props.navigation.navigate('Panier')}>
                 width:'40%',
 
               }}  
-onPress={() => props.navigation.navigate('poissonerie')}>
+onPress={() => props.navigation.navigate('Paiement')}>
 <Text style={styles.text}>Suivant</Text>
         
         </Pressable>
+</View>
 
-
-</LinearGradient>
 
 
 </View>

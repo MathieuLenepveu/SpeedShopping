@@ -15,6 +15,8 @@ export default function homePage(props) {
   const [transport, setTransport] = useState('');
   const [besoinTest, setBesoin] = useState([]);
   const [essai, setEssai] = useState(false);
+  const [selectedButton, setSelectedButton] = useState('') ;
+  const [besoinSelected,setBesoinSelected] = useState([])
   const dispatch = useDispatch() ;
 
   // const GooglePlacesInput =   
@@ -71,8 +73,6 @@ export default function homePage(props) {
 
   
 
-  
-
   function start(depart,arrive,horaire,transport,besoin) {
 
     dispatch({
@@ -105,7 +105,8 @@ function test(besoin) {
       newTab.push(besoin)
      }
     setBesoin(newTab)
-    
+
+  
   }
 
   
@@ -151,7 +152,7 @@ function test(besoin) {
                             placeholder='Ta position ?'
                             onChange={(e) => setDepart(e.nativeEvent.text)}
                             value={depart} 
-                            inputContainerStyle={{borderColor:'#1A33A0',borderWidth:1,borderRadius:5,marginTop:20, paddingLeft:10,width:'80%'}}
+                            inputContainerStyle={{borderColor:'#1A33A0',borderWidth:1,borderRadius:5,marginTop:20, backgroundColor:'white' ,paddingLeft:10,width:'80%'}}
                   />
 
 
@@ -160,7 +161,7 @@ function test(besoin) {
                             placeholder='Ton point de chute ?'
                             onChange={(e) => setArrive(e.nativeEvent.text)}
                             value={arrive}
-                            inputContainerStyle={{borderColor:'#1A33A0',borderWidth:1,borderRadius:5,paddingLeft:10,width:'80%'}}
+                            inputContainerStyle={{borderColor:'#1A33A0',borderWidth:1,borderRadius:5,paddingLeft:10,backgroundColor:'white',width:'80%'}}
 
                   /> 
 
@@ -178,30 +179,130 @@ function test(besoin) {
   }}>On y va comment?</Text>
         
         <View style={{flexDirection:"row"}} >
+          <TouchableOpacity
+           onPress={()=> {
+            setTransport('DRIVING');
+            if (selectedButton != 'car') {
+            setSelectedButton('car');
+            }else{
+              setSelectedButton('') ;
+            }
+          }} style={{
+                 padding: 20,
+                 margin:5,
+                backgroundColor:  selectedButton === 'car' ? '#1A33A0' : 'transparent',
+                borderWidth: 3,
+                borderColor: selectedButton === 'car' ? 'transparent' : '#1A33A0' ,
+                borderRadius: 20,
+                color:"#1A33A0",
+              }} >
         <Icon 
-                style={styles.icon}
+       
+              style={{
+                color:selectedButton === 'car' ? 'white' : '#1A33A0' ,
+                marginBottom:0,
+              }}
+                
                 name='car'
-                onPress={()=> {setTransport('DRIVING')}}
                 size={24}
                 />
-        <Icon
-                style={styles.icon}
+          </TouchableOpacity>
+
+
+        <TouchableOpacity
+          onPress={()=> {
+            setTransport('TRANSIT');
+            if (selectedButton != 'subway') {
+            setSelectedButton('subway');
+            }else{
+              setSelectedButton('') ;
+            }
+          }}
+        style={{
+                padding: 20,
+                margin:5,
+                backgroundColor:  selectedButton === 'subway' ? '#1A33A0' : 'transparent',
+                borderWidth: 3,
+                borderColor: selectedButton === 'subway' ? 'transparent' : '#1A33A0' ,
+                borderRadius: 20,
+                color:"#1A33A0",
+                
+              }} >
+        <Icon 
+              style={{
+                color:selectedButton === 'subway' ? 'white' : '#1A33A0' ,
+                marginBottom:0,
+              }}
+                
                 name='subway'
-                onPress={()=> {setTransport('TRANSIT')}}
+              
                 size={24}
                 />
-        <Icon
-                style={styles.icon}
+          </TouchableOpacity>
+    
+
+      <TouchableOpacity
+      onPress={()=> {
+        setTransport('TRANSIT');
+        if (selectedButton != 'bicycle') {
+        setSelectedButton('bicycle');
+        }else{
+          setSelectedButton('') ;
+        }
+      }} style={{
+        
+                padding: 20,
+                margin:5,
+                backgroundColor:  selectedButton === 'bicycle' ? '#1A33A0' : 'transparent',
+                borderWidth: 3,
+                borderColor: selectedButton === 'bicycle' ? 'transparent' : '#1A33A0' ,
+                borderRadius: 20,
+                color:"#1A33A0",
+              }} >
+        <Icon 
+         
+              style={{
+                color:selectedButton === 'bicycle' ? 'white' : '#1A33A0' ,
+                marginBottom:0,
+              }}
+                
                 name='bicycle'
-                onPress={()=> {setTransport('BICYCLING')}}
+               
                 size={24}
                 />
-        <Icon
-                style={styles.icon}
+          </TouchableOpacity>
+
+
+      
+        
+
+      <TouchableOpacity 
+        onPress={()=> {
+          setTransport('WALKING');
+          if (selectedButton != 'male') {
+          setSelectedButton('male');
+          }else{
+            setSelectedButton('') ;
+          }
+        }}
+      style={{
+                padding: 20,
+                margin:10,
+                backgroundColor:  selectedButton === 'male' ? '#1A33A0' : 'transparent',
+                borderWidth: 3,
+                borderColor: selectedButton === 'male' ? 'transparent' : '#1A33A0' ,
+                borderRadius: 20,
+                color:"#1A33A0",
+              }} >
+        <Icon 
+              style={{
+                color:selectedButton === 'male' ? 'white' : '#1A33A0' ,
+              }}
                 name='male'
-                onPress={()=> {setTransport('WALKING')}}
+              
                 size={24}
-                />          
+                />
+          </TouchableOpacity>       
 
         </View>
 
@@ -215,7 +316,7 @@ function test(besoin) {
        <Text style={styles.text}>On fait ça quand ?</Text>
           <Input 
                     placeholder='Date et Heure de collect ?'
-                    inputContainerStyle={{borderColor:'#1A33A0',borderWidth:1,borderRadius:5,marginTop:20, paddingLeft:10, width:'80%'}}
+                    inputContainerStyle={{borderColor:'#1A33A0',borderWidth:1,borderRadius:5,marginTop:20, backgroundColor:'white',paddingLeft:10, width:'80%'}}
                     onChange={(e) => setHoraire(e.nativeEvent.text)} 
                     value={horaire}
                   />
@@ -280,7 +381,9 @@ function test(besoin) {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button2}
-        onPress={()=> test('Epicerie')}
+        onPress={()=> {
+          test('Epicerie')
+          }}
 >
 <Text style={styles.texte}>Epicerie</Text>
 

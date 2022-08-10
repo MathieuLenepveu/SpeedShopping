@@ -1,40 +1,40 @@
 import React from 'react';
-
 import {View, Text, Image, StyleSheet,TouchableOpacity,Pressable} from 'react-native';
-import {Button,Input, withTheme,Card, ListItem, Icon, Badge  } from 'react-native-elements';
-import { LinearGradient } from 'expo-linear-gradient';
+import {Card, ListItem, Button, Icon, Badge } from 'react-native-elements';
 
 
 
 
-export default function preCommandePage(props) {
+export default function poissonerie(props) {
 
-  // nom:'Maison Farine',
 
-  const boulangerie = [{
-      nom : 'Pain au chocolat',
-      prix : 1
+
+  const poissonerie = [{
+      nom : 'Mérou',
+      prix : 6
     },
     {
-      nom : 'Croissant',
-      prix : 0.80
+      nom : 'Daurade',
+      prix : 7
     },
     {
-      nom : 'Baguette tradition',
-      prix : 0.80
+      nom : 'Truite',
+      prix : 8
     },
     {
-      nom : 'Pain au blé complet',
+      nom :'cabillaud',
       prix : 3
-    },{
-      nom : 'Pain au levin',
-      prix : 2
-    }
-
+    },
+    {
+      nom : 'Thon',
+      prix : 10
+    },
   ]
-  
 
-const boulangeList = boulangerie.map((article,i) => {
+
+
+
+const poissonerieList = poissonerie.map((article,i) => {
   return (
 
             
@@ -66,18 +66,12 @@ const boulangeList = boulangerie.map((article,i) => {
 
 
     return (
-      <LinearGradient
-    // Background Linear Gradient
-     colors={["#d1e8e8", "#1E90FF"]}
-    style={{flex: 1,justifyContent:'center',alignItems:'center'}}
-    start = {{ X: -1, Y: 0}}
-    end= {{ x:1, y: 0.3}}
-  >
+      <View style={styles.container} >
 <Text style={styles.texttitle} >
-Maison Farine
+La poissonerie D'or
 </Text>
 
-{boulangeList}
+{poissonerieList}
 
 
 <View style={{display:'flex', flexDirection:'row', position:'absolute', bottom:40 , width:'80%',justifyContent:'space-between'}}>
@@ -107,13 +101,12 @@ onPress={() => props.navigation.navigate('Panier')}>
                 width:'40%',
 
               }}  
-onPress={() => props.navigation.navigate('poissonerie')}>
+onPress={() => props.navigation.navigate('epicerie')}>
 <Text style={styles.text}>Suivant</Text>
         
         </Pressable>
+</View>
 
-
-</LinearGradient>
 
 
 </View>

@@ -20,6 +20,9 @@ import profilCommercant from './screens/profilCommercant'
 import signInPage from './screens/signInPage'
 import signUpPage from './screens/signUpPage'
 import newCommercant from './screens/newcommercant'
+import poissonerie from './screens/poissonerie'
+import epicerie from './screens/epicerie'
+
 
 
 
@@ -180,6 +183,8 @@ export default function App() {
       <Stack.Screen name="SignIn" component={signInPage} />
       <Stack.Screen name="SignUp" component={signUpPage} />
       <Stack.Screen name="PreCommande" component={preCommandePage} />
+      <Stack.Screen name="poissonerie" component={poissonerie} />
+      <Stack.Screen name="epicerie" component={epicerie} />
       <Stack.Screen name="Navigation" component={navigationPage} />
       <Stack.Screen name="Panier" component={panier} /> 
       <Stack.Screen name="ConfigurateurItineraire" component={mapPage} />
