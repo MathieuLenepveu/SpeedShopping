@@ -3,10 +3,6 @@ import {View,TextInput,  StyleSheet, Text, Pressable} from 'react-native';
 import {Button,Input } from 'react-native-elements';
 import {useState} from "react";
 
-
-
-
-
 /*Bouton de validation SIGN UP à gérer en ETAT pour renvoyer vers le profil type CLIENT/COMMERCANT ----- Defaut lien vers Espace COMMERCANT*/
 
 
