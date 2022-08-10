@@ -42,7 +42,7 @@ export default function signInPage(props) {
       <LinearGradient
       // Background Linear Gradient
       colors={["#d1e8e8", "#1E90FF"]}
-      style={{flex: 1,justifyContent:'space-between',alignItems:'center'}}
+      style={{flex: 1,justifyContent:'center',alignItems:'center'}}
       start = {{ X: -1, Y: 0}}
       end= {{ x:1, y: 0.3}}
     >
