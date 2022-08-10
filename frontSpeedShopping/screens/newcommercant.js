@@ -34,7 +34,7 @@ export default function signUpCommercantPage(props) {
 
     return (
       <View style={styles.container}>
-      <Text>Veuillez vous inscrire : </Text>
+      <Text style={styles.text3}>Veuillez vous inscrire : </Text>
       <TextInput
         style={styles.input}
         onChangeText={(commercantname) => setSignupCommercantName(commercantname)}
@@ -117,5 +117,8 @@ export default function signUpCommercantPage(props) {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
+      }, 
+      text3: {
+        color: '#4682B4', 
       }
     })
