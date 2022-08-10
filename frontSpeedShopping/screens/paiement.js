@@ -2,7 +2,7 @@ import React from 'react';
 import { Text,TextInput, View, StyleSheet, Pressable,Image } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
-
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 
@@ -10,9 +10,15 @@ import { Ionicons } from '@expo/vector-icons';
 export default function Button(props) {
   
   return (
-    <View style={styles.container}>
+    
 
-
+    <LinearGradient
+    // Background Linear Gradient
+    colors={["#d1e8e8", "#1E90FF"]}
+    style={{flex: 1,justifyContent:'space-between',alignItems:'center'}}
+    start = {{ X: -1, Y: 0}}
+    end= {{ x:1, y: 0.3}}
+  >
 
 
   <View  style={[{flexDirection:"row"},{justifyContent:'space-between', marginBottom: 40}]} >
@@ -86,7 +92,7 @@ export default function Button(props) {
 <Text style={{marginTop:30, fontWeight:"bold", justifyContent:'center', textAlign:'center'}}> NE COMMUNIQUEZ JAMAIS VOS COORDONNEES BANCAIRES / SPEEDSHOPPING S'ENGAGE DANS LA PROTECTION DE VOS DONNEES</Text>
 
 
-</View>
+</LinearGradient>
 
 );
 }

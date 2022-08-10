@@ -1,13 +1,19 @@
 import React from 'react';
 import {View, Text, Pressable, StyleSheet} from 'react-native';
 import {Button,Input, withTheme } from 'react-native-elements';
-
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 
 export default function preCommandePage(props) {
     return (
-      <View style={styles.container} >
+      <LinearGradient
+    // Background Linear Gradient
+     colors={["#d1e8e8", "#1E90FF"]}
+    style={{flex: 1,justifyContent:'center',alignItems:'center'}}
+    start = {{ X: -1, Y: 0}}
+    end= {{ x:1, y: 0.3}}
+  >
 <Text style={styles.texttitle} >
 PAGE DE PRECOMMANDE
 </Text>
@@ -24,7 +30,7 @@ onPress={() => props.navigation.navigate('Paiement')}>
         
         </Pressable>
 
-</View>
+</LinearGradient>
 
     ) 
   }
