@@ -1,5 +1,6 @@
-import React from 'react';
-import { Text,TextInput, View, StyleSheet, Pressable,Image } from 'react-native';
+import React, { useState,useEffect } from 'react';
+import { Text,TextInput, View, StyleSheet, Pressable,Image,Linking } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux'; 
 
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -8,6 +9,26 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 
 export default function Button(props) {
+
+  const redux = useSelector((state)=> state ) ;
+  const [depart,setDepart] = useState('')
+  const [arrive,setArrive] = useState('')
+
+
+
+  useEffect(() => {
+
+
+// ***************************** RECEPTION STORE ****************************** 
+  setDepart(redux.saveIti.depart)
+  setArrive(redux.saveIti.arrive)
+  console.log(depart);
+console.log(arrive);
+  
+} ,[]) ;
+
+
+
   
   return (
     
@@ -84,7 +105,9 @@ export default function Button(props) {
 </View>
 <View>
 <Pressable style={{ width: 150, height: 50, backgroundColor: "skyblue", borderRadius: 6, alignItems: 'center',
-    justifyContent: 'center', marginTop: 30,}} >
+    justifyContent: 'center', marginTop: 30,}}
+    onPress={() => Linking.openURL(`maps://app?saddr=${depart}&daddr=${arrive}`)}
+    >
       <Text style={styles.text}>VALIDER</Text>
     </Pressable>
 </View>

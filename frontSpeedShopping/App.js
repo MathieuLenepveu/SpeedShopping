@@ -13,7 +13,6 @@ import mapPage from './screens/mapPage'
 import monStore from './screens/monStore'
 import navigationPage from './screens/navigationPage'
 import paiement from './screens/paiement'
-import panier from './screens/panier'
 import preCommandePage from './screens/preCommandePage'
 import profilClient from './screens/profilClient'
 import profilCommercant from './screens/profilCommercant'
@@ -22,6 +21,8 @@ import signUpPage from './screens/signUpPage'
 import newCommercant from './screens/newcommercant'
 import poissonerie from './screens/poissonerie'
 import epicerie from './screens/epicerie'
+import panier from './screens/panier'
+
 
 
 
@@ -185,8 +186,9 @@ export default function App() {
       <Stack.Screen name="PreCommande" component={preCommandePage} />
       <Stack.Screen name="poissonerie" component={poissonerie} />
       <Stack.Screen name="epicerie" component={epicerie} />
-      <Stack.Screen name="Navigation" component={navigationPage} />
-      <Stack.Screen name="Panier" component={panier} /> 
+      <Stack.Screen name="panier" component={panier} />
+
+      <Stack.Screen name="Navigation" component={navigationPage} /> 
       <Stack.Screen name="ConfigurateurItineraire" component={mapPage} />
       <Stack.Screen name="Paiement" component={paiement} />
       <Stack.Screen name="MonProfil" component={monProfilUser} />

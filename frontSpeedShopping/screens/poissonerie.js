@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet,TouchableOpacity,Pressable} from 'react-native';
-import {Card, ListItem, Button, Icon, Badge } from 'react-native-elements';
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 
@@ -66,7 +66,13 @@ const poissonerieList = poissonerie.map((article,i) => {
 
 
     return (
-      <View style={styles.container} >
+      <LinearGradient
+    // Background Linear Gradient
+     colors={["#d1e8e8", "#1E90FF"]}
+    style={{flex: 1,justifyContent:'center',alignItems:'center'}}
+    start = {{ X: -1, Y: 0}}
+    end= {{ x:1, y: 0.3}}
+  >
 <Text style={styles.texttitle} >
 La poissonerie D'or
 </Text>
@@ -107,9 +113,7 @@ onPress={() => props.navigation.navigate('epicerie')}>
         </Pressable>
 </View>
 
-
-
-</View>
+</LinearGradient>
     ) 
   }
 

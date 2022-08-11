@@ -5,7 +5,10 @@ import {Button,Input } from 'react-native-elements';
 import {Ionicons} from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { LinearGradient } from 'expo-linear-gradient';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import DateField from 'react-native-datefield';
+import { TextInputMask } from 'react-native-masked-text'
+
+
 
 export default function homePage(props) {
 
@@ -313,13 +316,18 @@ function test(besoin) {
 
        {/* INPUT DATE ET HEURE DE COLLECT  */}  
 
-       <Text style={styles.text}>On fait ça quand ?</Text>
+       <Text style={{marginBottom:30,  fontSize:20 ,
+    color:'black',
+   
+    marginTop :-20}}>On fait ça quand ?</Text>
           <Input 
                     placeholder='Date et Heure de collect ?'
                     inputContainerStyle={{borderColor:'#1A33A0',borderWidth:1,borderRadius:5,marginTop:20, backgroundColor:'white',paddingLeft:10, width:'80%'}}
                     onChange={(e) => setHoraire(e.nativeEvent.text)} 
                     value={horaire}
                   />
+
+
 
     </View>
     <View style={styles.bloc}>
@@ -487,6 +495,15 @@ alignItems :'center',
    
     marginTop :-20,
   
+  },
+  inputBorder: {
+    width: '30%',
+    borderRadius: 8,
+    borderColor: '#cacaca',
+    borderWidth: 1,
+    marginBottom: 20,
+    margin:5,
+    padding:20
   },
 
   input:{
