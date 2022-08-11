@@ -88,8 +88,8 @@ export default function signUpPage(props) {
 
     </Pressable>
     <Pressable style={styles.button} 
-       onPress={() => props.navigation.navigate('MonStore')}>
-      <Text style={styles.text}>Suivre l'itinéraire</Text>
+       onPress={() => props.navigation.navigate('Home')}>
+      <Text style={styles.text}>Continuer sans s'enregistrer</Text>
     </Pressable>
     </LinearGradient>
 
