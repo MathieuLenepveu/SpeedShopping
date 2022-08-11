@@ -112,11 +112,12 @@ onPress={() => props.navigation.navigate('poissonerie')}>
         
         </Pressable>
 
+        </View>
+
 
 </LinearGradient>
 
 
-</View>
     ) 
   }
 
